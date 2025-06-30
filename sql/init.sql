@@ -24,6 +24,7 @@ CREATE TABLE pets (
     pet_age INT NOT NULL,
     pet_weight INT NOT NULL,
     pet_type VARCHAR(50) NOT NULL,
+    pet_size VARCHAR(50) NOT NULL,
     pet_DOB DATE NOT NULL,
     FOREIGN KEY (customer_id) REFERENCES customers(customer_id) ON DELETE CASCADE
 );
