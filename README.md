@@ -1,4 +1,4 @@
-git clone https://github.com/shivamkumar1337/PetShop.git
+<!-- git clone https://github.com/shivamkumar1337/PetShop.git -->
 cd project
 # プロジェクトをコピーして入ります
 
