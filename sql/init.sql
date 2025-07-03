@@ -70,7 +70,6 @@ CREATE TABLE appointments (
     pet_id INT NOT NULL,
     appointment_date DATETIME NOT NULL,
     registeration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    status VARCHAR(100) DEFAULT '予定確定',
 
     INDEX (customer_id),
     INDEX (service_id),
