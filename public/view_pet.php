@@ -7,7 +7,7 @@ require_once(__DIR__ . '/../includes/functions.php');
 $message = '';
 
 try {
-    $stmt = $pdo->query("SELECT pet_id, customer_name, pet_name, pet_type, pet_size, pet_DOB 
+    $stmt = $pdo->query("SELECT pets.pet_id, pets.customers.id, customers.customer_name, pets.pet_name, pets.pet_type, pets.pet_size, pets.pet_DOB 
         FROM pets 
         JOIN customers ON pets.customer_id = customers.customer_id 
         ORDER BY pet_id
@@ -50,7 +50,7 @@ try {
     </head>
     <body>
         <h1>一覧からペットを選ぶ</h1>
-        <?php if (count($pets) > 0): ?>
+        <?php if (!empty($pets)): ?>
             <table>
                 <tr>
                     <th>ペットID</th>

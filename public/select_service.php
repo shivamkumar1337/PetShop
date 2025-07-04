@@ -5,7 +5,7 @@ require_once(__DIR__ . '/../includes/functions.php');
 require_once(__DIR__ . '/session_check.php');
 
 $message = '';
-$customer_id = $_GET['custmoer_id'] ?? null;
+$customer_id = $_GET['customer_id'] ?? null;
 $pet_id = $_GET['pet_id'] ?? null;
 
 if (!$customer_id && !$pet_id) {

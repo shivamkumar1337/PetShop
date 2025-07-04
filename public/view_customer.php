@@ -46,7 +46,7 @@ try {
     </head>
     <body>
         <h1>一覧から顧客を選ぶ</h1>
-        <?php if (count($customers) > 0): ?>
+        <?php if (!empty($customers)): ?>
             <table>
                 <tr>
                     <th>顧客ID</th>
