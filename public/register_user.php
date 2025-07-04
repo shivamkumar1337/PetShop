@@ -1,43 +1,31 @@
 <?php
+require_once '../config/config.php';
 
-require_once(__DIR__ . '/../config/config.php');
-require_once(__DIR__ . '/../includes/functions.php');
-
-//header('Content_Type: application/json');
 $message = '';
+$success = false;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = xss($_POST['username'] ?? '');
+    $username = trim($_POST['username'] ?? '');
     $password = $_POST['password'] ?? '';
     $confirm_password = $_POST['confirm_password'] ?? '';
 
     if (empty($username) || empty($password) || empty($confirm_password)) {
-    //echo json_encode(['error' => 'All feilds required']);
-    $message = "All fields required";
-    exit;
-    }
-
-    if ($password !== $confirm_password) {
-        //echo json_encode(['error' => 'Password do not match']);
-        $message = "Password do not match";
-        exit;
+        $message = "すべてのフィールドが必須です。";
+    } elseif ($password !== $confirm_password) {
+        $message = "パスワードが一致しません。";
     } else {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        $stmt = $pdo->prepare("INSERT INTO users (username, password) VALUES (?, ?)");
 
         try {
-            $stmt = $pdo->prepare("INSERT INTO users (username, password) VALUES (?, ?)");
             $stmt->execute([$username, $hashed_password]);
-
-            //echo json_encode(['success' => 'User registered successfully']);
-            header("Location: login.php?registered=1");
-            exit;
-        } catch(PDOException $e) {
+            $success = true;
+            $message = "登録が完了しました！";
+        } catch (PDOException $e) {
             if ($e->getCode() == 23000) {
-                //echo json_encode(['error' => 'Username taken']);
-                $message = "Username taken";
+                $message = "ユーザー名は既に存在します。";
             } else {
-                //echo json_encode(['error' => 'Registration failed']);
-                $message = "Registration failed";
+                $message = "Database error: " . $e->getMessage();
             }
         }
     }
@@ -45,37 +33,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 
 <!DOCTYPE html>
-<html lang="ja">
-    <head>
-        <meta charset="UTF-8">
-        <title>ユーザー登録</title>
-        <style>
-            body {font-family: sans-serif; padding: auto;}
-            form { max-width: 400px; margin: auto; padding: auto; text-align: left;}
-            label {display: block; margin: auto; text-align: left;}
-            input {width: 100%; padding: auto;}
-            button {padding: 10px 20px;}
-            .message {color: red;}
-        </style>
-    </head>
-    <body>
-        <h1><strong>新しいユーザーを登録する</strong></h1>
-        
-        <?php if ($message): ?>
-            <div class="message"><?= xss($message) ?></div>
-        <?php endif; ?>
+<html>
+<head>
+    <title>Register - PetShop</title>
+</head>
+<body style="display: flex; justify-content: center; align-items: center; height: 100vh;">
 
-        <form action="" method="POST">
-            <label for="username">ユーザー名: </label>
-            <input type="text" name="username" required>
+<div class="login-container" style="padding: 30px; border: 1px solid #CC6633; border-radius: 10px; width: 500px; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center;">
 
-            <label for="password">パスワード: </label>
-            <input type="text" name="password" required>
+    <div class="header" style="text-align: center; display: flex; flex-direction: row; align-items: flex-start; justify-content: flex-start; margin-bottom: 10px; width: 100%;">
+        <img src="/assets/logo.png" class="logo" alt="logo" style="height: 60%; width: 60%;" />
+    </div>
 
-            <label for="confirm_password">パスワードを再入力: </label>
-            <input type="text" name="confirm_password" required>
+    <h2>ユーザー新規登録</h2>
 
-            <button type="submit">登録</button>
-        </form>
-    </body>
+    <?php if (!empty($message)): ?>
+        <div style="color: <?= $success ? 'green' : 'red' ?>; text-align: center; margin-bottom: 10px;">
+            <?= $message ?>
+        </div>
+    <?php endif; ?>
+
+    <form method="POST" action="register_user.php" style="width: 100%;">
+        <input type="text" name="username" placeholder="名前" required
+            style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 6px;" />
+        <input type="password" name="password" placeholder="パスワード" required
+            style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 6px;" />
+        <input type="password" name="confirm_password" placeholder="確認パスワード" required
+            style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 6px;" />
+        <button type="submit"
+            style="width: 100%; padding: 10px; background: #CC6633; color: white; font-weight: bold; border: none; border-radius: 6px;">
+            登録
+        </button>
+    </form>
+
+    <a href='login.php' style="margin-top: 15px;">ログインへ</a>
+</div>
+
+</body>
 </html>
