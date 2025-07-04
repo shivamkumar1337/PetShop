@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             } else {
                 $message = "Database error: " . $e->getMessage();
             }
-        }
+        }s
     }
 }
 ?>
