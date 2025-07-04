@@ -7,10 +7,10 @@ require_once(__DIR__ . '/../includes/functions.php');
 $message = '';
 
 try {
-    $stmt = $pdo->query("SELECT customer_id, customer_name, customer_number FROM customers ORDER BY customer_id");
-    $customers = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt = $pdo->query("SELECT pet_id, customer_name, pet_name, pet_type, pet_size, pet_DOB FROM pets JOIN custumers ON pets.customer_id = customers.customer_id ORDER BY pet_id");
+    $pets = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
-    $message = "Failed to get customer list" . $e->getMessage();
+    $message = "Failed to get pet list" . $e->getMessage();
 }
 
 ?>
@@ -19,7 +19,7 @@ try {
 <html lang="ja">
     <head>
         <meta charset="UTF-8">
-        <title>顧客様一覧</title>
+        <title>ペット一覧</title>
         <style>
             body {font-family: sans-serif; padding: auto;}
             table {width: 80%; margin: auto; border-collapse: collapse;}
@@ -40,27 +40,33 @@ try {
         </style>
     </head>
     <body>
-        <h1>一覧から顧客を選ぶ</h1>
+        <h1>一覧からペットを選ぶ</h1>
         <?php if (count($customers) > 0): ?>
             <table>
                 <tr>
-                    <th>顧客ID</th>
-                    <th>名前</th>
-                    <th>電話番号</th>
+                    <th>ペットID</th>
+                    <th>顧客名</th>
+                    <th>ペット名</th>
+                    <th>種類</th>
+                    <th>サイズ</th>
+                    <th>生年月日</th>
                 </tr>
-                <?php foreach ($customers as $customer): ?>
+                <?php foreach ($pets as $pet): ?>
                     <tr>
-                        <td><?= xss($customer['customer_id']) ?></td>
-                        <td><?= xss($customer['customer_name']) ?></td>
-                        <td><?= xss($customer['customer_number']) ?></td>
+                        <td><?= xss($pet['pet_id']) ?></td>
+                        <td><?= xss($pet['customer_name']) ?></td>
+                        <td><?= xss($pet['pet_name']) ?></td>
+                        <td><?= xss($pet['pet_type']) ?></td>
+                        <td><?= xss($pet['pet_size']) ?></td>
+                        <td><?= xss($pet['pet_DOB']) ?></td>
                         <td>
-                            <a class="select-btn" href="select_pet.php?customer_id=<?= $customer['customer_id'] ?>">選択</a>
+                            <a class="select-btn" href="select_service.php?customer_id=<?= $pet['customer_id'] ?>&pet_id=<?= $pet['pet_id'] ?>">選択</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
             </table>
         <?php else: ?>
-            <p>登録された顧客が見つかりません</p>
+            <p>登録されたペットが見つかりません</p>
         <?php endif; ?>
     </body>
 </html>
