@@ -61,7 +61,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="email" name="customer_mail" required>
 
             <label>郵便番号: </label>
-            <input type="text"
+            <input type="number" name="customer_zipcode" min="0" max="9999999">
+
+            <label>住所: </label>
+            <input type="text" name="address">
+
+            <button type="submit">登録</button>
         </form>
     </body>
 </html>
