@@ -1,4 +1,3 @@
-
 <?php
 
 require_once(__DIR__ . '/../config/config.php');
@@ -45,7 +44,6 @@ require_once(__DIR__ . '/../config/config.php');
 
     <nav>
         <a class="title" href="main.php">UHD商事ペットショップ</a>
-        <a href="#">利用登録</a>
         <a href="select_customer.php">利用登録</a>
         <a href="#">サービス</a>
         <a href="#">売上</a>

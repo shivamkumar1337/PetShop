@@ -10,9 +10,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $confirm_password = $_POST['confirm_password'] ?? '';
 
     if (empty($username) || empty($password) || empty($confirm_password)) {
-        $message = "All fields are required.";
+        $message = "すべてのフィールドが必須です。";
     } elseif ($password !== $confirm_password) {
-        $message = "Passwords do not match.";
+        $message = "パスワードが一致しません。";
     } else {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
         $stmt = $pdo->prepare("INSERT INTO users (username, password) VALUES (?, ?)");
@@ -20,10 +20,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         try {
             $stmt->execute([$username, $hashed_password]);
             $success = true;
-            $message = "Registration successful!";
+            $message = "登録が完了しました！";
         } catch (PDOException $e) {
             if ($e->getCode() == 23000) {
-                $message = "Username already exists.";
+                $message = "ユーザー名は既に存在します。";
             } else {
                 $message = "Database error: " . $e->getMessage();
             }
@@ -54,14 +54,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php endif; ?>
 
     <form method="POST" action="register_user.php" style="width: 100%;">
-        <input type="text" name="username" placeholder="Username" required
+        <input type="text" name="username" placeholder="名前" required
             style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 6px;" />
-        <input type="password" name="password" placeholder="Password" required
+        <input type="password" name="password" placeholder="パスワード" required
             style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 6px;" />
-        <input type="password" name="confirm_password" placeholder="Confirm Password" required
+        <input type="password" name="confirm_password" placeholder="確認パスワード" required
             style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 6px;" />
         <button type="submit"
-            style="width: 100%; padding: 10px; background: #CC6633; color: white; font-weight: bold; border: none; border-radius: 6px; cursor: pointer;">
+            style="width: 100%; padding: 10px; background: #CC6633; color: white; font-weight: bold; border: none; border-radius: 6px;">
             登録
         </button>
     </form>
