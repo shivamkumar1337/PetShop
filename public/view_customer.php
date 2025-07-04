@@ -2,6 +2,7 @@
 
 require_once(__DIR__ . '/../config/config.php');
 require_once(__DIR__ . '/session_check.php');
+require_once(__DIR__ . '/../includes/functions.php');
 
 $message = '';
 
@@ -49,9 +50,9 @@ try {
                 </tr>
                 <?php foreach ($customers as $customer): ?>
                     <tr>
-                        <td><?= htmlspecialchars($customer['customer_id']) ?></td>
-                        <td><?= htmlspecialchars($customer['customer_name']) ?></td>
-                        <td><?= htmlspecialchars($customer['customer_number']) ?></td>
+                        <td><?= xss($customer['customer_id']) ?></td>
+                        <td><?= xss($customer['customer_name']) ?></td>
+                        <td><?= xss($customer['customer_number']) ?></td>
                         <td>
                             <a class="select-btn" href="select_pet.php?customer_id=<?= $customer['customer_id'] ?>">選択</a>
                         </td>

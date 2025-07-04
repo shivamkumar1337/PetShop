@@ -23,6 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $message = 'pet added successfuly';
             header("Location: view_pet.php");
+            exit;
         } catch (PDOException $e) {
             $message = 'error occured' . $e->getMessage();
         }
@@ -35,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="ja">
     <head>
         <meta charset="UTF-8">
-        <title>顧客の登録</title>
+        <title>ペットの登録</title>
         <style>
             body {font-family: sans-serif; padding: auto;}
             form { max-width: 400px; margin: auto; padding: auto; text-align: left;}
@@ -60,14 +61,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <label>年齢: </label>
             <input type="text" name="pet_age" required>
 
-            <label>メールアドレス: </label>
-            <input type="email" name="customer_mail" required>
+            <label>体重: </label>
+            <input type="text" name="pet_weight" required>
 
-            <label>郵便番号: </label>
-            <input type="number" name="customer_zipcode" min="0" max="9999999">
+            <label>サイズ: </label>
+            <select name="pet_size" required>
+                <option value="">  </option>
+                <option value="small">小型</option>
+                <option value="medium">中型</option>
+                <option value="large">大型</option>
+            </select>
 
-            <label>住所: </label>
-            <input type="text" name="address">
+            <label>種類: </label>
+            <select name="pet_type">
+                <option value="">  </option>
+                <option value="dog">犬</option>
+                <option value="cat">猫</option>
+                <option value="others">その地</option>
+            </select>
+
+            <label>生年月日: </label>
+            <input type="date" name="pet_DOB">
 
             <button type="submit">登録</button>
         </form>
