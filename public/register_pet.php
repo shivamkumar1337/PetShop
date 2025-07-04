@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $message = "Name, type, size are required";
     } else {
         try {
-            $stmt = $pdo->prepare("INSERT INTO pets (customer_id, pet_name, pet_age, pet_weight, pet_type, pet_size, pet_DOB) VALUES (?, ?, ?, ?, ?, ?)");
+            $stmt = $pdo->prepare("INSERT INTO pets (customer_id, pet_name, pet_age, pet_weight, pet_type, pet_size, pet_DOB) VALUES (?, ?, ?, ?, ?, ?, ?)");
             $stmt->execute([$customer_id, $name, $age, $wt, $type, $size, $dob]);
 
             $message = 'pet added successfuly';

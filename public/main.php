@@ -9,9 +9,11 @@ if (!isset($_SESSION['user'])) {
 
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Main Screen - PetShop</title>
 </head>
+
 <body style="margin: 0;">
 
     <nav style="display: flex; align-items: center; justify-content: space-between; padding: 10px 20px; border-bottom: 1px solid #333; background-color: #fff;">
@@ -19,7 +21,7 @@ if (!isset($_SESSION['user'])) {
         <!-- Logo -->
         <div style="display: flex; align-items: center;">
             <a href="main.php">
-                <img src="/assets/logo.png" alt="logo" style="height: 40px; margin-right: 10px; cursor: pointer;">
+                <img src="assets/logo.png" alt="logo" style="height: 40px; margin-right: 10px; cursor: pointer;">
             </a>
         </div>
 
@@ -35,14 +37,22 @@ if (!isset($_SESSION['user'])) {
         <!-- Logout -->
         <div style="margin-left: 10px;">
             <a href="logout.php">
-                <img src="/assets/exit.png" alt="logout" style="height: 30px; cursor: pointer;">
+                <img src="assets/exit.png" alt="logout" style="height: 30px; cursor: pointer;">
             </a>
         </div>
     </nav>
-
-    <div style="padding: 30px;">
-        <!-- Content goes here -->
+    <div style="display: flex; flex-direction: column; align-items: center; justify-content:space-between;">
+        <div style="margin: horizontal 5px; display: flex; flex-direction: row; align-items: flex-start; justify-content:space-between; width:100wh">
+            <?php include_once 'today_appointment_table.php'; ?>
+            <?php include_once 'month_birthday_table.php'; ?>
+        </div>
+                <div">
+            <?php include_once 'last_month_service_used_table.php'; ?>
+        </div>
     </div>
+    
 
+    
 </body>
+
 </html>
