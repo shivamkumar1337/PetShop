@@ -42,7 +42,7 @@
         <a href="#">サービス</a>
         <a href="#">売上</a>
         <a href="#">表示</a>
-        <a href="#">マイページfgcvghvh</a>
+        <a href="#">マイページ</a>
     </nav>
 
     <div class="content">

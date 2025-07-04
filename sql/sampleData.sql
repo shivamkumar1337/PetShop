@@ -29,7 +29,7 @@ INSERT INTO service_history (customer_id, pet_id, service_id, service_date) VALU
 (1, 1, 3, '2024-06-20 11:30:00');
 
 -- Insert sample appointments
-INSERT INTO appointments (customer_id, service_id, pet_id, appointment_date, status) VALUES
-(1, 1, 1, '2025-07-01 10:00:00', '予定確定'),
-(2, 2, 2, '2025-07-02 15:00:00', '予定確定'),
-(1, 3, 1, '2025-07-05 09:30:00', 'キャンセル');
+INSERT INTO appointments (customer_id, service_id, pet_id, appointment_date) VALUES
+(1, 1, 1, '2025-07-01 10:00:00'),
+(2, 2, 2, '2025-07-02 15:00:00'),
+(1, 3, 1, '2025-07-05 09:30:00');

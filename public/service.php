@@ -1,10 +1,16 @@
+<?php if (!empty($_GET['deleted'])): ?>
+    <p style="color:green;">削除が完了しました。</p>
+<?php endif; ?>
+
 <?php
 require_once '../includes/db.php';
+require_once '../includes/functions.php';
 ?>
 
 <!DOCTYPE html>
 <html lang="ja">
     <head>
+        <title>UHD商事ペットショップ -- サービス</title>
         <meta charset="UTF-8">
     </head>
     <body>
@@ -18,14 +24,15 @@ require_once '../includes/db.php';
                 </nav>
             </header>
             <main>
+                <!-- サービス登録画面に画面遷移 -->
                 <button onclick="location.href='service_add.php'">サービス登録</button>
-                <button>削除</button>
+
                 <?php
                 require_once '../config/config.php';
                 // ユーザーテーブルからデータを取得
                 try {
                     // プリペアドステートメントの作成
-                    $stmt = $pdo->prepare("SELECT service_name, pet_type, pet_size, service_price FROM services");
+                    $stmt = $pdo->prepare("SELECT service_id, service_name, pet_type, pet_size, service_price FROM services");
                     
                     // パラメータのバインド
                     //$stmt->bindParam(':status', $status, PDO::PARAM_STR);
@@ -42,7 +49,9 @@ require_once '../includes/db.php';
                     } else {
                         // HTMLテーブルとして表示
                 ?>
-                        <table class="services-table">
+                    <form method="post" action="service_delete.php" onsubmit="return confirm('選択したサービスを削除してもよろしいですか？');">
+                        <button type="submit">削除</button>
+                        <table border=1 class="services-table">
                             <thead>
                                 <tr>
                                     <th>サービス名</th>
@@ -56,16 +65,17 @@ require_once '../includes/db.php';
                             <tbody>
                                 <?php foreach ($services_table as $services): ?>
                                 <tr>
-                                    <td><?php echo htmlspecialchars($services['service_name']); ?></td>
-                                    <td><?php echo htmlspecialchars($services['pet_type']); ?></td>
-                                    <td><?php echo htmlspecialchars($services['pet_size']); ?></td>
-                                    <td><?php echo htmlspecialchars($services['service_price']); ?></td>
-                                    <td><a href="service_edit.php?id=<?php echo urlencode($services['id']); ?>">✐</a></td>
-                                    <td><input type="checkbox"></td>
+                                    <td><?php echo str2html($services['service_name']); ?></td>
+                                    <td><?php echo str2html($services['pet_type']); ?></td>
+                                    <td><?php echo str2html($services['pet_size']); ?></td>
+                                    <td><?php echo str2html($services['service_price']); ?></td>
+                                    <td><a href="service_actions.php?id=<?php echo urlencode($services['service_id']); ?>">✐</a></td>
+                                    <td><input type="checkbox" name="service_delete_ids[]" value="<?php echo $services['service_id']; ?>"></td>
                                 </tr>
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
+                    </form>
                 <?php
                     }
                 } catch (PDOException $e) {
@@ -74,6 +84,6 @@ require_once '../includes/db.php';
                 ?>
                 
             </main>
-        </body>
-    </div>
+        </div>
+    </body>
 </html>
