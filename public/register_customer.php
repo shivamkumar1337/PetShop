@@ -20,6 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->execute([$name, $number, $email, $zip, $address]);
 
             $message = 'Customer added successfuly';
+            header("Location: register_pet.php");
         } catch (PDOException $e) {
             $message = 'error occured' . $e->getMessage();
         }
