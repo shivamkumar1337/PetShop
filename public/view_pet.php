@@ -7,8 +7,17 @@ require_once(__DIR__ . '/../includes/functions.php');
 $message = '';
 
 try {
-    $stmt = $pdo->query("SELECT pet_id, customer_name, pet_name, pet_type, pet_size, pet_DOB FROM pets JOIN custumers ON pets.customer_id = customers.customer_id ORDER BY pet_id");
+    $stmt = $pdo->query("SELECT pet_id, customer_name, pet_name, pet_type, pet_size, pet_DOB 
+        FROM pets 
+        JOIN customers ON pets.customer_id = customers.customer_id 
+        ORDER BY pet_id
+    ");
     $pets = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    if (empty($pets)) {
+        header("Refresh: 3; url=select_pet.php");
+        $message = "No pets registered for the selected customer";
+    }
 } catch (PDOException $e) {
     $message = "Failed to get pet list" . $e->getMessage();
 }
@@ -41,7 +50,7 @@ try {
     </head>
     <body>
         <h1>一覧からペットを選ぶ</h1>
-        <?php if (count($customers) > 0): ?>
+        <?php if (count($pets) > 0): ?>
             <table>
                 <tr>
                     <th>ペットID</th>
