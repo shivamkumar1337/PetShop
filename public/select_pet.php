@@ -15,7 +15,7 @@ if (!$customer_id) {
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>ペット選択 - PetShop</title>
+    <title>ペット選択 - ペットショップ</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -36,7 +36,7 @@ if (!$customer_id) {
             display: inline-block;
             padding: 12px 25px;
             margin: 15px;
-            background-color: #007BFF;
+            background-color: #CC6633;
             color: white;
             border: none;
             border-radius: 6px;
@@ -45,7 +45,7 @@ if (!$customer_id) {
         }
 
         .btn:hover {
-            background-color: #0056b3;
+            background-color: #CC6633;
         }
         .top-right {
             position: absolute;

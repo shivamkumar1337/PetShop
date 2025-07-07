@@ -12,10 +12,10 @@ try {
 
     if (empty($customers)) {
         header("Refresh: 3; url=select_customer.php");
-        $message = "No registered customer";
+        $message = "登録済みの顧客なし";
     }
 } catch (PDOException $e) {
-    $message = "Failed to get customer list" . $e->getMessage();
+    $message = "顧客リストを取得できませんでした" . $e->getMessage();
 }
 
 ?>
@@ -29,24 +29,24 @@ try {
             body {font-family: sans-serif; padding: auto;}
             table {width: 80%; margin: auto; border-collapse: collapse;}
             th, td {padding: auto; border: 1px solid red;}
-            th {background-color: rgb(211, 211, 211);}
+            th {background-color: #CC6633;}
             a.select-btn {
                 display: inline-block;
                 padding: auto;
-                background-color: rgb(101, 101, 101);
+                background-color: #CC6633;
                 color: #fff;
                 text-decoration: none;
                 border-radius: 5px;
             }
             a.select-btn:hover {
-                background-color: rgb(50, 50, 50);
+                background-color: #CC6633;
             }
             .message {color: red;}
             .btn {
                 display: inline-block;
                 padding: 12px 25px;
                 margin: 15px;
-                background-color: #007BFF;
+                background-color: #CC6633;
                 color: white;
                 border: none;
                 border-radius: 6px;
