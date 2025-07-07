@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <body>
 
         <div class="top-right">
-            <a href="main.php" class="btn">メイン画面へ戻る</a>
+            <a href="main.php" class="btn">メインへ</a>
         </div>
         <h1><strong>新規ペット登録</strong></h1>
 

@@ -18,7 +18,6 @@ if (!$customer_id) {
     <title>ペット選択 - ペットショップ</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
             padding-top: 50px;
             text-align: center;
         }
@@ -57,16 +56,14 @@ if (!$customer_id) {
 <body>
 
 <div class="top-right">
-    <a href="main.php" class="btn">メイン画面へ戻る</a>
+    <a href="main.php" class="btn">メインへ</a>
 </div>
 
 <div class="container">
     <h2>利用登録：ペットを選択してください</h2>
 
-    <!-- Button 1: Select existing customer -->
     <a href="view_pet.php?customer_id=<?= $customer_id ?>" class="btn">ペットを選択する</a>
 
-    <!-- Button 2: Register new customer -->
     <a href="register_pet.php?customer_id=<?= $customer_id ?>" class="btn">新規ペット登録</a>
 </div>
 

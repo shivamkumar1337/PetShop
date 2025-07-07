@@ -12,7 +12,6 @@ require_once(__DIR__ . '/session_check.php');
     <title>顧客選択 - ペットショップ</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
             padding-top: 50px;
             text-align: center;
         }
@@ -52,16 +51,14 @@ require_once(__DIR__ . '/session_check.php');
 <body>
 
 <div class="top-right">
-    <a href="main.php" class="btn">メイン画面へ戻る</a>
+    <a href="main.php" class="btn">メインへ</a>
 </div>
 
 <div class="container">
     <h2>利用登録：顧客を選択してください</h2>
 
-    <!-- Button 1: Select existing customer -->
     <a href="view_customer.php" class="btn">顧客を選択する</a>
 
-    <!-- Button 2: Register new customer -->
     <a href="register_customer.php" class="btn">新規顧客登録</a>
 </div>
 

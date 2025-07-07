@@ -32,7 +32,7 @@ try {
     <meta charset="UTF-8">
     <title>ペット一覧</title>
     <style>
-        body { font-family: sans-serif; padding: 30px; text-align: center; }
+        body {padding: 30px; text-align: center; }
         table { width: 90%; margin: auto; border-collapse: collapse; margin-top: 20px; }
         th, td { padding: 10px; border: 1px solid #ccc; }
         th { background-color: #CC6633; }
