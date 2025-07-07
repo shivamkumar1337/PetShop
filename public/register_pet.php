@@ -23,6 +23,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (empty($name) || empty($type) || empty($size)) {
         $message = "名前、 種類、サイズは必須です";
+    } elseif (!is_numeric($age) || !is_numeric($wt)) {
+        $message = "年齢と体重は数値で入力してください。";
     } else {
         try {
             $stmt = $pdo->prepare("INSERT INTO pets (customer_id, pet_name, pet_age, pet_weight, pet_type, pet_size, pet_DOB) VALUES (?, ?, ?, ?, ?, ?, ?)");
@@ -86,18 +88,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="text" name="pet_name" required>
 
             <label>年齢: </label>
-            <input type="text" name="pet_age" required>
+            <input type="number" name="pet_age" min="0" max="50" required>
 
             <label>体重: </label>
-            <input type="text" name="pet_weight" required>
-
-            <label>サイズ: </label>
-            <select name="pet_size" required>
-                <option value="">  </option>
-                <option value="small">小型</option>
-                <option value="medium">中型</option>
-                <option value="large">大型</option>
-            </select>
+            <input type="number" name="pet_weight" min="0" step="0.1" max="200" required>
 
             <label>種類: </label>
             <select name="pet_type">
@@ -105,6 +99,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <option value="dog">犬</option>
                 <option value="cat">猫</option>
                 <option value="others">その地</option>
+            </select>
+
+            <label>サイズ: </label>
+            <select name="pet_size" required>
+                <option value="">  </option>
+                <option value="small">小型</option>
+                <option value="medium">中型</option>
+                <option value="large">大型</option>
             </select>
 
             <label>生年月日: </label>

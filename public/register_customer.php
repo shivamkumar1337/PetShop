@@ -12,7 +12,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $zip = xss($_POST['customer_zipcode'] ?? '');
     $address = xss($_POST['address']);
 
-    if (empty($name) || empty($number) || empty($email)) {
+    if (!preg_match('/^\d{7}$/', $zip)) {
+        $message = "郵便番号は７桁の数字で入力してください。";
+    } elseif (!preg_match('/^\d{10}$/', $number)) {
+        $message = "電話番号は１０桁の数字で入力してください。";
+    } elseif (empty($name) || empty($number) || empty($email)) {
         $message = "名前、電話番号、メールアドレスは必須です";
     } else {
         try {
@@ -76,13 +80,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="text" name="customer_name" required>
 
             <label>電話番号: </label>
-            <input type="text" name="customer_number" required>
+            <input type="number" name="customer_number" required>
 
             <label>メールアドレス: </label>
             <input type="email" name="customer_mail" required>
 
             <label>郵便番号: </label>
-            <input type="number" name="customer_zipcode" min="0" max="9999999">
+            <input type="number" name="customer_zipcode">
 
             <label>住所: </label>
             <input type="text" name="address">

@@ -79,7 +79,7 @@ try {
             }
             .top-right{
                 position: absolute;
-                top: 30px;
+                top: 20px;
                 right: 35px;
             }
         </style>
