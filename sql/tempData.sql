@@ -7,8 +7,8 @@ INSERT INTO customers (customer_name, customer_mail, customer_number, customer_z
 
 -- Insert pets with birthday in current month (e.g., July)
 INSERT INTO pets (customer_id, pet_name, pet_age, pet_weight, pet_type, pet_size, pet_DOB) VALUES
-(5, 'Kuro', 4, 14, 'Dog', 'Medium', '2020-07-10'),  -- Birthday in July
-(6, 'Shiro', 2, 6, 'Cat', 'Small', '2022-07-20');     -- Birthday in July
+(5, 'Kuro', 14, 'Dog', 'Medium', '2020-07-10'),  -- Birthday in July
+(6, 'Shiro', 6, 'Cat', 'Small', '2022-07-20');     -- Birthday in July
 
 -- Insert services
 INSERT INTO services (service_name, service_price, pet_type, pet_size) VALUES
