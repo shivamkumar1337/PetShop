@@ -42,9 +42,29 @@ try {
                 background-color: rgb(50, 50, 50);
             }
             .message {color: red;}
+            .btn {
+                display: inline-block;
+                padding: 12px 25px;
+                margin: 15px;
+                background-color: #007BFF;
+                color: white;
+                border: none;
+                border-radius: 6px;
+                text-decoration: none;
+                font-size: 16px;
+            }
+            .top-right {
+                position: absolute;
+                top: 30px;
+                right: 35px;
+            }
         </style>
     </head>
     <body>
+
+        <div class="top-right">
+            <a href="main.php" class="btn">メイン画面へ戻る</a>
+        </div>
         <h1>一覧から顧客を選ぶ</h1>
         <?php if (!empty($customers)): ?>
             <table>

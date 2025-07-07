@@ -66,9 +66,29 @@ try {
             th {background-color: rgb(211, 211, 211);}
             .message {color: red;}
             .submit-btn {margin-top: auto; padding: auto; font-size: medium;}
+            .btn {
+                display: inline-block;
+                padding: 12px 25px;
+                margin: 15px;
+                background-color: #007BFF;
+                color: white;
+                border: none;
+                border-radius: 6px;
+                text-decoration: none;
+                font-size: 16px;
+            }
+            .top-right{
+                position: absolute;
+                top: 30px;
+                right: 35px;
+            }
         </style>
     </head>
     <body>
+
+        <div class="top-right">
+            <a href="main.php" class="btn">メイン画面へ戻る</a>
+        </div>
         <h1><strong>一覧からサービスを選ぶ</strong></h1>
 
         <?php if ($message): ?>
