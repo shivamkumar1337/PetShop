@@ -19,7 +19,7 @@ require_once(__DIR__ . '/session_check.php');
             text-align: center;
         }
         th {
-            /* background-color: #CC6633; */
+            background-color: #CC6633;
             /* color: white; */
         }
     </style>

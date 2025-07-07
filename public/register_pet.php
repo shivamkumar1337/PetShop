@@ -14,7 +14,6 @@ if (!$customer_id) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = xss($_POST['pet_name'] ?? '');
-    $age = xss($_POST['pet_age'] ?? '');
     $wt = xss($_POST['pet_weight'] ?? '');
     $type = xss($_POST['pet_type'] ?? '');
     $size = xss($_POST['pet_size'] ?? '');
@@ -23,12 +22,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (empty($name) || empty($type) || empty($size)) {
         $message = "名前、 種類、サイズは必須です";
-    } elseif (!is_numeric($age) || !is_numeric($wt)) {
-        $message = "年齢と体重は数値で入力してください。";
+    } elseif (!is_numeric($wt)) {
+        $message = "体重は数値で入力してください。";
     } else {
         try {
-            $stmt = $pdo->prepare("INSERT INTO pets (customer_id, pet_name, pet_age, pet_weight, pet_type, pet_size, pet_DOB) VALUES (?, ?, ?, ?, ?, ?, ?)");
-            $stmt->execute([$customer_id, $name, $age, $wt, $type, $size, $dob]);
+            $stmt = $pdo->prepare("INSERT INTO pets (customer_id, pet_name, pet_weight, pet_type, pet_size, pet_DOB) VALUES (?, ?, ?, ?, ?, ?)");
+            $stmt->execute([$customer_id, $name, $wt, $type, $size, $dob]);
 
             $message = 'ペットが正常に追加されました';
             header("Location: view_pet.php?customer_id=" . $customer_id);
@@ -74,8 +73,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </head>
     <body>
 
-        <div class="top-right">
-            <a href="main.php" class="btn">メインへ</a>
+        <div style="display: flex; justify-content: flex-end; align-items: flex-end; margin-bottom: 20px;">
+            <a href="main.php"
+                style="display: inline-block; width: 150px; text-align: center; text-decoration: none; font-weight: bold;
+                color: #000; padding: 10px; border: 1px solid #333; background-color: white;">
+                メインへ
+            </a>
         </div>
         <h1><strong>新規ペット登録</strong></h1>
 
@@ -86,9 +89,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <form action="" method="post">
             <label>名前: </label>
             <input type="text" name="pet_name" required>
-
-            <label>年齢: </label>
-            <input type="number" name="pet_age" min="0" max="50" required>
 
             <label>体重: </label>
             <input type="number" name="pet_weight" min="0" step="0.1" max="200" required>
@@ -114,5 +114,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <button type="submit">登録</button>
         </form>
+        <a href="select_customer.php"
+            style = "display: flex; justify-content:center; align-items:center;text-align: center; padding: 30px;">
+            利用登録へ
+        </a>
     </body>
 </html>

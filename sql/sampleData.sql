@@ -11,9 +11,9 @@ INSERT INTO customers (customer_name, customer_mail, customer_number, customer_z
 ('Hanako Suzuki', 'hanako@example.com', '08087654321', 3050035, '2-2 Azuma, Tsukuba');
 
 -- Insert sample pets
-INSERT INTO pets (customer_id, pet_name, pet_age, pet_weight, pet_type, pet_size, pet_DOB) VALUES
-(1, 'Pochi', 3, 12, 'Dog', 'Medium', '2021-04-20'),
-(2, 'Momo', 2, 5, 'Cat', 'Small', '2022-01-15');
+INSERT INTO pets (customer_id, pet_name, pet_weight, pet_type, pet_size, pet_DOB) VALUES
+(1, 'Pochi', 12, 'Dog', 'Medium', '2021-04-20'),
+(2, 'Momo', 5, 'Cat', 'Small', '2022-01-15');
 
 -- Insert sample services
 INSERT INTO services (service_name, service_price, pet_type, pet_size) VALUES
