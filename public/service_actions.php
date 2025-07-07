@@ -26,7 +26,7 @@ try {
         exit;
     }
 } catch (PDOException $e) {
-    echo "エラー: " . str2html($e->getMessage());
+    echo "エラー: " . xss($e->getMessage());
     exit;
 }
 
@@ -36,6 +36,7 @@ try {
 <html lang="ja">
     <head>
         <meta charset="UTF-8">
+        <link rel="stylesheet" href="../css/sheet_style.css" type="text/css">
     </head>
     <body>
         <div>
@@ -48,13 +49,13 @@ try {
                 </nav>
             </header>
             <main>       
-                <form action="service_update.php" method="post">
+                <form action="service_update.php" method="post" class="service_form">
                     <!-- IDをhiddenで送信 -->
-                    <input type="hidden" name="service_id" value="<?= str2html($service_id) ?>">
+                    <input type="hidden" name="service_id" value="<?= xss($service_id) ?>">
 
                     <div>
                         <label>サービス名</label>
-                        <input type="text" name="service_name" value="<?= str2html($service['service_name']) ?>">
+                        <input type="text" name="service_name" value="<?= xss($service['service_name']) ?>">
                     </div>
                     <div>
                         <label>種類</label>
@@ -63,7 +64,7 @@ try {
                             $types = ['犬', '猫', 'その他'];
                             foreach ($types as $type) {
                                 $selected = ($service['pet_type'] === $type) ? 'selected' : '';
-                                echo "<option value=\"" . str2html($type) . "\" $selected>" . str2html($type) . "</option>";
+                                echo "<option value=\"" . xss($type) . "\" $selected>" . xss($type) . "</option>";
                             }
                             ?>
                         </select>
@@ -75,14 +76,14 @@ try {
                             $sizes = ['小型', '中型', '大型'];
                             foreach ($sizes as $size) {
                                 $selected = ($service['pet_size'] === $size) ? 'selected' : '';
-                                echo "<option value=\"" . str2html($size) . "\" $selected>" . str2html($size) . "</option>";
+                                echo "<option value=\"" . xss($size) . "\" $selected>" . xss($size) . "</option>";
                             }
                             ?>
                         </select>
                     </div>
                     <div>
                         <label>料金</label>
-                        <input type="number" name="service_price" step=1 min=0 max=999999 value="<?= str2html($service['service_price']) ?>">
+                        <input type="number" name="service_price" step=1 min=0 max=999999 value="<?= xss($service['service_price']) ?>">
                     </div>
                     <input type="submit" value="更新">
                 </form>                
