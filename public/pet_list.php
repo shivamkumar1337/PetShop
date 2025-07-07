@@ -1,7 +1,3 @@
-<?php
-require_once '../includes/db.php';
-?>
- 
 <!DOCTYPE html>
 <html lang='ja'>
     <head>
@@ -19,83 +15,90 @@ require_once '../includes/db.php';
                     </ul>
                 </nav>
             </header>
-    <main>
-        <form method="get" action="list_select.php">
-        <input type="text" name="search">
-        <input type="submit" value="🔍">
-    </main>
-    <main>
-        <button>削除</button>
-        <form method="post" action="delete.php">
-                <?php
-                require_once '../config/config.php';
-                // ユーザーテーブルからデータを取得
-                try {
-                    // プリペアドステートメントの作成
-                    $stmt = $pdo->prepare("SELECT pets.pet_id, customers.customer_name,
-                     pets.pet_name, pets.pet_age,
-                      pets.pet_weight, pets.pet_type, pets.pet_size, pets.pet_DOB
-                      from pets
-                      join customers on pets.customer_id = customers.customer_id");
-                   
-                    // パラメータのバインド
-                    //$stmt->bindParam(':status', $status, PDO::PARAM_STR);
-                   
-                    // クエリの実行
-                    $stmt->execute();
-                   
-                    // 結果の取得
-                    $pets_table = $stmt->fetchAll();
-                   
-                    // 結果がない場合の処理
-                    if (empty($pets_table)) {
-                        echo "<p>現在登録されているペット情報はありません。</p>";
-                    } else {
-                        // HTMLテーブルとして表示
-                   
-                ?>
-        <table border="1">
-            <thead>
-            <tr>
-                   <th>ペット名</th>
-                    <th>年齢</th>
-                    <th>種類</th>
-                    <th>体重</th>
-                    <th>サイズ</th>
-                    <th>生年月日</th>
-                    <th>顧客名</th>
-                    <th>編集</th>
-                    <th>削除</th>
-            </tr>  
-            </thead>  
-            <tbody>
-                                <?php foreach ($history_table as $history): ?>
-                                <tr>
-                                    <td><?php echo htmlspecialchars($history['service_date']); ?></td>
-                                    <td><?php echo htmlspecialchars($history['customer_name']); ?></td>
-                                    <td><?php echo htmlspecialchars($history['pet_name']); ?></td>
-                                    <td><?php echo htmlspecialchars($history['service_name']); ?></td>
-                                    <td><?php echo htmlspecialchars($history['service_price']); ?></td>
-                                    <td><?php echo htmlspecialchars($history['service_date']); ?></td>
-                                     <td><a href="edit_pet.php?id=<?= $pet['pet_id'] ?>">🖋</a></td>
-                                    <td><a href="delete_pet.php?id=<?= $pet['pet_id'] ?>" onclick="return confirm('削除してよろしいですか？');">ゴミ</a></td>
-                                    <td><input type="checkbox" name="delete_ids[]" value="<?= $service_history ?>"></td>
-                                </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
-                <?php
-                    }
-                } catch (PDOException $e) {
-                    echo "エラー: " . $e->getMessage();
+
+<main>
+    <form method="get" action="pet_list.php">
+        <input type="text" name="keyword" placeholder="ペット名・顧客名・誕生月を入力" value="<?= htmlspecialchars($_GET['keyword'] ?? '') ?>">
+        <input type="submit" value="🔍 検索">
+    </form>
+</main>
+
+<main>
+    <form method="post" action="pet_delete.php">
+        <button type="submit" onclick="return confirm('選択したペットを削除してよろしいですか？');">削除</button>
+
+        <?php
+        require_once '../config/config.php';
+
+        try {
+            $sql = "SELECT pets.pet_id, customers.customer_name, pets.pet_name, pets.pet_age,
+                        pets.pet_weight, pets.pet_type, pets.pet_size, pets.pet_DOB
+                    FROM pets
+                    JOIN customers ON pets.customer_id = customers.customer_id";
+
+            $params = [];
+            $keyword = trim($_GET['keyword'] ?? '');
+
+            if ($keyword !== '') {
+                $sql .= " WHERE (pets.pet_name LIKE :kw OR customers.customer_name LIKE :kw OR MONTH(pets.pet_DOB) = :month)";
+                $params[':kw'] = '%' . $keyword . '%';
+                
+                // 誕生月の抽出が可能か確認（01〜12 で2桁 or 1桁）
+                if (preg_match('/^\d{1,2}$/', $keyword)) {
+                    $params[':month'] = (int)$keyword;
+                } else {
+                    // 数値以外なら month にマッチしない値を入れて誤動作防止
+                    $params[':month'] = -1;
                 }
-                ?>
-        </main>
-       </form>
-     </body>
-   
-        <div class="link">
+            }
+
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute($params);
+            $pets_table = $stmt->fetchAll();
+
+            if (empty($pets_table)) {
+                echo "<p>該当するペット情報はありません。</p>";
+            } else {
+        ?>
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th>ペット名</th>
+                            <th>年齢</th>
+                            <th>種類</th>
+                            <th>体重</th>
+                            <th>サイズ</th>
+                            <th>生年月日</th>
+                            <th>顧客名</th>
+                            <th>編集</th>
+                            <th>削除</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($pets_table as $pets): ?>
+                            <tr>
+                                <td><?= htmlspecialchars($pets['pet_name']) ?></td>
+                                <td><?= htmlspecialchars($pets['pet_age']) ?></td>
+                                <td><?= htmlspecialchars($pets['pet_type']) ?></td>
+                                <td><?= htmlspecialchars($pets['pet_weight']) ?></td>
+                                <td><?= htmlspecialchars($pets['pet_size']) ?></td>
+                                <td><?= htmlspecialchars($pets['pet_DOB']) ?></td>
+                                <td><?= htmlspecialchars($pets['customer_name']) ?></td>
+                                <td><a href="pet_Edit.php?id=<?= $pets['pet_id'] ?>">🖋</a></td>
+                                <td><input type="checkbox" name="pet_delete_ids[]" value="<?= $pets['pet_id'] ?>"></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+        <?php
+            }
+        } catch (PDOException $e) {
+            echo "エラー: " . $e->getMessage();
+        }
+        ?>
+    </form>
+            <div class="link">
         <a href="list_select.php">一覧表示選択画面へ</a>
             </div>
-</html>  
- 
+</main>
+</html>

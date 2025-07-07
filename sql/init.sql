@@ -6,7 +6,8 @@ USE pet_service_db;
 CREATE TABLE users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL
+    password VARCHAR(255) NOT NULL,
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Table: customers
@@ -15,6 +16,7 @@ CREATE TABLE customers (
     customer_name VARCHAR(100) NOT NULL,
     customer_mail VARCHAR(100) UNIQUE,
     customer_number VARCHAR(15) UNIQUE,
+    customer_zipcode INT(7) NOT NULL,
     address VARCHAR(255) NOT NULL
 );
 
@@ -49,7 +51,7 @@ CREATE TABLE service_history (
     customer_id INT,
     pet_id INT,
     service_id INT,
-    service_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    service_date DATETIME NOT NULL,
 
     INDEX (customer_id),
     INDEX (pet_id),
@@ -68,7 +70,6 @@ CREATE TABLE appointments (
     pet_id INT NOT NULL,
     appointment_date DATETIME NOT NULL,
     registeration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    status VARCHAR(100) DEFAULT '予定確定',
 
     INDEX (customer_id),
     INDEX (service_id),
