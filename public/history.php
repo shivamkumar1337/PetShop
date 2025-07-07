@@ -21,7 +21,7 @@ require_once '../includes/db.php';
             </header>
     <main>
         <form method="get" action="history.php">
-        <input type="text" name="search">
+        <input type="text" name="search" placeholder="検索ワードを入力">
         <input type="submit" value="🔍">
     </main>
     <main>
