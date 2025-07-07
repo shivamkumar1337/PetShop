@@ -22,17 +22,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
     if (empty($name) || empty($type) || empty($size)) {
-        $message = "Name, type, size are required";
+        $message = "名前、 種類、サイズは必須です";
     } else {
         try {
             $stmt = $pdo->prepare("INSERT INTO pets (customer_id, pet_name, pet_age, pet_weight, pet_type, pet_size, pet_DOB) VALUES (?, ?, ?, ?, ?, ?, ?)");
             $stmt->execute([$customer_id, $name, $age, $wt, $type, $size, $dob]);
 
-            $message = 'pet added successfuly';
+            $message = 'ペットが正常に追加されました';
             header("Location: view_pet.php?customer_id=" . $customer_id);
             exit;
         } catch (PDOException $e) {
-            $message = 'error occured' . $e->getMessage();
+            $message = 'エラーが発生しました' . $e->getMessage();
         }
     }
 }

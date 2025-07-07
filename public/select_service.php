@@ -17,23 +17,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $appointment_date = $_POST['appointment_date'] ?? null;
 
     if (!$service_id || !$appointment_date) {
-        $message = "Select a service and date";
+        $message = "サービスと日付を選択してください";
     } else {
         try {
             $stmt = $pdo->prepare("SELECT service_id FROM services WHERE service_id = ?");
             $stmt->execute([$service_id]);
             if ($stmt->rowCount() === 0) {
-                throw new Exception("No such service");
+                throw new Exception("そのようなサービスはありません" . $e->getMessage());
             }
 
             $stmt = $pdo->prepare("INSERT INTO appointments (customer_id, pet_id, service_id, appointment_date) VALUES (?, ?, ?, ?)");
             $stmt->execute([$customer_id, $pet_id, $service_id, $appointment_date]);
-            $message = "appointment complete";
+            $message = "予約が完了しました";
         } catch (PDOException $e) {
             if (str_contains($e->getMessage(), "integrity constraint error")) {
-                $message = "Could not register appointment, service_id is not valid";
+                $message = "予約を登録できませんでした。service_id が無効です";
             } else {
-                $message = "Error while registering" . $e->getMessage();
+                $message = "登録中にエラーが発生しました" . $e->getMessage();
             }
         } catch (Exception $e) {
             $message = $e->getMessage();
@@ -46,10 +46,10 @@ try {
     $services=$stmt->fetchAll(PDO::FETCH_ASSOC);
 
     if (empty($services)) {
-        $message = "No services registered";
+        $message = "登録されたサービスはありません";
     }
 } catch (PDOException $e) {
-    $message = "Failed to get service list" . $e->getMessage();
+    $message = "サービス一覧を取得できませんでした" . $e->getMessage();
 }
 
 ?>

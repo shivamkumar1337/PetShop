@@ -12,10 +12,10 @@ try {
 
     if (empty($customers)) {
         header("Refresh: 3; url=select_customer.php");
-        $message = "No registered customer";
+        $message = "登録済みの顧客なし";
     }
 } catch (PDOException $e) {
-    $message = "Failed to get customer list" . $e->getMessage();
+    $message = "顧客リストを取得できませんでした" . $e->getMessage();
 }
 
 ?>

@@ -15,7 +15,7 @@ if (!$customer_id) {
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>ペット選択 - PetShop</title>
+    <title>ペット選択 - ペットショップ</title>
     <style>
         body {
             font-family: Arial, sans-serif;

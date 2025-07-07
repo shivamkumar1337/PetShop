@@ -13,16 +13,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $address = xss($_POST['address']);
 
     if (empty($name) || empty($number) || empty($email)) {
-        $message = "Name, number, mail are required";
+        $message = "名前、電話番号、メールアドレスは必須です";
     } else {
         try {
             $stmt = $pdo->prepare("INSERT INTO customers (customer_name, customer_number, customer_mail, customer_zipcode, address) VALUES (?, ?, ?, ?, ?)");
             $stmt->execute([$name, $number, $email, $zip, $address]);
             $customer_id = $pdo->lastInsertId();
-            $message = 'Customer added successfuly';
+            $message = '顧客が正常に追加されました';
             header("Location: register_pet.php?customer_id=" . $customer_id);
         } catch (PDOException $e) {
-            $message = 'error occured' . $e->getMessage();
+            $message = 'エラーが発生しました' . $e->getMessage();
         }
     }
 }

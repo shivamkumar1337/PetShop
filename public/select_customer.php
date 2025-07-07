@@ -9,7 +9,7 @@ require_once(__DIR__ . '/session_check.php');
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>顧客選択 - PetShop</title>
+    <title>顧客選択 - ペットショップ</title>
     <style>
         body {
             font-family: Arial, sans-serif;
