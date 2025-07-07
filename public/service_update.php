@@ -49,7 +49,7 @@ try {
     header("Location: service.php?updated=1");
     exit;
 } catch (PDOException $e) {
-    echo "データベースエラー: " . str2html($e->getMessage());
+    echo "データベースエラー: " . xss($e->getMessage());
     exit;
 }
 ?>
