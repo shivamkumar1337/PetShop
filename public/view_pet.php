@@ -35,24 +35,24 @@ try {
         body { font-family: sans-serif; padding: 30px; text-align: center; }
         table { width: 90%; margin: auto; border-collapse: collapse; margin-top: 20px; }
         th, td { padding: 10px; border: 1px solid #ccc; }
-        th { background-color: #f0f0f0; }
+        th { background-color: #CC6633; }
         a.select-btn {
             display: inline-block;
             padding: 6px 12px;
-            background-color: #007BFF;
+            background-color: #CC6633;
             color: #fff;
             text-decoration: none;
             border-radius: 5px;
         }
         a.select-btn:hover {
-            background-color: #0056b3;
+            background-color: #CC6633;
         }
         .message { color: red; font-weight: bold; margin-top: 20px; }
         .btn {
             display: inline-block;
                 padding: 12px 25px;
                 margin: 15px;
-                background-color: #007BFF;
+                background-color: #CC6633;
                 color: white;
                 border: none;
                 border-radius: 6px;

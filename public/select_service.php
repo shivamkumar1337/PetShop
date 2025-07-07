@@ -62,7 +62,7 @@ try {
         <style>
             body {font-family: sans-serif; padding: auto;}
             table {width: 80%; margin: auto; border-collapse: collapse;}
-            th, td {padding: auto; border: 1px solid red;}
+            th, td {padding: auto; border: 1px solid black;}
             th {background-color: rgb(211, 211, 211);}
             .message {color: red;}
             .submit-btn {margin-top: auto; padding: auto; font-size: medium;}
@@ -70,7 +70,7 @@ try {
                 display: inline-block;
                 padding: 12px 25px;
                 margin: 15px;
-                background-color: #007BFF;
+                background-color: #CC6633;
                 color: white;
                 border: none;
                 border-radius: 6px;

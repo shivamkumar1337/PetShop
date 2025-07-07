@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 display: inline-block;
                 padding: 12px 25px;
                 margin: 15px;
-                background-color: #007BFF;
+                background-color: #CC6633;
                 color: white;
                 border: none;
                 border-radius: 6px;
