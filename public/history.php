@@ -5,7 +5,7 @@ require_once(__DIR__ . '/session_check.php');
 
 $search = $_GET['search'] ?? '';
 
-// Build SQL with optional search
+// 提供された場合は、検索用のクエリを準備します。
 $sql = "SELECT service_history.history_id, service_history.service_date,
          customers.customer_name, pets.pet_name, services.service_name,
          pets.pet_type, pets.pet_size
@@ -23,74 +23,81 @@ if (!empty($search)) {
     $params[':search'] = "%$search%";
 }
 $sql .= " ORDER BY service_history.service_date DESC";
-
 $stmt = $pdo->prepare($sql);
 $stmt->execute($params);
 $history_table = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
-<html lang="ja">
+<html lang='ja'>
 <head>
-    <meta charset="UTF-8">
-    <title>履歴一覧</title>
+    <meta charset='utf-8'>
+    <title>履歴画面</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            /* background-color: #CC6633; */
+            /* color: white; */
+        }
+    </style>
 </head>
-<body style="margin: 0; font-family: Arial, sans-serif; background-color: #f5f5f5; padding: 30px;">
+<body>
+    <header>
+        <h1>履歴一覧</h1>
+        <nav>
+            <ul>
+                <li><a href="main.php">メインへ</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <h1 style="margin-bottom: 20px;">履歴一覧</h1>
+    <main>
+        <form method="get" action="history.php">
+            <input type="text" name="search" placeholder="検索" value="<?= htmlspecialchars($search) ?>">
+            <input type="submit" value="🔍">
+        </form>
 
-    <!-- 🔍 Search Bar -->
-    <form method="get" action="history.php" style="margin-bottom: 20px;">
-        <input type="text" name="search" placeholder="検索" value="<?= htmlspecialchars($search) ?>"
-            style="padding: 8px; width: 250px; border: 1px solid #ccc; border-radius: 4px;">
-        <input type="submit" value="🔍"
-            style="padding: 8px 12px; background-color: #CC6633; color: white; border: none; border-radius: 4px; cursor: pointer;">
-    </form>
-
-    <!-- 🗑️ Delete Form + Table -->
-    <form method="post" action="history_delete.php">
-        <button type="submit"
-            style="margin-bottom: 10px; padding: 10px 20px; background-color: #CC6633; color: white; font-weight: bold; border: none; border-radius: 6px; cursor: pointer;">
-            削除
-        </button>
-
-        <div style="overflow-x: auto; background-color: white; border: 1px solid #ccc;">
-            <table style="border-collapse: collapse; width: 100%;">
-                <thead style="background-color: #CC6633; color: white;">
+        <form method="post" action="history_delete.php">
+            <button type="submit">削除</button>
+            <table>
+                <thead>
                     <tr>
-                        <th style="padding: 10px; border: 1px solid #ccc;">日付</th>
-                        <th style="padding: 10px; border: 1px solid #ccc;">名前</th>
-                        <th style="padding: 10px; border: 1px solid #ccc;">ペットの名前</th>
-                        <th style="padding: 10px; border: 1px solid #ccc;">ペット種類</th>
-                        <th style="padding: 10px; border: 1px solid #ccc;">大きさ</th>
-                        <th style="padding: 10px; border: 1px solid #ccc;">サービス</th>
-                        <th style="padding: 10px; border: 1px solid #ccc;">削除</th>
+                        <th>日付</th>
+                        <th>名前</th>
+                        <th>ペットの名前</th>
+                        <th>ペット種類</th>
+                        <th>大きさ</th>
+                        <th>サービス</th>
+                        <th>削除</th>
                     </tr>
                 </thead>
                 <tbody>
                 <?php if (empty($history_table)): ?>
-                    <tr>
-                        <td colspan="7" style="padding: 10px; text-align: center;">現在登録されている履歴情報はありません。</td>
-                    </tr>
+                    <tr><td colspan="7">現在登録されている履歴情報はありません。</td></tr>
                 <?php else: ?>
                     <?php foreach ($history_table as $history): ?>
                         <tr>
-                            <td style="padding: 10px; border: 1px solid #ccc;"><?= htmlspecialchars($history['service_date']) ?></td>
-                            <td style="padding: 10px; border: 1px solid #ccc;"><?= htmlspecialchars($history['customer_name']) ?></td>
-                            <td style="padding: 10px; border: 1px solid #ccc;"><?= htmlspecialchars($history['pet_name']) ?></td>
-                            <td style="padding: 10px; border: 1px solid #ccc;"><?= htmlspecialchars($history['pet_type']) ?></td>
-                            <td style="padding: 10px; border: 1px solid #ccc;"><?= htmlspecialchars($history['pet_size']) ?></td>
-                            <td style="padding: 10px; border: 1px solid #ccc;"><?= htmlspecialchars($history['service_name']) ?></td>
-                            <td style="padding: 10px; border: 1px solid #ccc;">
-                                <input type="checkbox" name="history_delete_ids[]" value="<?= $history['history_id'] ?>">
-                            </td>
+                            <td><?= htmlspecialchars($history['service_date']) ?></td>
+                            <td><?= htmlspecialchars($history['customer_name']) ?></td>
+                            <td><?= htmlspecialchars($history['pet_name']) ?></td>
+                            <td><?= htmlspecialchars($history['pet_type']) ?></td>
+                            <td><?= htmlspecialchars($history['pet_size']) ?></td>
+                            <td><?= htmlspecialchars($history['service_name']) ?></td>
+                            <td><input type="checkbox" name="history_delete_ids[]" value="<?= $history['history_id'] ?>"></td>
                         </tr>
                     <?php endforeach; ?>
                 <?php endif; ?>
                 </tbody>
             </table>
-        </div>
-    </form>
-
+        </form>
+    </main>
 </body>
 </html>
