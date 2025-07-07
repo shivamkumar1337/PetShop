@@ -63,7 +63,7 @@ try {
             body {font-family: sans-serif; padding: auto;}
             table {width: 80%; margin: auto; border-collapse: collapse;}
             th, td {padding: auto; border: 1px solid black;}
-            th {background-color: rgb(211, 211, 211);}
+            th {background-color: #CC6633;}
             .message {color: red;}
             .submit-btn {margin-top: auto; padding: auto; font-size: medium;}
             .btn {
