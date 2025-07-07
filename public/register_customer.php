@@ -108,10 +108,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
 
-<div class="top-right">
+<div style="display: flex; justify-content: flex-end; align-items: flex-end; margin-bottom: 20px;">
     <a href="main.php"
-       style="display: inline-block; width: 150px; text-align: center; text-decoration: none; font-weight: bold;
-              color: #000; padding: 10px; border: 1px solid #333; background-color: white;">
+        style="display: inline-block; width: 150px; text-align: center; text-decoration: none; font-weight: bold;
+        color: #000; padding: 10px; border: 1px solid #333; background-color: white;">
         メインへ
     </a>
 </div>
@@ -154,6 +154,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <button type="submit">登録</button>
     </form>
 </div>
-
+<a href="select_customer.php"
+    style = "display: flex; justify-content:center; align-items:center;text-align: center; padding: 30px;">
+    利用登録へ
+</a>
 </body>
 </html>

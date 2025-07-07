@@ -59,17 +59,16 @@ try {
                 text-decoration: none;
                 font-size: 16px;
         }
-        .top-right {
-            position: absolute;
-            top: 30px;
-            right: 35px;
-        }
     </style>
 </head>
 <body>
 
-<div class="top-right">
-    <a href="main.php" class="btn">メイン画面へ戻る</a>
+<div style="display: flex; justify-content: flex-end; align-items: flex-end; margin-bottom: 20px;">
+    <a href="main.php"
+        style="display: inline-block; width: 150px; text-align: center; text-decoration: none; font-weight: bold;
+        color: #000; padding: 10px; border: 1px solid #333; background-color: white;">
+        メインへ
+    </a>
 </div>
 
 <h1>一覧からペットを選ぶ</h1>
@@ -100,6 +99,10 @@ try {
             </tr>
         <?php endforeach; ?>
     </table>
+    <a href="select_customer.php"
+            style = "display: flex; justify-content:center; align-items:center;text-align: center; padding: 30px;">
+                  利用登録へ
+    </a>
 <?php else: ?>
     <p class="message">登録されたペットが見つかりません。</p>
 <?php endif; ?>

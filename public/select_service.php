@@ -118,6 +118,9 @@ try {
             登録
         </button>
     </form>
-
+    <a href="select_customer.php"
+            style = "display: flex; justify-content:center; align-items:center;text-align: center; padding: 30px;">
+                  利用登録へ
+    </a>
 </body>
 </html>

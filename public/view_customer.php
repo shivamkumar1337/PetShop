@@ -26,13 +26,13 @@ try {
     <meta charset="UTF-8">
     <title>顧客様一覧</title>
 </head>
-<body style="margin: 0; font-family: Arial, sans-serif; background-color: #f5f5f5; padding: 30px;">
+<body style="margin: 0; background-color: #f5f5f5; padding: 30px;">
 
     <div style="display: flex; justify-content: flex-end; align-items: flex-end; margin-bottom: 20px;">
         <a href="main.php"
            style="display: inline-block; width: 150px; text-align: center; text-decoration: none; font-weight: bold;
                   color: #000; padding: 10px; border: 1px solid #333; background-color: white;">
-           メイン画面へ戻る
+           メインへ
         </a>
     </div>
 
@@ -55,7 +55,7 @@ try {
                 </thead>
                 <tbody>
                     <?php foreach ($customers as $customer): ?>
-                        <tr>
+                        <tr style="text-align: center;">
                             <td style="padding: 10px; border: 1px solid #ccc;"><?= xss($customer['customer_id']) ?></td>
                             <td style="padding: 10px; border: 1px solid #ccc;"><?= xss($customer['customer_name']) ?></td>
                             <td style="padding: 10px; border: 1px solid #ccc;"><?= xss($customer['customer_number']) ?></td>
@@ -71,6 +71,10 @@ try {
                 </tbody>
             </table>
         </div>
+        <a href="select_customer.php"
+            style = "display: flex; justify-content:center; align-items:center;text-align: center; padding: 30px;">
+                  利用登録へ
+        </a>
     <?php else: ?>
         <p style="padding: 10px; background-color: #fff; border: 1px solid #ccc;">登録された顧客が見つかりません。</p>
     <?php endif; ?>
