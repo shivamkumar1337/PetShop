@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class="login-container" style="padding: 30px; border: 1px solid #CC6633; border-radius: 10px; width: 500px; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center;">
 
     <div class="header" style="text-align: center; display: flex; flex-direction: row; align-items: flex-start; justify-content: flex-start; margin-bottom: 10px; width: 100%;">
-        <img src="/assets/logo.png" class="logo" alt="logo" style="height: 60%; width: 60%;" />
+        <img src="assets/logo.png" class="logo" alt="logo" style="height: 60%; width: 60%;" />
     </div>
 
     <h2>ユーザー新規登録</h2>

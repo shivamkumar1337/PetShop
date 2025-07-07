@@ -3,13 +3,19 @@
 require_once(__DIR__ . '/../config/config.php');
 require_once(__DIR__ . '/session_check.php');
 
+$customer_id = $_GET['customer_id'] ?? null;
+if (!$customer_id) {
+    header("Location: select_customer.php");
+    exit;
+}
+
 ?>
 
 <!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>顧客選択 - PetShop</title>
+    <title>ペット選択 - PetShop</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -46,7 +52,6 @@ require_once(__DIR__ . '/session_check.php');
             top: 30px;
             right: 35px;
         }
-
     </style>
 </head>
 <body>
@@ -56,13 +61,13 @@ require_once(__DIR__ . '/session_check.php');
 </div>
 
 <div class="container">
-    <h2>利用登録：顧客を選択してください</h2>
+    <h2>利用登録：ペットを選択してください</h2>
 
     <!-- Button 1: Select existing customer -->
-    <a href="view_customer.php" class="btn">顧客を選択する</a>
+    <a href="view_pet.php?customer_id=<?= $customer_id ?>" class="btn">ペットを選択する</a>
 
     <!-- Button 2: Register new customer -->
-    <a href="register_customer.php" class="btn">新規顧客登録</a>
+    <a href="register_pet.php?customer_id=<?= $customer_id ?>" class="btn">新規ペット登録</a>
 </div>
 
 </body>

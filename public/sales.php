@@ -6,7 +6,21 @@ require_once '../includes/db.php';
     <head>
         <meta charset='utf-8'>
         <title>売画集計面面</title>
-        <link rel="stylesheet" href="style.css">
+        <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            /* background-color: #CC6633; */
+            /* color: white; */
+        }
+    </style>
     </head> 
     <body>
         <div>
