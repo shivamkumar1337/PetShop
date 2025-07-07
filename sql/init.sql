@@ -69,7 +69,7 @@ CREATE TABLE appointments (
     service_id INT NOT NULL,
     pet_id INT NOT NULL,
     appointment_date DATETIME NOT NULL,
-    registeration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
     INDEX (customer_id),
     INDEX (service_id),

@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($e->getCode() == 23000) {
                 $message = "ユーザー名は既に存在します。";
             } else {
-                $message = "Database error: " . $e->getMessage();
+                $message = "データベース エラー: " . $e->getMessage();
             }
         }
     }
@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Register - PetShop</title>
+    <title>ユーザー登録 - ペットショップ</title>
 </head>
 <body style="display: flex; justify-content: center; align-items: center; height: 100vh;">
 

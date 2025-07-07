@@ -2,8 +2,15 @@
 
 require_once(__DIR__ . '/../config/config.php');
 require_once(__DIR__ . '/../includes/functions.php');
+require_once(__DIR__ . '/session_check.php');
 
 $message = '';
+$customer_id = $_GET['customer_id'] ?? null;
+
+if (!$customer_id) {
+    header("Location: select_customer.php");
+    exit;
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = xss($_POST['pet_name'] ?? '');
@@ -15,17 +22,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
     if (empty($name) || empty($type) || empty($size)) {
-        $message = "Name, type, size are required";
+        $message = "名前、 種類、サイズは必須です";
+    } elseif (!is_numeric($age) || !is_numeric($wt)) {
+        $message = "年齢と体重は数値で入力してください。";
     } else {
         try {
-            $stmt = $pdo->prepare("INSERT INTO pets (pet_name, pet_age, pet_weight, pet_type, pet_size, pet_DOB) VALUES (?, ?, ?, ?, ?, ?)");
-            $stmt->execute([$name, $age, $wt, $type, $size, $dob]);
+            $stmt = $pdo->prepare("INSERT INTO pets (customer_id, pet_name, pet_age, pet_weight, pet_type, pet_size, pet_DOB) VALUES (?, ?, ?, ?, ?, ?, ?)");
+            $stmt->execute([$customer_id, $name, $age, $wt, $type, $size, $dob]);
 
-            $message = 'pet added successfuly';
-            header("Location: view_pet.php");
+            $message = 'ペットが正常に追加されました';
+            header("Location: view_pet.php?customer_id=" . $customer_id);
             exit;
         } catch (PDOException $e) {
-            $message = 'error occured' . $e->getMessage();
+            $message = 'エラーが発生しました' . $e->getMessage();
         }
     }
 }
@@ -45,9 +54,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             button {padding: 10px 20px;}
             .message {color: red;}
             .success {color: green;}
+            .btn {
+                display: inline-block;
+                padding: 12px 25px;
+                margin: 15px;
+                background-color: #CC6633;
+                color: white;
+                border: none;
+                border-radius: 6px;
+                text-decoration: none;
+                font-size: 16px;
+            }
+            .top-right {
+                position: absolute;
+                top: 30px;
+                right: 35px;
+            }
         </style>
     </head>
     <body>
+
+        <div class="top-right">
+            <a href="main.php" class="btn">メインへ</a>
+        </div>
         <h1><strong>新規ペット登録</strong></h1>
 
         <?php if ($message): ?>
@@ -59,18 +88,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="text" name="pet_name" required>
 
             <label>年齢: </label>
-            <input type="text" name="pet_age" required>
+            <input type="number" name="pet_age" min="0" max="50" required>
 
             <label>体重: </label>
-            <input type="text" name="pet_weight" required>
-
-            <label>サイズ: </label>
-            <select name="pet_size" required>
-                <option value="">  </option>
-                <option value="small">小型</option>
-                <option value="medium">中型</option>
-                <option value="large">大型</option>
-            </select>
+            <input type="number" name="pet_weight" min="0" step="0.1" max="200" required>
 
             <label>種類: </label>
             <select name="pet_type">
@@ -78,6 +99,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <option value="dog">犬</option>
                 <option value="cat">猫</option>
                 <option value="others">その地</option>
+            </select>
+
+            <label>サイズ: </label>
+            <select name="pet_size" required>
+                <option value="">  </option>
+                <option value="small">小型</option>
+                <option value="medium">中型</option>
+                <option value="large">大型</option>
             </select>
 
             <label>生年月日: </label>
