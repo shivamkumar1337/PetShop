@@ -47,10 +47,18 @@ if (!$customer_id) {
         .btn:hover {
             background-color: #0056b3;
         }
-
+        .top-right {
+            position: absolute;
+            top: 30px;
+            right: 35px;
+        }
     </style>
 </head>
 <body>
+
+<div class="top-right">
+    <a href="main.php" class="btn">メイン画面へ戻る</a>
+</div>
 
 <div class="container">
     <h2>利用登録：ペットを選択してください</h2>

@@ -6,7 +6,7 @@ require_once(__DIR__ . '/../includes/functions.php');
 $customer_id = isset($_GET['customer_id']) ? (int)$_GET['customer_id'] : null;
 
 if (!$customer_id) {
-    echo "無効なアクセス：顧客IDが指定されていません。";
+    echo "無効なアクセス:顧客IDが指定されていません。";
     exit;
 }
 
@@ -48,9 +48,29 @@ try {
             background-color: #0056b3;
         }
         .message { color: red; font-weight: bold; margin-top: 20px; }
+        .btn {
+            display: inline-block;
+                padding: 12px 25px;
+                margin: 15px;
+                background-color: #007BFF;
+                color: white;
+                border: none;
+                border-radius: 6px;
+                text-decoration: none;
+                font-size: 16px;
+        }
+        .top-right {
+            position: absolute;
+            top: 30px;
+            right: 35px;
+        }
     </style>
 </head>
 <body>
+
+<div class="top-right">
+    <a href="main.php" class="btn">メイン画面へ戻る</a>
+</div>
 
 <h1>一覧からペットを選ぶ</h1>
 <p>顧客ID: <?= htmlspecialchars($customer_id) ?></p>

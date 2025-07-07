@@ -41,10 +41,19 @@ require_once(__DIR__ . '/session_check.php');
         .btn:hover {
             background-color: #0056b3;
         }
+        .top-right {
+            position: absolute;
+            top: 30px;
+            right: 35px;
+        }
 
     </style>
 </head>
 <body>
+
+<div class="top-right">
+    <a href="main.php" class="btn">メイン画面へ戻る</a>
+</div>
 
 <div class="container">
     <h2>利用登録：顧客を選択してください</h2>
