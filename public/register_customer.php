@@ -18,9 +18,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         try {
             $stmt = $pdo->prepare("INSERT INTO customers (customer_name, customer_number, customer_mail, customer_zipcode, address) VALUES (?, ?, ?, ?, ?)");
             $stmt->execute([$name, $number, $email, $zip, $address]);
-
+            $customer_id = $pdo->lastInsertId();
             $message = 'Customer added successfuly';
-            header("Location: register_pet.php");
+            header("Location: register_pet.php?customer_id=" . $customer_id);
         } catch (PDOException $e) {
             $message = 'error occured' . $e->getMessage();
         }

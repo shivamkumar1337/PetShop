@@ -9,6 +9,11 @@ $message = '';
 try {
     $stmt = $pdo->query("SELECT customer_id, customer_name, customer_number FROM customers ORDER BY customer_id");
     $customers = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    if (empty($customers)) {
+        header("Refresh: 3; url=select_customer.php");
+        $message = "No registered customer";
+    }
 } catch (PDOException $e) {
     $message = "Failed to get customer list" . $e->getMessage();
 }
@@ -41,7 +46,7 @@ try {
     </head>
     <body>
         <h1>一覧から顧客を選ぶ</h1>
-        <?php if (count($customers) > 0): ?>
+        <?php if (!empty($customers)): ?>
             <table>
                 <tr>
                     <th>顧客ID</th>

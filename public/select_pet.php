@@ -3,6 +3,12 @@
 require_once(__DIR__ . '/../config/config.php');
 require_once(__DIR__ . '/session_check.php');
 
+$customer_id = $_GET['customer_id'] ?? null;
+if (!$customer_id) {
+    header("Location: select_customer.php");
+    exit;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -50,10 +56,10 @@ require_once(__DIR__ . '/session_check.php');
     <h2>利用登録：ペットを選択してください</h2>
 
     <!-- Button 1: Select existing customer -->
-    <a href="view_pet.php" class="btn">ペットを選択する</a>
+    <a href="view_pet.php?customer_id=<?= $customer_id ?>" class="btn">ペットを選択する</a>
 
     <!-- Button 2: Register new customer -->
-    <a href="register_pet.php" class="btn">新規ペット登録</a>
+    <a href="register_pet.php?customer_id=<?= $customer_id ?>" class="btn">新規ペット登録</a>
 </div>
 
 </body>
