@@ -20,11 +20,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $message = "Select a service and date";
     } else {
         try {
+            $stmt = $pdo->prepare("SELECT service_id FROM services WHERE service_id = ?");
+            $stmt->execute([$service_id]);
+            if ($stmt->rowCount() === 0) {
+                throw new Exception("No such service");
+            }
+
             $stmt = $pdo->prepare("INSERT INTO appointments (customer_id, pet_id, service_id, appointment_date) VALUES (?, ?, ?, ?)");
             $stmt->execute([$customer_id, $pet_id, $service_id, $appointment_date]);
-            $message = "予約を登録されました";
+            $message = "appointment complete";
         } catch (PDOException $e) {
-            $message = "登録できませんでした" . $e->getMessage();
+            if (str_contains($e->getMessage(), "integrity constraint error")) {
+                $message = "Could not register appointment, service_id is not valid";
+            } else {
+                $message = "Error while registering" . $e->getMessage();
+            }
+        } catch (Exception $e) {
+            $message = $e->getMessage();
         }
     }
 }
@@ -52,7 +64,6 @@ try {
             table {width: 80%; margin: auto; border-collapse: collapse;}
             th, td {padding: auto; border: 1px solid red;}
             th {background-color: rgb(211, 211, 211);}
-            input[type="radio"] {transform: scale(1.2);}
             .message {color: red;}
             .submit-btn {margin-top: auto; padding: auto; font-size: medium;}
         </style>
@@ -72,6 +83,7 @@ try {
                     <th>サービス値段</th>
                     <th>ペット種類</th>
                     <th>ペット大きさ</th>
+                    <th>選択</th>
                 </tr>
                 <?php foreach ($services as $service): ?>
                     <tr>
@@ -80,7 +92,7 @@ try {
                         <td><?= $service['service_price'] ?></td>
                         <td><?= $service['pet_type'] ?></td>
                         <td><?= $service['pet_size'] ?></td>
-                        <td><?= $service['service_id'] ?></td>
+                        <td><input type="radio" name="service_id" value="<?= xss($service['service_id']) ?>" required></td>
                     </tr>
                 <?php endforeach; ?>
             </table>

@@ -6,7 +6,7 @@ require_once(__DIR__ . '/../includes/functions.php');
 $customer_id = isset($_GET['customer_id']) ? (int)$_GET['customer_id'] : null;
 
 if (!$customer_id) {
-    echo "無効なアクセス：顧客IDが指定されていません。";
+    echo "無効なアクセス:顧客IDが指定されていません。";
     exit;
 }
 
