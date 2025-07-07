@@ -1,5 +1,6 @@
 <?php
 require_once '../includes/db.php';
+require_once(__DIR__ . '/session_check.php');
 require_once '../config/config.php';
 ?>
 <!DOCTYPE html>

@@ -1,6 +1,11 @@
 <?php
 require_once '../config/config.php';
 
+if (!isset($_SESSION['user'])) {
+    header("Location: login.php");
+    exit;
+}
+
 if (!isset($_POST['history_delete_ids']) || !is_array($_POST['history_delete_ids'])) {
     header('Location: history.php');
     exit;
