@@ -48,7 +48,7 @@ try {
             <?php if (!empty($appointments)): ?>
                 <form method="post" action="appointment_delete.php">
                     <div class="delete_btn_wrap">
-                        <button type="submit" class="service_delete_btn">削除</button>
+                        <button type="button" class="service_delete_btn" onclick="confirmdelete()">削除</button>
                     </div>
 
                     <table class="history_table">
@@ -87,5 +87,19 @@ try {
             <?php endif; ?>
         </main>
     </div>
+    <script>
+        function confirmdelete() {
+            const form = document.querySelector('form');
+            const checked = form.querySelectorAll('input[name="appointment_ids[]"]:checked');
+            if (checked.length === 0) {
+                alert("削除する予約を選択してください。");
+                return;
+            }
+
+            if (confirm("以下のデータを削除しますか？")) {
+                form.submit();
+            }
+        }
+    </script>
 </body>
 </html>

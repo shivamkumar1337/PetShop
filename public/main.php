@@ -34,7 +34,7 @@ require_once(__DIR__ . '/session_check.php');
 
         <!-- Logout -->
         <div style="margin-left: 10px;">
-            <a href="logout.php">
+            <a href="logout.php" onclick="return confirm('ログアウトしますか');">
                 <img src="assets/exit.png" alt="logout" style="height: 30px; cursor: pointer;">
             </a>
         </div>
