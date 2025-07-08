@@ -1,5 +1,6 @@
 <?php
 require_once '../config/config.php';
+require_once __DIR__ . '/../includes/functions.php';
 
 if (!isset($_GET['id']) || !ctype_digit($_GET['id'])) {
     echo "不正なアクセスです。";
@@ -11,14 +12,19 @@ $customer = null;
 $error = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $name = trim($_POST['customer_name']);
-    $zipcode = trim($_POST['customer_zipcode']);
-    $address = trim($_POST['address']);
-    $phone = trim($_POST['customer_number']);
-    $mail = trim($_POST['customer_mail']);
+    $name = trim($_POST['customer_name'] ?? '');
+    $zipcode = trim($_POST['customer_zipcode'] ?? '');
+    $address = trim($_POST['address'] ?? '');
+    $phone = trim($_POST['customer_number'] ?? '');
+    $mail = trim($_POST['customer_mail'] ?? '');
 
     try {
-        $stmt = $pdo->prepare("UPDATE customers SET customer_name = :name, customer_zipcode = :zipcode, address = :address, customer_number = :phone, customer_mail = :mail WHERE customer_id = :id");
+        $stmt = $pdo->prepare("
+            UPDATE customers 
+            SET customer_name = :name, customer_zipcode = :zipcode, 
+                address = :address, customer_number = :phone, customer_mail = :mail 
+            WHERE customer_id = :id
+        ");
         $stmt->execute([
             ':name' => $name,
             ':zipcode' => $zipcode,
@@ -31,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header("Location: customer_list.php?updated=1");
         exit;
     } catch (PDOException $e) {
-        $error = "更新エラー: " . htmlspecialchars($e->getMessage());
+        $error = "更新エラー: " . str2html($e->getMessage());
     }
 }
 
@@ -45,7 +51,7 @@ try {
         exit;
     }
 } catch (PDOException $e) {
-    echo "読み込みエラー: " . htmlspecialchars($e->getMessage());
+    echo "読み込みエラー: " . str2html($e->getMessage());
     exit;
 }
 ?>
@@ -59,23 +65,36 @@ try {
 </head>
 <body>
     <h1>顧客情報の編集</h1>
-         <a href="main.php">メインへ</a>
-<form method="post" action="">
+    <a href="main.php">メインへ</a>
 
     <?php if ($error): ?>
         <p style="color:red"><?= $error ?></p>
     <?php endif; ?>
 
     <form method="post" action="">
-        <label>顧客名：<input type="text" name="customer_name" value="<?= htmlspecialchars($customer['customer_name']) ?>" required></label><br>
-        <label>郵便番号：<input type="text" name="customer_zipcode" value="<?= htmlspecialchars($customer['customer_zipcode']) ?>"></label><br>
-        <label>住所：<input type="text" name="address" value="<?= htmlspecialchars($customer['address']) ?>"></label><br>
-        <label>電話番号：<input type="text" name="customer_number" value="<?= htmlspecialchars($customer['customer_number']) ?>"></label><br>
-        <label>メールアドレス：<input type="email" name="customer_mail" value="<?= htmlspecialchars($customer['customer_mail']) ?>"></label><br><br>
-        
+        <label>顧客名：
+            <input type="text" name="customer_name" value="<?= str2html($customer['customer_name']) ?>" required>
+        </label><br>
+
+        <label>郵便番号：
+            <input type="text" name="customer_zipcode" value="<?= str2html($customer['customer_zipcode']) ?>">
+        </label><br>
+
+        <label>住所：
+            <input type="text" name="address" value="<?= str2html($customer['address']) ?>">
+        </label><br>
+
+        <label>電話番号：
+            <input type="text" name="customer_number" value="<?= str2html($customer['customer_number']) ?>">
+        </label><br>
+
+        <label>メールアドレス：
+            <input type="email" name="customer_mail" value="<?= str2html($customer['customer_mail']) ?>">
+        </label><br><br>
+
         <button type="submit">更新</button>
-        
     </form>
+
     <a href="customer_list.php">顧客一覧へ</a>
 </body>
 </html>

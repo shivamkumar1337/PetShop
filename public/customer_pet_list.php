@@ -1,3 +1,10 @@
+<?php
+require_once '../config/config.php';
+require_once __DIR__ . '/../includes/functions.php'; 
+
+$keyword = trim($_GET['keyword'] ?? '');
+?>
+
 <!DOCTYPE html>
 <html lang='ja'>
 <head>
@@ -36,7 +43,7 @@
 
 <main>
     <form method="get" action="" class="no-print">
-        <input type="text" name="keyword" placeholder="顧客名を入力" value="<?= htmlspecialchars($_GET['keyword'] ?? '') ?>">
+        <input type="text" name="keyword" placeholder="顧客名を入力" value="<?= str2html($keyword) ?>">
         <input type="submit" value="🔍 検索">
     </form>
 
@@ -45,10 +52,6 @@
 
 <main id="print-area">
     <?php
-    require_once '../config/config.php';
-
-    $keyword = trim($_GET['keyword'] ?? '');
-
     if ($keyword !== '') {
         try {
             $stmt = $pdo->prepare("SELECT * FROM customers WHERE customer_name LIKE :kw");
@@ -61,10 +64,10 @@
                 foreach ($customers as $customer):
     ?>
                 <table border="1" style="margin-top: 20px;">
-                    <tr><th>顧客名</th><td><?= htmlspecialchars($customer['customer_name']) ?></td></tr>
-                    <tr><th>住所</th><td><?= htmlspecialchars($customer['customer_zipcode'] . ' ' . $customer['address']) ?></td></tr>
-                    <tr><th>電話番号</th><td><?= htmlspecialchars($customer['customer_number']) ?></td></tr>
-                    <tr><th>メールアドレス</th><td><?= htmlspecialchars($customer['customer_mail']) ?></td></tr>
+                    <tr><th>顧客名</th><td><?= str2html($customer['customer_name']) ?></td></tr>
+                    <tr><th>住所</th><td><?= str2html($customer['customer_zipcode'] . ' ' . $customer['address']) ?></td></tr>
+                    <tr><th>電話番号</th><td><?= str2html($customer['customer_number']) ?></td></tr>
+                    <tr><th>メールアドレス</th><td><?= str2html($customer['customer_mail']) ?></td></tr>
                 </table>
 
                 <?php
@@ -90,22 +93,22 @@
                         <tbody>
                             <?php foreach ($pets as $pet): ?>
                                 <tr>
-                                    <td><?= htmlspecialchars($pet['pet_name']) ?></td>
-                                    <td><?= htmlspecialchars($pet['pet_age']) ?></td>
-                                    <td><?= htmlspecialchars($pet['pet_type']) ?></td>
-                                    <td><?= htmlspecialchars($pet['pet_weight']) ?></td>
-                                    <td><?= htmlspecialchars($pet['pet_size']) ?></td>
-                                    <td><?= htmlspecialchars($pet['pet_DOB']) ?></td>
+                                    <td><?= str2html($pet['pet_name']) ?></td>
+                                    <td><?= str2html($pet['pet_age']) ?></td>
+                                    <td><?= str2html($pet['pet_type']) ?></td>
+                                    <td><?= str2html($pet['pet_weight']) ?></td>
+                                    <td><?= str2html($pet['pet_size']) ?></td>
+                                    <td><?= str2html($pet['pet_DOB']) ?></td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
                     </table>
                 <?php } ?>
-            <?php
+    <?php
                 endforeach;
             }
         } catch (PDOException $e) {
-            echo "<p>エラー: " . htmlspecialchars($e->getMessage()) . "</p>";
+            echo "<p>エラー: " . str2html($e->getMessage()) . "</p>";
         }
     } else {
         echo "<p>顧客名を入力してください。</p>";
@@ -115,6 +118,7 @@
 
 <div class="link no-print">
     <a href="list_select.php">一覧表示選択画面へ</a>
+</div>
 </div>
 </body>
 </html>
