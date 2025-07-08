@@ -1,11 +1,12 @@
 <?php
 session_start();
-require_once '../config/config.php';
+require_once(__DIR__ . '/../config/config.php');
+require_once(__DIR__ . '/../includes/functions.php'); 
 
 $message = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = trim($_POST['username'] ?? '');
+    $username = trim(xss($_POST['username'] ?? ''));
     $password = $_POST['password'] ?? '';
 
     if (empty($username) || empty($password)) {

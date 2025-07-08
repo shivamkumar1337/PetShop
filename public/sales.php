@@ -7,7 +7,7 @@ require_once(__DIR__ . '/session_check.php');
 <html lang='ja'>
     <head>
         <meta charset='utf-8'>
-        <title>売画集計面面</title>
+        <title>売上集計画面</title>
         <style>
         table {
             border-collapse: collapse;
