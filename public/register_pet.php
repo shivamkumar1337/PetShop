@@ -46,28 +46,62 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <meta charset="UTF-8">
         <title>ペットの登録</title>
         <style>
-            body {font-family: sans-serif; padding: auto;}
-            form { max-width: 400px; margin: auto; padding: auto; text-align: left;}
-            label {display: block; margin: auto; text-align: left;}
-            input {width: 100%; padding: auto;}
-            button {padding: 10px 20px;}
-            .message {color: red;}
-            .success {color: green;}
-            .btn {
-                display: inline-block;
-                padding: 12px 25px;
-                margin: 15px;
+            html, body {
+                margin: 0;
+                padding: 0;
+                height: 100%;
+                background-color: #f5f5f5;
+                font-family: Arial, sans-serif;
+            }
+
+            .container {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                height: 100%;
+                padding: 30px;
+            }
+
+            .form-box {
+                max-width: 600px;
+                width: 100%;
+                background-color: white;
+                border: 1px solid #ccc;
+                padding: 30px;
+                border-radius: 8px;
+            }
+
+            .form-group {
+                margin-bottom: 15px;
+            }
+
+            label {
+                font-weight: bold;
+                display: block;
+                margin-bottom: 5px;
+            }
+
+            input {
+                width: 100%;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+            }
+
+            button {
+                width: 100%;
+                padding: 12px;
                 background-color: #CC6633;
                 color: white;
+                font-weight: bold;
                 border: none;
                 border-radius: 6px;
-                text-decoration: none;
-                font-size: 16px;
+                cursor: pointer;
             }
-            .top-right {
-                position: absolute;
-                top: 30px;
-                right: 35px;
+            .message {
+            margin-bottom: 20px;
+            font-weight: bold;
             }
         </style>
     </head>
@@ -80,40 +114,54 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 メインへ
             </a>
         </div>
-        <h1><strong>新規ペット登録</strong></h1>
+        <div class="container">
+            <h1 style="margin-bottom: 20px;">新規ペット登録</h1>
 
-        <?php if ($message): ?>
-            <div class="message"><?= xss($message) ?></div>
-        <?php endif; ?>
+            <?php if ($message): ?>
+                <div class="message" style="color: <?= strpos($message, '正常') !== false ? 'green' : 'red' ?>">
+                    <?= xss($message) ?>
+                </div>
+            <?php endif; ?>
 
-        <form action="" method="post">
-            <label>名前: </label>
-            <input type="text" name="pet_name" required>
+            <form action="" method="post" class="form-box">
+                <div class="form-group">
+                    <label>名前:</label>
+                    <input type="text" name="pet_name" required>
+                </div>
 
-            <label>体重: </label>
-            <input type="number" name="pet_weight" min="0" step="0.1" max="200" required>
+                <div class="form-group">
+                    <label>体重:</label>
+                    <input type="number" name="pet_weight" min="0" step="0.1" max="200" required>
+                </div>
 
-            <label>種類: </label>
-            <select name="pet_type">
-                <option value="">  </option>
-                <option value="dog">犬</option>
-                <option value="cat">猫</option>
-                <option value="others">その地</option>
-            </select>
+                <div class="form-group">
+                    <label>種類:</label>
+                    <select name="pet_type">
+                    <option value="">  </option>
+                    <option value="dog">犬</option>
+                    <option value="cat">猫</option>
+                    <option value="others">その地</option>
+                    </select>
+                </div>
 
-            <label>サイズ: </label>
-            <select name="pet_size" required>
-                <option value="">  </option>
-                <option value="small">小型</option>
-                <option value="medium">中型</option>
-                <option value="large">大型</option>
-            </select>
+                <div class="form-group">
+                    <label>サイズ:</label>
+                    <select name="pet_size" required>
+                    <option value="">  </option>
+                    <option value="small">小型</option>
+                    <option value="medium">中型</option>
+                    <option value="large">大型</option>
+                    </select>
+                </div>
 
-            <label>生年月日: </label>
-            <input type="date" name="pet_DOB">
+                <div class="form-group">
+                    <label>生年月日:</label>
+                    <input type="date" name="pet_DOB">
+                </div>
 
-            <button type="submit">登録</button>
-        </form>
+                <button type="submit">登録</button>
+            </form>
+        </div>
         <a href="select_customer.php"
             style = "display: flex; justify-content:center; align-items:center;text-align: center; padding: 30px;">
             利用登録へ
