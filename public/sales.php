@@ -6,26 +6,12 @@ require_once '../includes/db.php';
     <head>
         <meta charset='utf-8'>
         <title>売画集計面面</title>
-        <style>
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-        th, td {
-            border: 1px solid #ccc;
-            padding: 8px;
-            text-align: center;
-        }
-        th {
-            /* background-color: #CC6633; */
-            /* color: white; */
-        }
-    </style>
     </head> 
     <body>
         <div>
             <header>
                 <h1>売上集計</h1>
+                    
                 <nav>
                     <ul>
                         <li><a href="main.php">メインへ</a></li>
@@ -63,6 +49,12 @@ require_once '../includes/db.php';
                         // HTMLテーブルとして表示
                     
                 ?>
+                <?php
+                        $data = ['service_prices'];
+                        $total = array_sum($data);
+                        echo "売上: " . $total . "円"; // 出力: 合計: ○○○円
+                    ?>
+
         <table border="1">
             <thead>
             <tr>

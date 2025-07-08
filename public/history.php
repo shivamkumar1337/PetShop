@@ -30,21 +30,6 @@ $history_table = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset='utf-8'>
     <title>履歴画面</title>
-    <style>
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-        th, td {
-            border: 1px solid #ccc;
-            padding: 8px;
-            text-align: center;
-        }
-        th {
-            /* background-color: #CC6633; */
-            /* color: white; */
-        }
-    </style>
 </head>
 <body>
     <header>
@@ -58,13 +43,13 @@ $history_table = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <main>
         <form method="get" action="history.php">
-            <input type="text" name="search" placeholder="検索" value="<?= htmlspecialchars($search) ?>">
+            <input type="text" name="search" placeholder="検索" value="<?= htmlspecialchars($search) ?>" maxlength="50" required>
             <input type="submit" value="🔍">
         </form>
 
         <form method="post" action="history_delete.php">
-            <button type="submit">削除</button>
-            <table>
+            <button type="submit" onclick="return confirm('選択した顧客を削除してよろしいですか？');">削除</button>
+            <table border=1>
                 <thead>
                     <tr>
                         <th>日付</th>
@@ -78,8 +63,9 @@ $history_table = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </thead>
                 <tbody>
                 <?php if (empty($history_table)): ?>
-                    <tr><td colspan="7">現在登録されている履歴情報はありません。</td></tr>
+                    <tr><td colspan="7">検索結果に該当する情報はありません。</td></tr>
                 <?php else: ?>
+                    <form method="post">
                     <?php foreach ($history_table as $history): ?>
                         <tr>
                             <td><?= htmlspecialchars($history['service_date']) ?></td>
