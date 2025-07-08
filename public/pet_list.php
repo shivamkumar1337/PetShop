@@ -2,7 +2,7 @@
 <html lang='ja'>
     <head>
         <meta charset='utf-8'>
-        <title>ペット一覧</title>
+        <title>ペット一覧画面</title>
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
@@ -18,7 +18,8 @@
 
 <main>
     <form method="get" action="pet_list.php">
-        <input type="text" name="keyword" placeholder="ペット名・顧客名・誕生月を入力" value="<?= htmlspecialchars($_GET['keyword'] ?? '') ?>">
+        <?php require_once __DIR__ . '/../includes/functions.php'; ?>
+        <input type="text" name="keyword" placeholder="ペット名・顧客名・誕生月を入力" value="<?= xss($_GET['keyword'] ?? '') ?>">
         <input type="submit" value="🔍 検索">
     </form>
 </main>
@@ -29,6 +30,7 @@
 
         <?php
         require_once '../config/config.php';
+        require_once __DIR__ . '/../includes/functions.php';
 
         try {
             $sql = "SELECT pets.pet_id, customers.customer_name, pets.pet_name, pets.pet_age,
@@ -42,12 +44,10 @@
             if ($keyword !== '') {
                 $sql .= " WHERE (pets.pet_name LIKE :kw OR customers.customer_name LIKE :kw OR MONTH(pets.pet_DOB) = :month)";
                 $params[':kw'] = '%' . $keyword . '%';
-                
-                // 誕生月の抽出が可能か確認（01〜12 で2桁 or 1桁）
+
                 if (preg_match('/^\d{1,2}$/', $keyword)) {
                     $params[':month'] = (int)$keyword;
                 } else {
-                    // 数値以外なら month にマッチしない値を入れて誤動作防止
                     $params[':month'] = -1;
                 }
             }
@@ -77,15 +77,15 @@
                     <tbody>
                         <?php foreach ($pets_table as $pets): ?>
                             <tr>
-                                <td><?= htmlspecialchars($pets['pet_name']) ?></td>
-                                <td><?= htmlspecialchars($pets['pet_age']) ?></td>
-                                <td><?= htmlspecialchars($pets['pet_type']) ?></td>
-                                <td><?= htmlspecialchars($pets['pet_weight']) ?></td>
-                                <td><?= htmlspecialchars($pets['pet_size']) ?></td>
-                                <td><?= htmlspecialchars($pets['pet_DOB']) ?></td>
-                                <td><?= htmlspecialchars($pets['customer_name']) ?></td>
-                                <td><a href="pet_Edit.php?id=<?= $pets['pet_id'] ?>">🖋</a></td>
-                                <td><input type="checkbox" name="pet_delete_ids[]" value="<?= $pets['pet_id'] ?>"></td>
+                                <td><?= str2html($pets['pet_name']) ?></td>
+                                <td><?= str2html($pets['pet_age']) ?></td>
+                                <td><?= str2html($pets['pet_type']) ?></td>
+                                <td><?= str2html($pets['pet_weight']) ?></td>
+                                <td><?= str2html($pets['pet_size']) ?></td>
+                                <td><?= str2html($pets['pet_DOB']) ?></td>
+                                <td><?= str2html($pets['customer_name']) ?></td>
+                                <td><a href="pet_Edit.php?id=<?= str2html($pets['pet_id']) ?>">🖋</a></td>
+                                <td><input type="checkbox" name="pet_delete_ids[]" value="<?= str2html($pets['pet_id']) ?>"></td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
@@ -93,12 +93,13 @@
         <?php
             }
         } catch (PDOException $e) {
-            echo "エラー: " . $e->getMessage();
+            echo "<p>エラー: " . str2html($e->getMessage()) . "</p>";
         }
         ?>
     </form>
-            <div class="link">
+
+    <div class="link">
         <a href="list_select.php">一覧表示選択画面へ</a>
-            </div>
+    </div>
 </main>
 </html>

@@ -1,5 +1,6 @@
 <?php
 require_once '../config/config.php';
+require_once __DIR__ . '/../includes/functions.php';  
 
 if (!isset($_GET['id']) || !ctype_digit($_GET['id'])) {
     echo "無効なIDです。";
@@ -38,7 +39,7 @@ try {
     }
 
 } catch (PDOException $e) {
-    echo "エラー: " . htmlspecialchars($e->getMessage());
+    echo "エラー: " . str2html($e->getMessage());
     exit;
 }
 ?>
@@ -51,11 +52,11 @@ try {
 </head>
 <body>
     <h1>ペット編集</h1>
-     <a href="main.php">メインへ</a>
+    <a href="main.php">メインへ</a>
 <form method="post" action="">
-    <label>ペット名: <input type="text" name="pet_name" value="<?= htmlspecialchars($pet['pet_name']) ?>" required></label><br>
+    <label>ペット名: <input type="text" name="pet_name" value="<?= str2html($pet['pet_name']) ?>" required></label><br>
     
-    <label>年齢: <input type="number" name="pet_age" value="<?= htmlspecialchars($pet['pet_age']) ?>" required></label><br>
+    <label>年齢: <input type="number" name="pet_age" value="<?= str2html($pet['pet_age']) ?>" required></label><br>
     
     <label>種類:
         <select name="pet_type" required>
@@ -65,7 +66,7 @@ try {
         </select>
     </label><br>
 
-    <label>体重: <input type="number" step="0.1" name="pet_weight" value="<?= htmlspecialchars($pet['pet_weight']) ?>" required></label><br>
+    <label>体重: <input type="number" step="0.1" name="pet_weight" value="<?= str2html($pet['pet_weight']) ?>" required></label><br>
     
     <label>サイズ:
         <select name="pet_size" required>
@@ -75,7 +76,7 @@ try {
         </select>
     </label><br>
 
-    <label>生年月日: <input type="date" name="pet_dob" value="<?= htmlspecialchars($pet['pet_DOB']) ?>" required></label><br><br>
+    <label>生年月日: <input type="date" name="pet_dob" value="<?= str2html($pet['pet_DOB']) ?>" required></label><br><br>
     
     <input type="submit" value="更新">
 </form>

@@ -1,3 +1,10 @@
+<?php
+require_once '../config/config.php';
+require_once __DIR__ . '/../includes/functions.php';
+
+$keyword = trim($_GET['keyword'] ?? '');
+?>
+
 <!DOCTYPE html>
 <html lang='ja'>
 <head>
@@ -18,7 +25,7 @@
 
 <main>
     <form method="get" action="customer_list.php">
-        <input type="text" name="keyword" placeholder="顧客名を入力" value="<?= htmlspecialchars($_GET['keyword'] ?? '') ?>">
+        <input type="text" name="keyword" placeholder="顧客名を入力" value="<?= str2html($keyword) ?>">
         <input type="submit" value="🔍 検索">
     </form>
 </main>
@@ -28,8 +35,6 @@
         <button type="submit" onclick="return confirm('選択した顧客を削除してよろしいですか？');">削除</button>
 
         <?php
-        require_once '../config/config.php';
-
         try {
             $sql = "SELECT customers.customer_id, customers.customer_name, customers.customer_zipcode,
                         customers.customer_mail, customers.customer_number, customers.address,
@@ -38,7 +43,6 @@
                     LEFT JOIN pets ON pets.customer_id = customers.customer_id";
 
             $params = [];
-            $keyword = trim($_GET['keyword'] ?? '');
 
             if ($keyword !== '') {
                 $sql .= " WHERE customers.customer_name LIKE :kw";
@@ -68,13 +72,13 @@
             <tbody>
                 <?php foreach ($customers_table as $customer): ?>
                     <tr>
-                        <td><?= htmlspecialchars($customer['customer_name']) ?></td>
-                        <td><?= htmlspecialchars($customer['pet_name'] ?? '―') ?></td>
-                        <td><?= htmlspecialchars($customer['customer_zipcode']) ?><?= htmlspecialchars($customer['address']) ?></td>
-                        <td><?= htmlspecialchars($customer['customer_number']) ?></td>
-                        <td><?= htmlspecialchars($customer['customer_mail']) ?></td>
-                        <td><a href="customer_edit.php?id=<?= $customer['customer_id'] ?>">🖋</a></td>
-                        <td><input type="checkbox" name="customer_delete_ids[]" value="<?= $customer['customer_id'] ?>"></td>
+                        <td><?= str2html($customer['customer_name']) ?></td>
+                        <td><?= str2html($customer['pet_name'] ?? '―') ?></td>
+                        <td><?= str2html($customer['customer_zipcode']) ?><?= str2html($customer['address']) ?></td>
+                        <td><?= str2html($customer['customer_number']) ?></td>
+                        <td><?= str2html($customer['customer_mail']) ?></td>
+                        <td><a href="customer_edit.php?id=<?= str2html($customer['customer_id']) ?>">🖋</a></td>
+                        <td><input type="checkbox" name="customer_delete_ids[]" value="<?= str2html($customer['customer_id']) ?>"></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
@@ -82,7 +86,7 @@
         <?php
             }
         } catch (PDOException $e) {
-            echo "エラー: " . htmlspecialchars($e->getMessage());
+            echo "<p>エラー: " . str2html($e->getMessage()) . "</p>";
         }
         ?>
     </form>
