@@ -37,8 +37,8 @@ require_once(__DIR__ . '/session_check.php');
                 <h1>売上集計</h1>
             </header>
     <main>
-        <button onclick="location.href='sales_pet.php'">ペット種別</button>
-        <button onclick="location.href='sales_service.php'">サービス別</button>
+        <button onclick="location.href='sales_pet.php'" style="margin: 10px;">ペット種別</button>
+        <button onclick="location.href='sales_service.php'" style="margin: 10px;">サービス別</button>
          <?php
                 require_once '../config/config.php';
                 // ユーザーテーブルからデータを取得
