@@ -19,20 +19,22 @@ require_once(__DIR__ . '/session_check.php');
             text-align: center;
         }
         th {
-            /* background-color: #CC6633; */
+            background-color: #CC6633;
             /* color: white; */
         }
     </style>
     </head> 
     <body>
+        <div style="display: flex; justify-content: flex-end; align-items: flex-end; margin-bottom: 20px;">
+            <a href="main.php"
+                style="display: inline-block; width: 150px; text-align: center; text-decoration: none; font-weight: bold;
+                color: #000; padding: 10px; border: 1px solid #333; background-color: white;">
+                メインへ
+            </a>
+        </div>
         <div>
             <header>
                 <h1>ペット種別</h1>
-                <nav>
-                    <ul>
-                        <li><a href="main.php">メインへ</a></li>
-                    </ul>
-                </nav>
             </header>
     <main>
          <?php

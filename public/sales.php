@@ -25,14 +25,16 @@ require_once(__DIR__ . '/session_check.php');
     </style>
     </head> 
     <body>
+        <div style="display: flex; justify-content: flex-end; align-items: flex-end; margin-bottom: 20px;">
+            <a href="main.php"
+                style="display: inline-block; width: 150px; text-align: center; text-decoration: none; font-weight: bold;
+                color: #000; padding: 10px; border: 1px solid #333; background-color: white;">
+                メインへ
+            </a>
+        </div>
         <div>
             <header>
                 <h1>売上集計</h1>
-                <nav>
-                    <ul>
-                        <li><a href="main.php">メインへ</a></li>
-                    </ul>
-                </nav>
             </header>
     <main>
         <button onclick="location.href='sales_pet.php'">ペット種別</button>
