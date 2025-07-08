@@ -2,12 +2,24 @@
 require_once '../includes/db.php';
 require_once(__DIR__ . '/session_check.php');
 require_once '../config/config.php';
-?>
 
+// 月の初期値（現在の月）
+$month = date('n');
+
+// フォームからの入力を検証
+if (isset($_GET['month'])) {
+    $input_month = filter_input(INPUT_GET, 'month', FILTER_VALIDATE_INT, [
+        'options' => ['min_range' => 1, 'max_range' => 12]
+    ]);
+    if ($input_month !== false) {
+        $month = $input_month;
+    }
+}
+?>
 <!DOCTYPE html>
-<html lang="ja">
+<html lang='ja'>
 <head>
-    <meta charset="utf-8">
+    <meta charset='utf-8'>
     <title>売上集計画面</title>
 </head>
 <body>
@@ -22,52 +34,79 @@ require_once '../config/config.php';
         </header>
 
         <main>
+            <form method="get" action="">
+                <label for="month">月を選択：</label>
+                <select name="month" id="month">
+                    <?php for ($i = 1; $i <= 12; $i++): ?>
+                        <option value="<?= $i ?>" <?= $i == $month ? 'selected' : '' ?>>
+                            <?= $i ?>月
+                        </option>
+                    <?php endfor; ?>
+                </select>
+                <button type="submit">表示</button>
+            </form>
+
             <button onclick="location.href='sales_pet.php'">ペット種別</button>
             <button onclick="location.href='sales_service.php'">サービス別</button>
 
             <?php
             try {
-                // 集計クエリ（ペットの種類・大きさ・サービスごとの売上合計）
                 $stmt = $pdo->prepare("
                     SELECT 
-                        pets.pet_type,
-                        pets.pet_size,
-                        services.service_name,
-                        SUM(services.service_price) AS total_sales
-                    FROM service_history
-                    JOIN pets ON service_history.pet_id = pets.pet_id
-                    JOIN services ON service_history.service_id = services.service_id
-                    GROUP BY pets.pet_type, pets.pet_size, services.service_name
-                    ORDER BY pets.pet_type, pets.pet_size
+                        s.service_name, 
+                        SUM(s.service_price) AS total_sales, 
+                        p.pet_type, 
+                        p.pet_size
+                    FROM service_history sh
+                    JOIN customers c ON sh.customer_id = c.customer_id
+                    JOIN pets p ON sh.pet_id = p.pet_id
+                    JOIN services s ON sh.service_id = s.service_id
+                    WHERE MONTH(sh.service_date) = :month
+                    GROUP BY p.pet_type, p.pet_size, s.service_name
+                    ORDER BY s.service_name ASC
                 ");
-                $stmt->execute();
-                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-                if (empty($result)) {
+                $stmt->bindValue(':month', $month, PDO::PARAM_INT);
+                $stmt->execute();
+                $history_table = $stmt->fetchAll();
+
+                if (empty($history_table)) {
                     echo "<p>現在登録されている履歴情報はありません。</p>";
                 } else {
-                    echo "<table border='1'>";
-                    echo "<thead>
-                            <tr>
-                                <th>ペット種類</th>
-                                <th>大きさ</th>
-                                <th>サービス</th>
-                                <th>売上合計 (円)</th>
-                            </tr>
-                          </thead>";
-                    echo "<tbody>";
-                    foreach ($result as $row) {
-                        echo "<tr>";
-                        echo "<td>" . htmlspecialchars($row['pet_type']) . "</td>";
-                        echo "<td>" . htmlspecialchars($row['pet_size']) . "</td>";
-                        echo "<td>" . htmlspecialchars($row['service_name']) . "</td>";
-                        echo "<td>" . htmlspecialchars($row['total_sales']) . "</td>";
-                        echo "</tr>";
+                    $total = 0;
+                    foreach ($history_table as $history) {
+                        $price = isset($history['total_sales']) ? (float)$history['total_sales'] : 0;
+                        $total += $price;
                     }
-                    echo "</tbody></table>";
+
+                    echo "<p>【" . htmlspecialchars($month) . "月分】売上合計: " . number_format($total) . "円</p>";
+            ?>
+
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>ペット種類</th>
+                        <th>大きさ</th>
+                        <th>サービス</th>
+                        <th>売上</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($history_table as $history): ?>
+                        <tr>
+                            <td><?= htmlspecialchars($history['pet_type']) ?></td>
+                            <td><?= htmlspecialchars($history['pet_size']) ?></td>
+                            <td><?= htmlspecialchars($history['service_name']) ?></td>
+                            <td><?= number_format((float)$history['total_sales']) ?>円</td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+
+            <?php
                 }
             } catch (PDOException $e) {
-                echo "エラー: " . htmlspecialchars($e->getMessage());
+                echo "<p>エラー: " . htmlspecialchars($e->getMessage()) . "</p>";
             }
             ?>
         </main>
