@@ -1,8 +1,8 @@
 <?php 
 session_start();
-require_once '../includes/db.php';
-require_once '../config/config.php';
-require_once '../includes/functions.php';
+
+require_once __DIR__ . '/../includes/functions.php';
+require_once __DIR__ . '/../config/config.php';
 
 if (
     empty($_POST['service_id']) || !preg_match('/^\d+$/', $_POST['service_id']) ||

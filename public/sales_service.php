@@ -1,7 +1,7 @@
 <?php
 require_once '../includes/db.php';
 require_once(__DIR__ . '/session_check.php');
-
+require_once '../config/config.php';
 ?>
 <!DOCTYPE html>
 <html lang='ja'>
@@ -61,18 +61,19 @@ require_once(__DIR__ . '/session_check.php');
                                     <td><?php echo htmlspecialchars($history['service_name']); ?></td>
                                     <td><?php echo htmlspecialchars($history['service_price']); ?></td>
                                 </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
-                        <?php
-                    }
-                } catch (PDOException $e) {
-                    echo "エラー: " . $e->getMessage();
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+            <?php
                 }
-                ?>
-                    <li><a href="sales.php">売上集計画面へ</a></li>
-                        </main> 
-       </form>
-     </body> 
-   <div>   
-</html>   
+            } catch (PDOException $e) {
+                echo "<p>エラー: " . htmlspecialchars($e->getMessage()) . "</p>";
+            }
+            ?>
+            <ul>
+                <li><a href="sales.php">売上集計画面へ</a></li>
+            </ul>
+        </main>
+    </div>
+</body>
+</html>

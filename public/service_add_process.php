@@ -3,8 +3,8 @@
 session_start();
 
 // 必要ファイルの読み込み
-require_once '../includes/db.php';
-require_once '../config/config.php';
+require_once __DIR__ . '/../includes/functions.php';
+require_once __DIR__ . '/../config/config.php';
 
 // フォームから送られたデータを取得（null合体演算子 ?? で未定義防止）
 $service_name  = trim($_POST['service_name'] ?? '');

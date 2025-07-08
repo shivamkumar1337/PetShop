@@ -32,8 +32,8 @@ $history_table = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <title>履歴一覧</title>
+    <meta charset='utf-8'>
+    <title>履歴画面</title>
 </head>
 <body style="margin: 0; background-color: #f5f5f5; padding: 30px;">
 
@@ -49,24 +49,18 @@ $history_table = $stmt->fetchAll(PDO::FETCH_ASSOC);
             style="padding: 8px 12px; background-color: #CC6633; color: white; border: none; border-radius: 4px; cursor: pointer;">
     </form>
 
-    <form method="post" action="history_delete.php">
-        <div style="display: flex; justify-content: flex-end; align-items: flex-end;">
-        <button type="submit"
-            style="margin-bottom: 10px; padding: 10px 20px; background-color: #CC6633; color: white; font-weight: bold; border: none; border-radius: 6px; cursor: pointer;">
-            削除
-        </button>
-        </div>
-        <div style="overflow-x: auto; background-color: white; border: 1px solid #ccc;">
-            <table style="border-collapse: collapse; width: 100%;">
-                <thead style="background-color: #CC6633; color: white;">
+        <form method="post" action="history_delete.php" onsubmit="return confirm('選択した履歴を削除してよろしいですか？');">
+            <button type="submit">削除</button>
+            <table border="1">
+                <thead>
                     <tr>
-                        <th style="padding: 10px; border: 1px solid #ccc;">日付</th>
-                        <th style="padding: 10px; border: 1px solid #ccc;">名前</th>
-                        <th style="padding: 10px; border: 1px solid #ccc;">ペットの名前</th>
-                        <th style="padding: 10px; border: 1px solid #ccc;">ペット種類</th>
-                        <th style="padding: 10px; border: 1px solid #ccc;">大きさ</th>
-                        <th style="padding: 10px; border: 1px solid #ccc;">サービス</th>
-                        <th style="padding: 10px; border: 1px solid #ccc;">削除</th>
+                        <th>日付</th>
+                        <th>名前</th>
+                        <th>ペットの名前</th>
+                        <th>ペット種類</th>
+                        <th>大きさ</th>
+                        <th>サービス</th>
+                        <th>削除</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -92,8 +86,8 @@ $history_table = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <?php endif; ?>
                 </tbody>
             </table>
-        </div>
-    </form>
-
+        </form>
+    </main>
 </body>
 </html>
+
