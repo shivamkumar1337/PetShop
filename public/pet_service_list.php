@@ -86,7 +86,6 @@ $selected_service_id = $_GET['service_id'] ?? '';
                     SELECT DISTINCT
                         p.pet_id,
                         p.pet_name,
-                        p.pet_age,
                         p.pet_type,
                         p.pet_weight,
                         p.pet_size,
@@ -109,7 +108,6 @@ $selected_service_id = $_GET['service_id'] ?? '';
                     echo "<thead><tr style='background-color: #eee;'>
                         <th>ペット名</th>
                         <th>年齢</th>
-                        <th>種類</th>
                         <th>体重</th>
                         <th>サイズ</th>
                         <th>生年月日</th>
@@ -118,7 +116,6 @@ $selected_service_id = $_GET['service_id'] ?? '';
                     foreach ($pets as $pet) {
                         echo "<tr>";
                         echo "<td>" . xss($pet['pet_name']) . "</td>";
-                        echo "<td>" . xss($pet['pet_age']) . "</td>";
                         echo "<td>" . xss($pet['pet_type']) . "</td>";
                         echo "<td>" . xss($pet['pet_weight']) . "</td>";
                         echo "<td>" . xss($pet['pet_size']) . "</td>";
