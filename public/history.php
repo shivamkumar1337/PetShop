@@ -75,6 +75,7 @@ $history_table = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <td colspan="7" style="padding: 10px; text-align: center;">現在登録されている履歴情報はありません。</td>
                     </tr>
                 <?php else: ?>
+                    <form method="post">
                     <?php foreach ($history_table as $history): ?>
                         <tr>
                             <td style="padding: 10px; border: 1px solid #ccc;"><?= htmlspecialchars($history['service_date']) ?></td>
