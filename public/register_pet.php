@@ -2,8 +2,15 @@
 
 require_once(__DIR__ . '/../config/config.php');
 require_once(__DIR__ . '/../includes/functions.php');
+require_once(__DIR__ . '/session_check.php');
 
 $message = '';
+$customer_id = $_GET['customer_id'] ?? null;
+
+if (!$customer_id) {
+    header("Location: select_customer.php");
+    exit;
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = xss($_POST['pet_name'] ?? '');
@@ -18,11 +25,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $message = "Name, type, size are required";
     } else {
         try {
-            $stmt = $pdo->prepare("INSERT INTO pets (pet_name, pet_age, pet_weight, pet_type, pet_size, pet_DOB) VALUES (?, ?, ?, ?, ?, ?)");
-            $stmt->execute([$name, $age, $wt, $type, $size, $dob]);
+            $stmt = $pdo->prepare("INSERT INTO pets (customer_id, pet_name, pet_age, pet_weight, pet_type, pet_size, pet_DOB) VALUES (?, ?, ?, ?, ?, ?, ?)");
+            $stmt->execute([$customer_id, $name, $age, $wt, $type, $size, $dob]);
 
             $message = 'pet added successfuly';
-            header("Location: view_pet.php");
+            header("Location: view_pet.php?customer_id=" . $customer_id);
             exit;
         } catch (PDOException $e) {
             $message = 'error occured' . $e->getMessage();
@@ -45,9 +52,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             button {padding: 10px 20px;}
             .message {color: red;}
             .success {color: green;}
+            .btn {
+                display: inline-block;
+                padding: 12px 25px;
+                margin: 15px;
+                background-color: #007BFF;
+                color: white;
+                border: none;
+                border-radius: 6px;
+                text-decoration: none;
+                font-size: 16px;
+            }
+            .top-right {
+                position: absolute;
+                top: 30px;
+                right: 35px;
+            }
         </style>
     </head>
     <body>
+
+        <div class="top-right">
+            <a href="main.php" class="btn">メイン画面へ戻る</a>
+        </div>
         <h1><strong>新規ペット登録</strong></h1>
 
         <?php if ($message): ?>

@@ -18,9 +18,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         try {
             $stmt = $pdo->prepare("INSERT INTO customers (customer_name, customer_number, customer_mail, customer_zipcode, address) VALUES (?, ?, ?, ?, ?)");
             $stmt->execute([$name, $number, $email, $zip, $address]);
-
+            $customer_id = $pdo->lastInsertId();
             $message = 'Customer added successfuly';
-            header("Location: register_pet.php");
+            header("Location: register_pet.php?customer_id=" . $customer_id);
         } catch (PDOException $e) {
             $message = 'error occured' . $e->getMessage();
         }
@@ -42,9 +42,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             button {padding: 10px 20px;}
             .message {color: red;}
             .success {color: green;}
+            .btn {
+                display: inline-block;
+                padding: 12px 25px;
+                margin: 15px;
+                background-color: #007BFF;
+                color: white;
+                border: none;
+                border-radius: 6px;
+                text-decoration: none;
+                font-size: 16px;
+            }
+            .top-right {
+                position: absolute;
+                top: 30px;
+                right: 35px;
+            }
         </style>
     </head>
     <body>
+
+        <div class="top-right">
+            <a href="main.php" class="btn">メイン画面へ戻る</a>
+        </div>
         <h1><strong>新規顧客登録</strong></h1>
 
         <?php if ($message): ?>

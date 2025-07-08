@@ -19,6 +19,7 @@ img {
 /*--全体--*/
 html {
     padding: 30px 100px;
+    font-size: 1.2rem;
 }
 /*--ヘッダー--*/
 header {
@@ -30,9 +31,6 @@ header h1 {
 }
 header nav {
     text-align: right;
-}
-li {
-    text-decoration: none;
 }
 /*--メイン--*/
 main {
@@ -48,18 +46,22 @@ input, select {
 }
 /*--フッター--*/
 footer {
+    margin-top: 50px;
     height: 10%;
     text-align: center;
 }
 
-/*------　service　------*/
+/*------　service-home-　------*/
 button {
     border: 1px solid;
 }
 .service_add_btn {  
     width: 250px;
     height: 80px;
-    margin: 10px 100px;
+    margin: 10px;
+}
+p {
+    margin: 10px;
 }
 .form_wrap {
     display: flex;
@@ -76,9 +78,56 @@ button {
 .service_delete_btn {
     width: 100px;
     height: 50px;
-    item-align: right;
 }
 .service_table {
-    width: 1000px;
+    max-width: 1000px;
     margin: 0 auto;
+}
+.s1, .s2, .s3, .s4, .s5, .s6{
+    text-align: center;
+}
+.s1, .s2, .s3, .s4 {
+    width: 200px;
+}
+.s5, .s6 {
+    width: 100px;
+}
+
+/*------　service-form-　------*/
+.service_form {
+    border: solid 1px;
+    width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+.form_la {
+    display: flex;
+    flex-direction: row;
+    margin: 20px 50px;
+    align-items: center;
+}
+.form_la label {
+    width: 120px;
+    text-align: right;
+    padding-right: 20px;
+}
+.form_la input, .form_la select {
+    width: 350px;
+    text-align: center;
+}
+.submit_btn {
+    text-align: center;
+}
+.submit_btn input{
+    width: 100px;
+    height: 50px;
+    margin: 10px 0 20px 0;
+}
+
+/*------　mypage-home-　------*/
+
+/*------　mypage-edit-　------*/
+.my_la {
+    width: 200px;
+    border: solid 1px;
 }

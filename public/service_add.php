@@ -2,9 +2,8 @@
 // セッションの開始（エラーや入力値の保持に使う）
 session_start();
 
-require_once '../includes/db.php';
-require_once '../config/config.php';
-require_once '../includes/functions.php';
+require_once __DIR__ . '/../includes/functions.php';
+require_once __DIR__ . '/../config/config.php';
 
 // エラーと入力値をセッションから取得（あれば）
 $errors = $_SESSION['errors'] ?? [];
@@ -47,14 +46,14 @@ unset($_SESSION['errors'], $_SESSION['old']);
             <form method="post" action="service_add_process.php" class="service_form">
 
                 <!-- サービス名入力欄（テキスト） -->
-                <div>
+                <div class="form_la">
                     <label for="service_name">サービス名</label>
                     <input type="text" name="service_name" id="service_name" required
                         value="<?= xss($old['service_name'] ?? '') ?>">
                 </div>
 
                 <!-- 種類（セレクトボックス） -->
-                <div>
+                <div class="form_la">
                     <label for="pet_type">種類</label>
                     <select name="pet_type" id="pet_type" required>
                         <?php
@@ -70,7 +69,7 @@ unset($_SESSION['errors'], $_SESSION['old']);
                 </div>
 
                 <!-- 大きさ（セレクトボックス） -->
-                <div>
+                <div class="form_la">
                     <label for="pet_size">大きさ</label>
                     <select name="pet_size" id="pet_size" required>
                         <?php
@@ -84,14 +83,16 @@ unset($_SESSION['errors'], $_SESSION['old']);
                 </div>
 
                 <!-- 料金（数値入力） -->
-                <div>
+                <div class="form_la">
                     <label for="service_price">料金</label>
                     <input type="number" name="service_price" id="service_price" required min="0"
                         value="<?= xss($old['service_price'] ?? '') ?>">
                 </div>
 
                 <!-- 送信ボタン -->
-                <input type="submit" value="登録">
+                <div class="submit_btn">
+                    <input type="submit" value="登録">
+                </div>
             </form>
             <!-- ▲ 入力フォームここまで -->
 

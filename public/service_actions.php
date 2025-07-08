@@ -1,9 +1,6 @@
 <?php
-//DB接続
-require_once '../includes/db.php';
-require_once '../config/config.php';
-//XSS対策関数
-require_once '../includes/functions.php';
+require_once __DIR__ . '/../includes/functions.php';
+require_once __DIR__ . '/../config/config.php';
 
 // IDがGETで渡されているか確認
 if (!isset($_GET['id']) || !preg_match('/^\d+$/', $_GET['id'])) {
@@ -49,15 +46,18 @@ try {
                 </nav>
             </header>
             <main>       
-                <form action="service_update.php" method="post" class="service_form">
+                <form class="service_form" action="service_update.php" method="post" class="service_form">
                     <!-- IDをhiddenで送信 -->
                     <input type="hidden" name="service_id" value="<?= xss($service_id) ?>">
 
-                    <div>
+                    <!-- サービス名入力欄（テキスト） -->
+                    <div class="form_la">
                         <label>サービス名</label>
                         <input type="text" name="service_name" value="<?= xss($service['service_name']) ?>">
                     </div>
-                    <div>
+                    
+                    <!-- 種類（セレクトボックス） -->
+                    <div class="form_la">
                         <label>種類</label>
                         <select name="pet_type">
                             <?php
@@ -69,7 +69,9 @@ try {
                             ?>
                         </select>
                     </div>
-                    <div>
+
+                    <!-- 大きさ（セレクトボックス） -->
+                    <div class="form_la">
                         <label>大きさ</label>
                         <select name="pet_size">
                             <?php
@@ -81,11 +83,17 @@ try {
                             ?>
                         </select>
                     </div>
-                    <div>
+
+                    <!-- 料金（数値入力） -->
+                    <div class="form_la">
                         <label>料金</label>
                         <input type="number" name="service_price" step=1 min=0 max=999999 value="<?= xss($service['service_price']) ?>">
                     </div>
-                    <input type="submit" value="更新">
+
+                    <!-- 送信ボタン -->
+                    <div class="submit_btn">
+                        <input type="submit" value="更新">
+                    </div>
                 </form>                
             </main>
             <footer>
