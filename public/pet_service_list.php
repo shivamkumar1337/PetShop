@@ -18,7 +18,7 @@ $selected_service_id = $_GET['service_id'] ?? '';
 <head>
     <meta charset="utf-8">
     <title>サービス別ペット一覧画面</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
     <style>
         @media print {
             body * {
@@ -42,12 +42,14 @@ $selected_service_id = $_GET['service_id'] ?? '';
 <body>
 <div>
     <header>
-        <h1>サービス別ペット一覧</h1>
-        <nav>
-            <ul>
-                <li><a href="main.php" class="no-print">メインへ</a></li>
-            </ul>
-        </nav>
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+            <h1>サービス別ペット一覧</h1>
+            <nav>
+                <ul>
+                    <li><a href="main.php" class="no-print">メインへ</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
 <main>
@@ -86,7 +88,6 @@ $selected_service_id = $_GET['service_id'] ?? '';
                     SELECT DISTINCT
                         p.pet_id,
                         p.pet_name,
-                        p.pet_age,
                         p.pet_type,
                         p.pet_weight,
                         p.pet_size,
@@ -105,27 +106,33 @@ $selected_service_id = $_GET['service_id'] ?? '';
                 if (empty($pets)) {
                     echo "<p>このサービスを利用したペットはいません。</p>";
                 } else {
-                    echo "<table border='1' style='margin-top:20px; border-collapse: collapse; width: 100%;'>";
-                    echo "<thead><tr style='background-color: #eee;'>
-                        <th>ペット名</th>
-                        <th>年齢</th>
-                        <th>種類</th>
-                        <th>体重</th>
-                        <th>サイズ</th>
-                        <th>生年月日</th>
-                        <th>飼い主名</th>
+                    echo "<table class='history_table'>";
+                    echo "<thead style='background-color: #CC6633; color: white;'>";
+                    echo "<tr>
+                        <th class='h1'>ペット名</th>
+                        <th class='h2'>年齢</th>
+                        <th class='h3'>種類</th>
+                        <th class='h3'>体重</th>
+                        <th class='h3'>サイズ</th>
+                        <th class='h4'>生年月日</th>
+                        <th class='h2'>飼い主名</th>
                     </tr></thead><tbody>";
+
                     foreach ($pets as $pet) {
                         echo "<tr>";
-                        echo "<td>" . xss($pet['pet_name']) . "</td>";
-                        echo "<td>" . xss($pet['pet_age']) . "</td>";
-                        echo "<td>" . xss($pet['pet_type']) . "</td>";
-                        echo "<td>" . xss($pet['pet_weight']) . "</td>";
-                        echo "<td>" . xss($pet['pet_size']) . "</td>";
-                        echo "<td>" . xss($pet['pet_DOB']) . "</td>";
-                        echo "<td>" . xss($pet['customer_name']) . "</td>";
+                        echo "<td class='h1'>" . xss($pet['pet_name']) . "</td>";
+                        $dob = new DateTime($pet['pet_DOB']);
+                        $today = new DateTime();
+                        $age = $today->diff($dob)->y;
+                        echo "<td class='h2'>" . $age . "</td>";
+                        echo "<td class='h3'>" . xss($pet['pet_type']) . "</td>";
+                        echo "<td class='h3'>" . xss($pet['pet_weight']) . "</td>";
+                        echo "<td class='h3'>" . xss($pet['pet_size']) . "</td>";
+                        echo "<td class='h4'>" . xss($pet['pet_DOB']) . "</td>";
+                        echo "<td class='h2'>" . xss($pet['customer_name']) . "</td>";
                         echo "</tr>";
                     }
+
                     echo "</tbody></table>";
                 }
             } catch (PDOException $e) {
