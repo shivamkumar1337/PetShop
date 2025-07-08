@@ -48,25 +48,33 @@ $display_username = $form_data['username'] ?? $user['username'];
             </ul>
         </div>
     <?php endif; ?>
-
-    <form action="mypage_update.php" method="post">
-        <div class="form_la">
-            <label>ユーザー名</label>
-            <input type="text" name="username" value="<?= xss($display_username) ?>">
-        </div>
-        <div class="form_la">
-            <label>現在のパスワード</label>
-            <input type="password" name="current_password">
-        </div>
-        <div class="form_la">
-            <label>新しいパスワード</label>
-            <input type="password" name="new_password">
-        </div>
-        <div class="form_la">
-            <label>新しいパスワード（確認）</label>
-            <input type="password" name="confirm_password">
-        </div>
-        <button type="submit">更新</button>
-    </form>
+    <main>
+        <form class="mypage_form" action="mypage_update.php" method="post">
+            <div class="form_my">
+                <label>ユーザー名</label>
+                <input type="text" name="username" value="<?= xss($display_username) ?>" required>
+            </div>
+            <div class="form_my">
+                <label>現在のパスワード</label>
+                <input type="password" name="current_password" required>
+            </div>
+            <div class="form_my">
+                <label>新しいパスワード</label>
+                <input type="password" name="new_password" required>
+            </div>
+            <div class="form_my">
+                <label>新しいパスワード(確認)</label>
+                <input type="password" name="confirm_password" required>
+            </div>
+            <div class="my_btn">
+                <button class="my_submit_btn" type="submit">更新</button>
+            </div>            
+        </form>
+    </main>
+    <footer>
+        <nav>
+            <li><a href="mypage.php">マイページへ</a></li>
+        </nav>
+    </footer>
 </body>
 </html>

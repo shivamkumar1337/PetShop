@@ -1,10 +1,17 @@
 <?php
 require_once '../includes/db.php';
 require_once '../config/config.php';
+require_once(__DIR__ . '/session_check.php');
 
-$search = $_GET['search'] ?? '';
+// 検索語の取得とバリデーション
+$search = '';
+if (isset($_GET['search'])) {
+    $input = trim($_GET['search']);
+    if (mb_strlen($input) <= 50) {
+        $search = $input;
+    }
+}
 
-// 提供された場合は、検索用のクエリを準備します。
 $sql = "SELECT service_history.history_id, service_history.service_date,
          customers.customer_name, pets.pet_name, services.service_name,
          pets.pet_type, pets.pet_size
@@ -15,36 +22,24 @@ $sql = "SELECT service_history.history_id, service_history.service_date,
 
 $params = [];
 if (!empty($search)) {
-    $sql .= " WHERE customers.customer_name LIKE :search OR pets.pet_name LIKE :search OR pets.pet_type LIKE :search OR services.service_name LIKE :search";
+    $sql .= " WHERE customers.customer_name LIKE :search 
+              OR pets.pet_name LIKE :search 
+              OR pets.pet_type LIKE :search 
+              OR services.service_name LIKE :search";
     $params[':search'] = "%$search%";
 }
-
 $sql .= " ORDER BY service_history.service_date DESC";
+
 $stmt = $pdo->prepare($sql);
 $stmt->execute($params);
 $history_table = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
-<html lang='ja'>
+<html lang="ja">
 <head>
     <meta charset='utf-8'>
     <title>履歴画面</title>
-    <style>
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-        th, td {
-            border: 1px solid #ccc;
-            padding: 8px;
-            text-align: center;
-        }
-        th {
-            /* background-color: #CC6633; */
-            /* color: white; */
-        }
-    </style>
 </head>
 <body>
     <header>
@@ -58,13 +53,13 @@ $history_table = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <main>
         <form method="get" action="history.php">
-            <input type="text" name="search" placeholder="検索" value="<?= htmlspecialchars($search) ?>">
+            <input type="text" name="search" placeholder="検索" value="<?= htmlspecialchars($search, ENT_QUOTES, 'UTF-8') ?>" maxlength="50" required>
             <input type="submit" value="🔍">
         </form>
 
-        <form method="post" action="history_delete.php">
+        <form method="post" action="history_delete.php" onsubmit="return confirm('選択した履歴を削除してよろしいですか？');">
             <button type="submit">削除</button>
-            <table>
+            <table border="1">
                 <thead>
                     <tr>
                         <th>日付</th>
@@ -77,24 +72,27 @@ $history_table = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     </tr>
                 </thead>
                 <tbody>
-                <?php if (empty($history_table)): ?>
-                    <tr><td colspan="7">現在登録されている履歴情報はありません。</td></tr>
-                <?php else: ?>
-                    <?php foreach ($history_table as $history): ?>
-                        <tr>
-                            <td><?= htmlspecialchars($history['service_date']) ?></td>
-                            <td><?= htmlspecialchars($history['customer_name']) ?></td>
-                            <td><?= htmlspecialchars($history['pet_name']) ?></td>
-                            <td><?= htmlspecialchars($history['pet_type']) ?></td>
-                            <td><?= htmlspecialchars($history['pet_size']) ?></td>
-                            <td><?= htmlspecialchars($history['service_name']) ?></td>
-                            <td><input type="checkbox" name="history_delete_ids[]" value="<?= $history['history_id'] ?>"></td>
-                        </tr>
-                    <?php endforeach; ?>
-                <?php endif; ?>
+                    <?php if (empty($history_table)): ?>
+                        <tr><td colspan="7">検索結果に該当する情報はありません。</td></tr>
+                    <?php else: ?>
+                        <?php foreach ($history_table as $history): ?>
+                            <tr>
+                                <td><?= htmlspecialchars($history['service_date'], ENT_QUOTES, 'UTF-8') ?></td>
+                                <td><?= htmlspecialchars($history['customer_name'], ENT_QUOTES, 'UTF-8') ?></td>
+                                <td><?= htmlspecialchars($history['pet_name'], ENT_QUOTES, 'UTF-8') ?></td>
+                                <td><?= htmlspecialchars($history['pet_type'], ENT_QUOTES, 'UTF-8') ?></td>
+                                <td><?= htmlspecialchars($history['pet_size'], ENT_QUOTES, 'UTF-8') ?></td>
+                                <td><?= htmlspecialchars($history['service_name'], ENT_QUOTES, 'UTF-8') ?></td>
+                                <td>
+                                    <input type="checkbox" name="history_delete_ids[]" value="<?= htmlspecialchars($history['history_id'], ENT_QUOTES, 'UTF-8') ?>">
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                 </tbody>
             </table>
         </form>
     </main>
 </body>
 </html>
+

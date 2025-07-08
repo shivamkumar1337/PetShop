@@ -18,27 +18,34 @@ img {
 /*------　共通　------*/
 /*--全体--*/
 html {
-    padding: 30px 100px;
     font-size: 1.2rem;
 }
 /*--ヘッダー--*/
 header {
+    width: 100%;
     height: 30%;
-    margin: 0 0 20px 0;
+    padding: 30px 100px;
+    background-color: #CC6633;
 }
 header h1 {
     font-size: 2.5rem;
+    color: #FFFFFF;
 }
 header nav {
     text-align: right;
 }
+header li a {
+    color: #FFFFFF;
+}
 /*--メイン--*/
 main {
     height: 60%;
+    padding-top: 20px;
 }
 /*--テーブル--*/
 table, th, td {
     border: 1px solid;
+    margin: 0 auto;
 }
 /*--フォーム--*/
 input, select {
@@ -46,7 +53,7 @@ input, select {
 }
 /*--フッター--*/
 footer {
-    margin-top: 50px;
+    margin-top: 30px;
     height: 10%;
     text-align: center;
 }
@@ -125,9 +132,48 @@ p {
 }
 
 /*------　mypage-home-　------*/
-
+.mypage_table {
+    margin: 0 auto;
+    
+}
+.mypage_table th, .mypage_table td{
+    width: 400px;
+    height: 75px;
+    text-align: center;
+}
+.my_btn {                   /*ログイン編集と共通*/
+    text-align: center;
+}
+.mypage_btn {
+    margin: 40px 0;
+    width: 250px;
+    height: 80px;
+}
 /*------　mypage-edit-　------*/
-.my_la {
-    width: 200px;
+.mypage_form {
     border: solid 1px;
+    width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+.form_my {
+    display: flex;
+    flex-direction: row;
+    margin: 20px 50px;
+    align-items: center;
+}
+.form_my label {
+    width: 260px;
+    text-align: right;
+    padding-right: 20px;
+}
+.form_my input{
+    width: 350px;
+    text-align: center;
+}
+
+.my_submit_btn {
+    width: 150px;
+    height: 50px;
+    margin: 10px 0 20px 0;
 }

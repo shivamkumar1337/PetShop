@@ -30,7 +30,7 @@ $user_id = $_SESSION['user_id']; // セッションからユーザーID取得
                 </ul>
             </nav>
         </header>
-        <main>
+        <main class="mypage">
             <?php
             try {
                 // ログイン中のユーザーの情報を取得
@@ -65,12 +65,15 @@ $user_id = $_SESSION['user_id']; // セッションからユーザーID取得
                         </form>
                     </div>
                     <?php
-                }
-            } catch (PDOException $e) {
-                echo "<p>エラー: " . xss($e->getMessage()) . "</p>";
-            }
-            ?>
-            <button onclick="location.href='mypage_edit.php'">ログイン情報編集</button>
+                        }
+                    } catch (PDOException $e) {
+                        echo "<p>エラー: " . xss($e->getMessage()) . "</p>";
+                    }
+                    ?>
+                    <div class="my_btn">
+                        <button class="mypage_btn" onclick="location.href='mypage_edit.php'">ログイン情報編集</button>
+                    </div>
+            
         </main>
     </div>
 </body>

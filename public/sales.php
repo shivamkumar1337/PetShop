@@ -1,96 +1,115 @@
-<?php
+<<?php
 require_once '../includes/db.php';
+require_once(__DIR__ . '/session_check.php');
+require_once '../config/config.php';
+
+// 月の初期値（現在の月）
+$month = date('n');
+
+// フォームからの入力を検証
+if (isset($_GET['month'])) {
+    $input_month = filter_input(INPUT_GET, 'month', FILTER_VALIDATE_INT, [
+        'options' => ['min_range' => 1, 'max_range' => 12]
+    ]);
+    if ($input_month !== false) {
+        $month = $input_month;
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang='ja'>
-    <head>
-        <meta charset='utf-8'>
-        <title>売画集計面面</title>
-        <style>
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-        th, td {
-            border: 1px solid #ccc;
-            padding: 8px;
-            text-align: center;
-        }
-        th {
-            /* background-color: #CC6633; */
-            /* color: white; */
-        }
-    </style>
-    </head> 
-    <body>
-        <div>
-            <header>
-                <h1>売上集計</h1>
-                <nav>
-                    <ul>
-                        <li><a href="main.php">メインへ</a></li>
-                    </ul>
-                </nav>
-            </header>
-    <main>
-        <button onclick="location.href='sales_pet.php'">ペット種別</button>
-        <button onclick="location.href='sales_service.php'">サービス別</button>
-         <?php
-                require_once '../config/config.php';
-                // ユーザーテーブルからデータを取得
-                try {
-                    // プリペアドステートメントの作成
-                    $stmt = $pdo->prepare("SELECT service_history.history_id,service_history.service_date,
-                     customers.customer_name, pets.pet_name, services.service_name, services.service_price,
-                      pets.pet_type, pets.pet_size FROM service_history JOIN customers ON
-                       service_history.customer_id = customers.customer_id JOIN pets ON
-                        service_history.pet_id = pets.pet_id JOIN services ON
-                         service_history.service_id = services.service_id ORDER BY service_history.service_id ASC");
-                   
-                    // パラメータのバインド
-                    //$stmt->bindParam(':status', $status, PDO::PARAM_STR);
-                   
-                    // クエリの実行
-                    $stmt->execute();
-                   
-                    // 結果の取得
-                    $history_table = $stmt->fetchAll();
-                   
-                    // 結果がない場合の処理
-                    if (empty($history_table)) {
-                        echo "<p>現在登録されている履歴情報はありません。</p>";
-                    } else {
-                        // HTMLテーブルとして表示
-                    
-                ?>
-        <table border="1">
-            <thead>
-            <tr>
-                <th>ペット種類</th>
-                <th>大きさ</th>
-                <th>サービス</th>
-                <th>売上</th>
-            </tr>  
-            </thead>  
-            <tbody>
-                                <?php foreach ($history_table as $history): ?>
-                                <tr>                            
-                                    <td><?php echo htmlspecialchars($history['pet_type']); ?></td>
-                                    <td><?php echo htmlspecialchars($history['pet_size']); ?></td>
-                                    <td><?php echo htmlspecialchars($history['service_name']); ?></td>
-                                    <td><?php echo htmlspecialchars($history['service_price']); ?></td>
-                                </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
-                        <?php
+<head>
+    <meta charset='utf-8'>
+    <title>売上集計画面</title>
+</head>
+<body>
+    <div>
+        <header>
+            <h1>売上集計</h1>
+            <nav>
+                <ul>
+                    <li><a href="main.php">メインへ</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <form method="get" action="">
+                <label for="month">月を選択：</label>
+                <select name="month" id="month">
+                    <?php for ($i = 1; $i <= 12; $i++): ?>
+                        <option value="<?= $i ?>" <?= $i == $month ? 'selected' : '' ?>>
+                            <?= $i ?>月
+                        </option>
+                    <?php endfor; ?>
+                </select>
+                <button type="submit">表示</button>
+            </form>
+
+            <button onclick="location.href='sales_pet.php'">ペット種別</button>
+            <button onclick="location.href='sales_service.php'">サービス別</button>
+
+            <?php
+            try {
+                $stmt = $pdo->prepare("
+                    SELECT 
+                        s.service_name, 
+                        SUM(s.service_price) AS total_sales, 
+                        p.pet_type, 
+                        p.pet_size
+                    FROM service_history sh
+                    JOIN customers c ON sh.customer_id = c.customer_id
+                    JOIN pets p ON sh.pet_id = p.pet_id
+                    JOIN services s ON sh.service_id = s.service_id
+                    WHERE MONTH(sh.service_date) = :month
+                    GROUP BY p.pet_type, p.pet_size, s.service_name
+                    ORDER BY s.service_name ASC
+                ");
+
+                $stmt->bindValue(':month', $month, PDO::PARAM_INT);
+                $stmt->execute();
+                $history_table = $stmt->fetchAll();
+
+                if (empty($history_table)) {
+                    echo "<p>現在登録されている履歴情報はありません。</p>";
+                } else {
+                    $total = 0;
+                    foreach ($history_table as $history) {
+                        $price = isset($history['total_sales']) ? (float)$history['total_sales'] : 0;
+                        $total += $price;
                     }
-                } catch (PDOException $e) {
-                    echo "エラー: " . $e->getMessage();
+
+                    echo "<p>【" . htmlspecialchars($month) . "月分】売上合計: " . number_format($total) . "円</p>";
+            ?>
+
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>ペット種類</th>
+                        <th>大きさ</th>
+                        <th>サービス</th>
+                        <th>売上</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($history_table as $history): ?>
+                        <tr>
+                            <td><?= htmlspecialchars($history['pet_type']) ?></td>
+                            <td><?= htmlspecialchars($history['pet_size']) ?></td>
+                            <td><?= htmlspecialchars($history['service_name']) ?></td>
+                            <td><?= number_format((float)$history['total_sales']) ?>円</td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+
+            <?php
                 }
-                ?>
-                        </main> 
-       </form>
-     </body> 
-   <div>   
-</html>   
+            } catch (PDOException $e) {
+                echo "<p>エラー: " . htmlspecialchars($e->getMessage()) . "</p>";
+            }
+            ?>
+        </main>
+    </div>
+</body>
+</html>

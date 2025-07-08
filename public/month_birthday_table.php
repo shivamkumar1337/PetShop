@@ -1,5 +1,7 @@
 <?php
 require_once(__DIR__ . '/../config/config.php');
+require_once(__DIR__ . '/session_check.php');
+
 
 $stmt = $pdo->prepare("
     SELECT 

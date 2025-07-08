@@ -1,6 +1,15 @@
 <?php
+<<<<<<< HEAD
 require_once __DIR__ . '/../includes/functions.php';
 require_once __DIR__ . '/../config/config.php';
+=======
+//DB接続
+require_once '../includes/db.php';
+require_once(__DIR__ . '/session_check.php');
+require_once '../config/config.php';
+//XSS対策関数
+require_once '../includes/functions.php';
+>>>>>>> 3efbac614213c85363b1b84c0ce4e71283a1fc91
 
 // IDがGETで渡されているか確認
 if (!isset($_GET['id']) || !preg_match('/^\d+$/', $_GET['id'])) {
