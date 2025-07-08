@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header("Location: customer_list.php?updated=1");
         exit;
     } catch (PDOException $e) {
-        $error = "更新エラー: " . str2html($e->getMessage());
+        $error = "更新エラー: " . xss($e->getMessage());
     }
 }
 
@@ -51,7 +51,7 @@ try {
         exit;
     }
 } catch (PDOException $e) {
-    echo "読み込みエラー: " . str2html($e->getMessage());
+    echo "読み込みエラー: " . xss($e->getMessage());
     exit;
 }
 ?>
@@ -73,23 +73,23 @@ try {
 
     <form method="post" action="">
         <label>顧客名：
-            <input type="text" name="customer_name" value="<?= str2html($customer['customer_name']) ?>" required>
+            <input type="text" name="customer_name" value="<?= xss($customer['customer_name']) ?>" required>
         </label><br>
 
         <label>郵便番号：
-            <input type="text" name="customer_zipcode" value="<?= str2html($customer['customer_zipcode']) ?>">
+            <input type="text" name="customer_zipcode" value="<?= xss($customer['customer_zipcode']) ?>">
         </label><br>
 
         <label>住所：
-            <input type="text" name="address" value="<?= str2html($customer['address']) ?>">
+            <input type="text" name="address" value="<?= xss($customer['address']) ?>">
         </label><br>
 
         <label>電話番号：
-            <input type="text" name="customer_number" value="<?= str2html($customer['customer_number']) ?>">
+            <input type="text" name="customer_number" value="<?= xss($customer['customer_number']) ?>">
         </label><br>
 
         <label>メールアドレス：
-            <input type="email" name="customer_mail" value="<?= str2html($customer['customer_mail']) ?>">
+            <input type="email" name="customer_mail" value="<?= xss($customer['customer_mail']) ?>">
         </label><br><br>
 
         <button type="submit">更新</button>

@@ -43,7 +43,7 @@ $keyword = trim($_GET['keyword'] ?? '');
 
 <main>
     <form method="get" action="" class="no-print">
-        <input type="text" name="keyword" placeholder="顧客名を入力" value="<?= str2html($keyword) ?>">
+        <input type="text" name="keyword" placeholder="顧客名を入力" value="<?= xss($keyword) ?>">
         <input type="submit" value="🔍 検索">
     </form>
 
@@ -64,10 +64,10 @@ $keyword = trim($_GET['keyword'] ?? '');
                 foreach ($customers as $customer):
     ?>
                 <table border="1" style="margin-top: 20px;">
-                    <tr><th>顧客名</th><td><?= str2html($customer['customer_name']) ?></td></tr>
-                    <tr><th>住所</th><td><?= str2html($customer['customer_zipcode'] . ' ' . $customer['address']) ?></td></tr>
-                    <tr><th>電話番号</th><td><?= str2html($customer['customer_number']) ?></td></tr>
-                    <tr><th>メールアドレス</th><td><?= str2html($customer['customer_mail']) ?></td></tr>
+                    <tr><th>顧客名</th><td><?= xss($customer['customer_name']) ?></td></tr>
+                    <tr><th>住所</th><td><?= xss($customer['customer_zipcode'] . ' ' . $customer['address']) ?></td></tr>
+                    <tr><th>電話番号</th><td><?= xss($customer['customer_number']) ?></td></tr>
+                    <tr><th>メールアドレス</th><td><?= xss($customer['customer_mail']) ?></td></tr>
                 </table>
 
                 <?php
@@ -93,12 +93,12 @@ $keyword = trim($_GET['keyword'] ?? '');
                         <tbody>
                             <?php foreach ($pets as $pet): ?>
                                 <tr>
-                                    <td><?= str2html($pet['pet_name']) ?></td>
-                                    <td><?= str2html($pet['pet_age']) ?></td>
-                                    <td><?= str2html($pet['pet_type']) ?></td>
-                                    <td><?= str2html($pet['pet_weight']) ?></td>
-                                    <td><?= str2html($pet['pet_size']) ?></td>
-                                    <td><?= str2html($pet['pet_DOB']) ?></td>
+                                    <td><?= xss($pet['pet_name']) ?></td>
+                                    <td><?= xss($pet['pet_age']) ?></td>
+                                    <td><?= xss($pet['pet_type']) ?></td>
+                                    <td><?= xss($pet['pet_weight']) ?></td>
+                                    <td><?= xss($pet['pet_size']) ?></td>
+                                    <td><?= xss($pet['pet_DOB']) ?></td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
@@ -108,7 +108,7 @@ $keyword = trim($_GET['keyword'] ?? '');
                 endforeach;
             }
         } catch (PDOException $e) {
-            echo "<p>エラー: " . str2html($e->getMessage()) . "</p>";
+            echo "<p>エラー: " . xss($e->getMessage()) . "</p>";
         }
     } else {
         echo "<p>顧客名を入力してください。</p>";

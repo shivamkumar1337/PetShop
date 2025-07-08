@@ -25,7 +25,7 @@ $keyword = trim($_GET['keyword'] ?? '');
 
 <main>
     <form method="get" action="customer_list.php">
-        <input type="text" name="keyword" placeholder="顧客名を入力" value="<?= str2html($keyword) ?>">
+        <input type="text" name="keyword" placeholder="顧客名を入力" value="<?= xss($keyword) ?>">
         <input type="submit" value="🔍 検索">
     </form>
 </main>
@@ -72,13 +72,13 @@ $keyword = trim($_GET['keyword'] ?? '');
             <tbody>
                 <?php foreach ($customers_table as $customer): ?>
                     <tr>
-                        <td><?= str2html($customer['customer_name']) ?></td>
-                        <td><?= str2html($customer['pet_name'] ?? '―') ?></td>
-                        <td><?= str2html($customer['customer_zipcode']) ?><?= str2html($customer['address']) ?></td>
-                        <td><?= str2html($customer['customer_number']) ?></td>
-                        <td><?= str2html($customer['customer_mail']) ?></td>
-                        <td><a href="customer_edit.php?id=<?= str2html($customer['customer_id']) ?>">🖋</a></td>
-                        <td><input type="checkbox" name="customer_delete_ids[]" value="<?= str2html($customer['customer_id']) ?>"></td>
+                        <td><?= xss($customer['customer_name']) ?></td>
+                        <td><?= xss($customer['pet_name'] ?? '―') ?></td>
+                        <td><?= xss($customer['customer_zipcode']) ?><?= xss($customer['address']) ?></td>
+                        <td><?= xss($customer['customer_number']) ?></td>
+                        <td><?= xss($customer['customer_mail']) ?></td>
+                        <td><a href="customer_edit.php?id=<?= xss($customer['customer_id']) ?>">🖋</a></td>
+                        <td><input type="checkbox" name="customer_delete_ids[]" value="<?= xss($customer['customer_id']) ?>"></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
@@ -86,7 +86,7 @@ $keyword = trim($_GET['keyword'] ?? '');
         <?php
             }
         } catch (PDOException $e) {
-            echo "<p>エラー: " . str2html($e->getMessage()) . "</p>";
+            echo "<p>エラー: " . xss($e->getMessage()) . "</p>";
         }
         ?>
     </form>

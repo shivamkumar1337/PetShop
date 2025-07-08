@@ -7,7 +7,7 @@ try {
     $stmt = $pdo->query("SELECT service_id, service_name FROM services ORDER BY service_name");
     $services = $stmt->fetchAll();
 } catch (PDOException $e) {
-    echo "<p>サービス一覧取得エラー: " . str2html($e->getMessage()) . "</p>";
+    echo "<p>サービス一覧取得エラー: " . xss($e->getMessage()) . "</p>";
 }
 
 $selected_service_id = $_GET['service_id'] ?? '';
@@ -56,9 +56,9 @@ $selected_service_id = $_GET['service_id'] ?? '';
         <select name="service_id" id="service" required>
             <option value="">-- 選択してください --</option>
             <?php foreach ($services as $service): ?>
-                <option value="<?= str2html($service['service_id']) ?>"
+                <option value="<?= xss($service['service_id']) ?>"
                     <?= $service['service_id'] == $selected_service_id ? 'selected' : '' ?>>
-                    <?= str2html($service['service_name']) ?>
+                    <?= xss($service['service_name']) ?>
                 </option>
             <?php endforeach; ?>
         </select>
@@ -73,7 +73,7 @@ $selected_service_id = $_GET['service_id'] ?? '';
                 <?php
                 foreach ($services as $s) {
                     if ($s['service_id'] == $selected_service_id) {
-                        echo str2html($s['service_name']);
+                        echo xss($s['service_name']);
                         break;
                     }
                 }
@@ -117,19 +117,19 @@ $selected_service_id = $_GET['service_id'] ?? '';
                     </tr></thead><tbody>";
                     foreach ($pets as $pet) {
                         echo "<tr>";
-                        echo "<td>" . str2html($pet['pet_name']) . "</td>";
-                        echo "<td>" . str2html($pet['pet_age']) . "</td>";
-                        echo "<td>" . str2html($pet['pet_type']) . "</td>";
-                        echo "<td>" . str2html($pet['pet_weight']) . "</td>";
-                        echo "<td>" . str2html($pet['pet_size']) . "</td>";
-                        echo "<td>" . str2html($pet['pet_DOB']) . "</td>";
-                        echo "<td>" . str2html($pet['customer_name']) . "</td>";
+                        echo "<td>" . xss($pet['pet_name']) . "</td>";
+                        echo "<td>" . xss($pet['pet_age']) . "</td>";
+                        echo "<td>" . xss($pet['pet_type']) . "</td>";
+                        echo "<td>" . xss($pet['pet_weight']) . "</td>";
+                        echo "<td>" . xss($pet['pet_size']) . "</td>";
+                        echo "<td>" . xss($pet['pet_DOB']) . "</td>";
+                        echo "<td>" . xss($pet['customer_name']) . "</td>";
                         echo "</tr>";
                     }
                     echo "</tbody></table>";
                 }
             } catch (PDOException $e) {
-                echo "<p>データ取得エラー: " . str2html($e->getMessage()) . "</p>";
+                echo "<p>データ取得エラー: " . xss($e->getMessage()) . "</p>";
             }
             ?>
         </div>
