@@ -46,17 +46,16 @@ if (!$customer_id) {
         .btn:hover {
             background-color: #CC6633;
         }
-        .top-right {
-            position: absolute;
-            top: 30px;
-            right: 35px;
-        }
     </style>
 </head>
 <body>
 
-<div class="top-right">
-    <a href="main.php" class="btn">メインへ</a>
+<div style="display: flex; justify-content: flex-end; align-items: flex-end; margin-bottom: 20px;">
+    <a href="main.php"
+        style="display: inline-block; width: 150px; text-align: center; text-decoration: none; font-weight: bold;
+        color: #000; padding: 10px; border: 1px solid #333; background-color: white;">
+        メインへ
+    </a>
 </div>
 
 <div class="container">
@@ -66,6 +65,9 @@ if (!$customer_id) {
 
     <a href="register_pet.php?customer_id=<?= $customer_id ?>" class="btn">新規ペット登録</a>
 </div>
-
+<a href="select_customer.php"
+    style = "display: flex; justify-content:center; align-items:center;text-align: center; padding: 30px;">
+    利用登録へ
+</a>
 </body>
 </html>

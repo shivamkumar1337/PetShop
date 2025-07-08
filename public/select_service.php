@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 try {
-    $stmt = $pdo->query("SELECT * FROM services ORDER BY service_id");
+    $stmt = $pdo->query("SELECT * FROM services ORDER BY service_name");
     $services=$stmt->fetchAll(PDO::FETCH_ASSOC);
 
     if (empty($services)) {
@@ -118,6 +118,9 @@ try {
             登録
         </button>
     </form>
-
+    <a href="select_customer.php"
+            style = "display: flex; justify-content:center; align-items:center;text-align: center; padding: 30px;">
+                  利用登録へ
+    </a>
 </body>
 </html>

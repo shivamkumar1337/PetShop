@@ -45,13 +45,16 @@ require_once(__DIR__ . '/session_check.php');
             top: 30px;
             right: 35px;
         }
-
     </style>
 </head>
 <body>
 
-<div class="top-right">
-    <a href="main.php" class="btn">メインへ</a>
+<div style="display: flex; justify-content: flex-end; align-items: flex-end; margin-bottom: 20px;">
+    <a href="main.php"
+        style="display: inline-block; width: 150px; text-align: center; text-decoration: none; font-weight: bold;
+        color: #000; padding: 10px; border: 1px solid #333; background-color: white;">
+        メインへ
+    </a>
 </div>
 
 <div class="container">

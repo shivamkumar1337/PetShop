@@ -1,12 +1,6 @@
 <?php
-<<<<<<< HEAD
 require_once __DIR__ . '/../includes/functions.php';
 require_once __DIR__ . '/../config/config.php';
-=======
-require_once '../includes/db.php';
-require_once '../includes/functions.php';
-require_once '../config/config.php';
->>>>>>> 3efbac614213c85363b1b84c0ce4e71283a1fc91
 ?>
 
 <!DOCTYPE html>
@@ -22,7 +16,6 @@ require_once '../config/config.php';
             padding: 30px;
         }
 
-<<<<<<< HEAD
                 <?php
                 // ユーザーテーブルからデータを取得
                 try {
@@ -44,11 +37,6 @@ require_once '../config/config.php';
                     } else {
                         // HTMLテーブルとして表示
                 ?>
-=======
-        h1 {
-            margin-bottom: 20px;
-        }
->>>>>>> 3efbac614213c85363b1b84c0ce4e71283a1fc91
 
         .top-right {
             display: flex;
@@ -56,51 +44,6 @@ require_once '../config/config.php';
             margin-bottom: 20px;
         }
 
-<<<<<<< HEAD
-                    <!--Form-->
-                    <div class="form_wrap">
-                        <form method="post" action="service_delete.php" onsubmit="return confirm('選択したサービスを削除してもよろしいですか？');">
-                            <div class="delete_btn_wrap">    
-                                <button class="service_delete_btn" type="submit">削除</button>                
-                            </div> 
-                            <table border=1 class="service_table">
-                                <thead>
-                                    <tr>
-                                        <th class="s1">サービス名</th>
-                                        <th class="s2">種類</th>
-                                        <th class="s3">大きさ</th>
-                                        <th class="s4">料金</th>
-                                        <th class="s5">編集</th>
-                                        <th class="s6">削除</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php foreach ($services_table as $services): ?>
-                                    <tr>
-                                        <td class="s1"><?php echo xss($services['service_name']); ?></td>
-                                        <td class="s2"><?php echo xss($services['pet_type']); ?></td>
-                                        <td class="s3"><?php echo xss($services['pet_size']); ?></td>
-                                        <td class="s4"><?php echo xss($services['service_price']); ?></td>
-                                        <td class="s5"><a href="service_actions.php?id=<?php echo urlencode($services['service_id']); ?>">✐</a></td>
-                                        <td class="s6"><input type="checkbox" name="service_delete_ids[]" value="<?php echo $services['service_id']; ?>"></td>
-                                    </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
-                        </form>
-                    </div>
-                <?php
-                    }
-                } catch (PDOException $e) {
-                    echo "エラー: " . $e->getMessage();
-                }
-                ?>
-                
-            </main>
-        </div>
-    </body>
-</html>
-=======
         .top-right a {
             display: inline-block;
             text-decoration: none;
@@ -233,4 +176,3 @@ require_once '../config/config.php';
 
 </body>
 </html>
->>>>>>> 3efbac614213c85363b1b84c0ce4e71283a1fc91
