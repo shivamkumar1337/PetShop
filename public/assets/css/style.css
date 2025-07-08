@@ -261,3 +261,28 @@ p {
     background-color: #CC6633;
     color: white;
 }
+
+/*------　sales-page-　------*/
+.sales_form {
+    margin-bottom: 1em;
+    display: flex;
+    align-items: center;
+    gap: 1em;
+}
+.sales_nav_btn {
+    margin-right: 1em;
+    padding: 8px 16px;
+    background-color: #CC6633;
+    color: white;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+}
+.sales_nav_btn:hover {
+    background-color: #a14a21;
+}
+.sales_summary {
+    font-weight: bold;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
