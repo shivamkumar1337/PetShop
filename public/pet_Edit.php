@@ -10,13 +10,12 @@ $pet_id = (int)$_GET['id'];
 
 try {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $stmt = $pdo->prepare("UPDATE pets SET pet_name = :name, pet_age = :age, pet_type = :type,
+        $stmt = $pdo->prepare("UPDATE pets SET pet_name = :name, pet_type = :type,
                                 pet_weight = :weight, pet_size = :size, pet_DOB = :dob
                                 WHERE pet_id = :id");
 
         $stmt->execute([
             ':name' => $_POST['pet_name'],
-            ':age' => $_POST['pet_age'],
             ':type' => $_POST['pet_type'],
             ':weight' => $_POST['pet_weight'],
             ':size' => $_POST['pet_size'],
@@ -54,8 +53,6 @@ try {
      <a href="main.php">メインへ</a>
 <form method="post" action="">
     <label>ペット名: <input type="text" name="pet_name" value="<?= htmlspecialchars($pet['pet_name']) ?>" required></label><br>
-    
-    <label>年齢: <input type="number" name="pet_age" value="<?= htmlspecialchars($pet['pet_age']) ?>" required></label><br>
     
     <label>種類:
         <select name="pet_type" required>

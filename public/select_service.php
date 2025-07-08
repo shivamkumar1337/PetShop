@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 try {
-    $stmt = $pdo->query("SELECT * FROM services ORDER BY service_id");
+    $stmt = $pdo->query("SELECT * FROM services ORDER BY service_name");
     $services=$stmt->fetchAll(PDO::FETCH_ASSOC);
 
     if (empty($services)) {
