@@ -35,7 +35,7 @@ $history_table = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <title>履歴一覧</title>
 </head>
-<body style="margin: 0; font-family: Arial, sans-serif; background-color: #f5f5f5; padding: 30px;">
+<body style="margin: 0; background-color: #f5f5f5; padding: 30px;">
 
     <h1 style="margin-bottom: 20px;">履歴一覧</h1>
 
