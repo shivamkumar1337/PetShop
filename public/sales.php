@@ -22,7 +22,7 @@ if (isset($_GET['month'])) {
 <html lang='ja'>
 <head>
     <meta charset='utf-8'>
-    <title>売上集計画面</title>
+    <title>売上集計</title>
     <link rel="stylesheet" href="assets/css/style.css" type="text/css">
 </head>
 <body>

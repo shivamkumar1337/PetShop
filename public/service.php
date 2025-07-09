@@ -7,7 +7,7 @@ require_once '../config/config.php';
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>UHD商事ペットショップ -- サービス</title>
+    <title>サービス</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
@@ -25,7 +25,7 @@ require_once '../config/config.php';
 
     <?php
     try {
-        $stmt = $pdo->prepare("SELECT service_id, service_name, pet_type, pet_size, service_price FROM services");
+        $stmt = $pdo->prepare("SELECT service_id, service_name, pet_type, pet_size, service_price FROM services ORDER BY service_name");
         $stmt->execute();
         $services_table = $stmt->fetchAll();
 

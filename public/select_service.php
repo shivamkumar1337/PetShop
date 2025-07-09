@@ -42,13 +42,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 try {
-    $stmt = $pdo->query("SELECT * FROM services ORDER BY service_name");
+    $stmt = $pdo->prepare("SELECT pet_type, pet_size FROM pets WHERE pet_id = ?");
+    $stmt->execute([$pet_id]);
+    $pet = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!$pet) {
+        throw new Exception("指定されたペットが見つかりません。");
+    }
+
+    $stmt = $pdo->prepare("SELECT * FROM services WHERE pet_type = ? AND pet_size = ? ORDER BY service_name");
+    $stmt->execute([$pet['pet_type'], $pet['pet_size']]);
     $services = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
     if (empty($services)) {
-        $message = "登録されたサービスはありません";
+        $message = "一致するサービスは登録されていません";
     }
 } catch (PDOException $e) {
-    $message = "サービス一覧を取得できませんでした" . $e->getMessage();
+    $message = "サービス一覧を取得できませんでした: " . $e->getMessage();
+} catch (Exception $e) {
+    $message = $e->getMessage();
 }
 
 ?>
@@ -56,7 +68,7 @@ try {
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>サービス選択画面</title>
+    <title>サービス選択</title>
     <link rel="stylesheet" href="assets/css/style.css" type="text/css">
 </head>
 <body>
@@ -84,7 +96,6 @@ try {
                     <table class="history_table">
                         <thead class="">
                             <tr>
-                                <th>サービスID</th>
                                 <th>サービス名</th>
                                 <th>価格</th>
                                 <th>ペット種類</th>
@@ -95,7 +106,6 @@ try {
                         <tbody>
                             <?php foreach ($services as $service): ?>
                                 <tr>
-                                    <td><?= xss($service['service_id']) ?></td>
                                     <td><?= xss($service['service_name']) ?></td>
                                     <td>¥<?= number_format($service['service_price']) ?></td>
                                     <td><?= xss($service['pet_type']) ?></td>

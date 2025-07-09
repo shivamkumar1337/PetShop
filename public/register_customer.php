@@ -14,8 +14,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (!preg_match('/^\d{7}$/', $zip)) {
         $message = "郵便番号は７桁の数字で入力してください。";
-    } elseif (!preg_match('/^\d{10}$/', $number)) {
-        $message = "電話番号は１０桁の数字で入力してください。";
+    } elseif (!preg_match('/^\d{10,11}$/', $number)) {
+        $message = "電話番号は10や11桁の数字で入力してください。";
     } elseif (empty($name) || empty($number) || empty($email)) {
         $message = "名前、電話番号、メールアドレスは必須です";
     } else {
@@ -59,27 +59,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <form method="post" action="" class="mypage_form">
         <div class="form_my">
             <label>名前:</label>
-            <input type="text" name="customer_name" required>
+            <input type="text" name="customer_name" required value="<?= xss($name ?? '') ?>">
         </div>
 
         <div class="form_my">
             <label>電話番号:</label>
-            <input type="number" name="customer_number" required>
+            <input type="number" name="customer_number" required value="<?= xss($number ?? '') ?>">
         </div>
 
         <div class="form_my">
             <label>メールアドレス:</label>
-            <input type="email" name="customer_mail" required>
+            <input type="email" name="customer_mail" required value="<?= xss($email ?? '') ?>">
         </div>
 
         <div class="form_my">
             <label>郵便番号:</label>
-            <input type="number" name="customer_zipcode">
+            <input type="number" name="customer_zipcode" value="<?= xss($zip ?? '') ?>">
         </div>
 
         <div class="form_my">
             <label>住所:</label>
-            <input type="text" name="address">
+            <input type="text" name="address" value="<?= xss($address ?? '') ?>">
         </div>
 
         <div class="my_btn">
@@ -88,12 +88,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </form>
 </main>
 
-<footer>
-    <nav>
-        <ul>
-            <li><a href="select_customer.php">利用登録へ</a></li>
-        </ul>
-    </nav>
-</footer>
+<div class="link">
+    <a href="select_customer.php">利用登録へ</a>
+</div>
 </body>
 </html>

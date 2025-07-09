@@ -20,8 +20,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (empty($name) || empty($type) || empty($size)) {
         $message = "名前、 種類、サイズは必須です";
-    } elseif (!is_numeric($wt)) {
-        $message = "体重は数値で入力してください。";
     } else {
         try {
             $stmt = $pdo->prepare("INSERT INTO pets (customer_id, pet_name, pet_weight, pet_type, pet_size, pet_DOB) VALUES (?, ?, ?, ?, ?, ?)");
@@ -46,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
 <header>
-    <h1>新規ペット登録</h1>
+    <h1>ペットの登録</h1>
     <nav>
         <ul>
             <li><a href="main.php">メインへ</a></li>
@@ -64,12 +62,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <form action="" method="post" class="service_form">
         <div class="form_la">
             <label>名前:</label>
-            <input type="text" name="pet_name" required>
+            <input type="text" name="pet_name" required value="<?= xss($name ?? '') ?>">
         </div>
 
         <div class="form_la">
-            <label>体重:</label>
-            <input type="number" name="pet_weight" min="0" step="0.1" max="200" required>
+            <label>体重（㎏）:</label>
+            <input type="number" name="pet_weight" min="0" step="0.1" max="200" required value="<?= xss($wt ?? '') ?>">
         </div>
 
         <div class="form_la">
@@ -94,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <div class="form_la">
             <label>生年月日:</label>
-            <input type="date" name="pet_DOB">
+            <input type="date" name="pet_DOB" value="<?= xss($dob ?? '') ?>">
         </div>
 
         <div class="my_btn">
@@ -103,12 +101,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </form>
 </main>
 
-<footer>
-    <nav>
-        <ul>
-            <li><a href="select_customer.php">利用登録へ</a></li>
-        </ul>
-    </nav>
-</footer>
+<div class="link">
+    <a href="select_customer.php">利用登録へ</a>
+</div>
 </body>
 </html>

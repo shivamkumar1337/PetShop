@@ -29,7 +29,7 @@ try {
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>サービス編集画面</title>
+    <title>サービス編集</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>

@@ -59,12 +59,9 @@ CREATE TABLE service_history (
     pet_size VARCHAR(50) NOT NULL,    
     INDEX (customer_id),
     INDEX (pet_id),
-    INDEX (service_id),
+    INDEX (service_id)
 
-    CONSTRAINT fk_history_customer FOREIGN KEY (customer_id) REFERENCES customers(customer_id),
-    CONSTRAINT fk_history_pet FOREIGN KEY (pet_id) REFERENCES pets(pet_id),
-    CONSTRAINT fk_history_service FOREIGN KEY (service_id) REFERENCES services(service_id)
-) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;
+)
 
 
 -- Table: appointments

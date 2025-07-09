@@ -6,7 +6,7 @@ require_once '../config/config.php';
 <html lang='ja'>
 <head>
     <meta charset='utf-8'>
-    <title>ペット種別画面</title>
+    <title>ペット種別</title>
     <link rel="stylesheet" href="assets/css/style.css" type="text/css">
 </head>
 <body>

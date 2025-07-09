@@ -31,8 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <title>ログイン - PetShop</title>
+    <title>ログイン</title>
 </head>
 <body style="display: flex; justify-content: center; align-items: center; height: 100vh;">
 

@@ -7,7 +7,7 @@ require_once(__DIR__ . '/session_check.php');
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>顧客選択 - ペットショップ</title>
+    <title>顧客選択</title>
     <link rel="stylesheet" href="assets/css/style.css" type="text/css">
 </head>
 <body>

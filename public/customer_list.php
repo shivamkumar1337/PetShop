@@ -10,7 +10,7 @@ $keyword = trim($_GET['keyword'] ?? '');
 
 <head>
     <meta charset='utf-8'>
-    <title>顧客一覧画面</title>
+    <title>顧客一覧</title>
     <link rel="stylesheet" href=" assets/css/style.css">
 </head>
 
