@@ -1,4 +1,4 @@
-<?php 
+<?php
 require_once(__DIR__ . '/../config/config.php');
 require_once(__DIR__ . '/session_check.php');
 require_once(__DIR__ . '/../includes/functions.php');
@@ -24,11 +24,13 @@ try {
 
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <title>予約一覧</title>
     <link rel="stylesheet" href="assets/css/style.css" type="text/css">
 </head>
+
 <body>
     <div>
         <header>
@@ -47,12 +49,12 @@ try {
 
             <?php if (!empty($appointments)): ?>
                 <form method="post" action="appointment_delete.php">
-                    <div class="delete_btn_wrap">
-                        <button type="submit" class="service_delete_btn">削除</button>
+                    <div style="display: flex; justify-content: flex-end;">
+                        <button type="button" class="history_delete_btn" onclick=confirmdelete()>削除</button>
                     </div>
 
                     <table class="history_table">
-                        <thead class="table_header">
+                        <thead>
                             <tr>
                                 <th>予約日時</th>
                                 <th>顧客名</th>
@@ -78,14 +80,28 @@ try {
                         </tbody>
                     </table>
                 </form>
-
-                <div class="link" style="text-align: center; margin-top: 20px;">
-                    <a href="list_select.php">一覧表示選択画面へ</a>
-                </div>
             <?php else: ?>
                 <p>登録された予約が見つかりません。</p>
             <?php endif; ?>
         </main>
     </div>
+    <div class="link" style="text-align: center; margin-top: 20px;">
+        <a href="list_select.php">一覧表示選択画面へ</a>
+    </div>
+    <script>
+        function confirmdelete() {
+            const form = document.querySelector('form');
+            const checked = form.querySelectorAll('input[name="appointment_ids[]"]:checked');
+            if (checked.length === 0) {
+                alert("削除する予約を選択してください。");
+                return;
+            }
+
+            if (confirm("以下のデータを削除しますか？")) {
+                form.submit();
+            }
+        }
+    </script>
 </body>
+
 </html>

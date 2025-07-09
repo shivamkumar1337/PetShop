@@ -1,173 +1,226 @@
 @charset "UTF-8";
-/*---reset---*/
+
 * {
-	margin: 0;	
-	padding: 0;
-	list-style: none;
-	font-size: 100%;
-	border: none;
-}
-*,*::before,*::after{
-	box-sizing:border-box;
-}
-img {
-	vertical-align: top;
-	width : 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 100%;
+    border: none;
 }
 
-/*------　共通　------*/
-/*--全体--*/
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+img {
+    vertical-align: top;
+    width: 100%;
+}
+
 html {
     font-size: 1.2rem;
 }
-/*--ヘッダー--*/
+
 header {
     width: 100%;
     height: 30%;
     padding: 30px 100px;
     background-color: #CC6633;
 }
+
 header h1 {
     font-size: 2.5rem;
     color: #FFFFFF;
 }
+
 header nav {
     text-align: right;
 }
+
 header li a {
     color: #FFFFFF;
 }
-/*--メイン--*/
+
 main {
     height: 60%;
     padding-top: 20px;
+    padding-bottom: 40px;
 }
-/*--テーブル--*/
-table, th, td {
-    border: 1px solid;
-    margin: 0 auto;
-}
-/*--フォーム--*/
-input, select {
-    border: 1px solid;
-}
-/*--フッター--*/
+
 footer {
     margin-top: 30px;
     height: 10%;
     text-align: center;
 }
 
-/*------　service-home-　------*/
+input,
+select {
+    border: 1px solid;
+}
+
 button {
     border: 1px solid;
 }
-.service_add_btn {  
-    width: 250px;
-    height: 80px;
-    margin: 10px;
+
+table,
+th,
+td {
+    border: 1px solid;
+    margin: 0 auto;
 }
-p {
-    margin: 10px;
-}
+
 .form_wrap {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-top: 20px;
 }
+
+.link {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.link a {
+    /* text-decoration: none; */
+    color: #CC6633;
+    font-weight: bold;
+    padding: 10px 20px;
+    /* border: 1px solid #CC6633; */
+    /* border-radius: 4px; */
+    /* transition: background-color 0.3s ease; */
+}
+/* 
+.link a:hover { */
+    /* background-color: #CC6633; */
+    /* color: white; */
+/* } */
+
+.service_add_btn {
+    width: 250px;
+    height: 80px;
+    margin: 10px;
+}
+
 .delete_btn_wrap {
     width: 100%;
     display: flex;
     justify-content: flex-end;
     margin-bottom: 20px;
 }
+
 .service_delete_btn {
     width: 100px;
     height: 50px;
 }
+
 .service_table {
     max-width: 1000px;
     margin: 0 auto;
 }
-.s1, .s2, .s3, .s4, .s5, .s6{
+
+.s1,
+.s2,
+.s3,
+.s4,
+.s5,
+.s6 {
     text-align: center;
 }
-.s1, .s2, .s3, .s4 {
+
+.s1,
+.s2,
+.s3,
+.s4 {
     width: 200px;
 }
-.s5, .s6 {
+
+.s5,
+.s6 {
     width: 100px;
 }
 
-/*------　service-form-　------*/
 .service_form {
     border: solid 1px;
     width: 600px;
     margin: 0 auto;
     padding: 20px;
 }
+
 .form_la {
     display: flex;
     flex-direction: row;
     margin: 20px 50px;
     align-items: center;
 }
+
 .form_la label {
     width: 120px;
     text-align: right;
     padding-right: 20px;
 }
-.form_la input, .form_la select {
+
+.form_la input,
+.form_la select {
     width: 350px;
     text-align: center;
 }
+
 .submit_btn {
     text-align: center;
 }
-.submit_btn input{
+
+.submit_btn input {
     width: 100px;
     height: 50px;
     margin: 10px 0 20px 0;
 }
 
-/*------　mypage-home-　------*/
 .mypage_table {
     margin: 0 auto;
-    
 }
-.mypage_table th, .mypage_table td{
+
+.mypage_table th,
+.mypage_table td {
     width: 400px;
     height: 75px;
     text-align: center;
 }
-.my_btn {                   /*ログイン編集と共通*/
+
+.my_btn {
     text-align: center;
 }
+
 .mypage_btn {
     margin: 40px 0;
     width: 250px;
     height: 80px;
+    cursor: pointer;
 }
-/*------　mypage-edit-　------*/
+
 .mypage_form {
     border: solid 1px;
     width: 800px;
     margin: 0 auto;
     padding: 20px;
 }
+
 .form_my {
     display: flex;
     flex-direction: row;
     margin: 20px 50px;
     align-items: center;
 }
+
 .form_my label {
     width: 260px;
     text-align: right;
     padding-right: 20px;
 }
-.form_my input{
+
+.form_my input {
     width: 350px;
     text-align: center;
 }
@@ -177,9 +230,9 @@ p {
     height: 50px;
     margin: 10px 0 20px 0;
 }
-/*------　history-page-追加スタイル ------*/
+
 .history_back_btn {
-    color: #FFFFFF;          /* header links in your style.css are white */
+    color: #FFFFFF;
     text-decoration: none;
     font-weight: bold;
     padding: 10px 20px;
@@ -187,6 +240,7 @@ p {
     border-radius: 4px;
     transition: background-color 0.3s ease;
 }
+
 .history_back_btn:hover {
     background-color: #fff;
     color: #CC6633;
@@ -195,7 +249,7 @@ p {
 .history_search_wrap {
     display: flex;
     justify-content: center;
-    margin: 30px 0 20px 0;
+    /* margin: 30px 0 20px 0; */
     gap: 10px;
 }
 
@@ -216,8 +270,8 @@ p {
 }
 
 .history_delete_btn {
-    display: block;
-    margin: 20px auto;
+    display: flex;
+    margin: 20px;
     padding: 10px 20px;
     background-color: #CC6633;
     color: white;
@@ -234,7 +288,8 @@ p {
     background-color: white;
 }
 
-.history_table th, .history_table td {
+.history_table th,
+.history_table td {
     padding: 10px;
     border: 1px solid #ccc;
     text-align: center;
@@ -244,20 +299,71 @@ p {
     background-color: #CC6633;
     color: white;
 }
-.link {
-    text-align: center;
-    margin-top: 20px;
+
+.sales_form {
+    margin: 1em;
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    border: 1px solid;
+    border-radius: 4px;
+    padding: 1em;
 }
-.link a {
-    text-decoration: none;
-    color: #CC6633;
+
+.sales_nav_btn {
+    margin-right: 1em;
+    padding: 8px 16px;
+    background-color: #CC6633;
+    color: white;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+}
+
+.sales_nav_btn:hover {
+    background-color: #a14a21;
+}
+
+.sales_summary {
     font-weight: bold;
-    padding: 10px 20px;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+p {
+    margin: 10px;
+}
+
+
+.header_flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.button_grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin: 40px auto;
+    max-width: 800px;
+}
+.button_grid form {
+    margin: 0;
+}
+.button_grid button {
+    width: 220px;
+    height: 80px;
+    font-size: 1.1rem;
+    background-color: white;
+    color: #CC6633;
     border: 1px solid #CC6633;
     border-radius: 4px;
+    cursor: pointer;
     transition: background-color 0.3s ease;
+    padding: 10px;
 }
-.link a:hover {
-    background-color: #CC6633;
+.button_grid button:hover {
+    background-color:  #CC6633;
     color: white;
 }

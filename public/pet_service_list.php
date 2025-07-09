@@ -18,7 +18,7 @@ $selected_service_id = $_GET['service_id'] ?? '';
 <head>
     <meta charset="utf-8">
     <title>サービス別ペット一覧画面</title>
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href=" assets/css/style.css">
     <style>
         @media print {
             body * {
@@ -53,7 +53,7 @@ $selected_service_id = $_GET['service_id'] ?? '';
     </header>
 
 <main>
-    <form method="get" action="" class="no-print" style="margin-bottom: 1em;">
+    <form method="get" action="" class="history_search_wrap" style="margin-bottom: 1em;">
         <label for="service">サービスを選択：</label>
         <select name="service_id" id="service" required>
             <option value="">-- 選択してください --</option>
@@ -64,12 +64,13 @@ $selected_service_id = $_GET['service_id'] ?? '';
                 </option>
             <?php endforeach; ?>
         </select>
-        <button type="submit">表示</button>
+        <button type="submit" class="history_search_btn">表示</button>
     </form>
 
-    <?php if ($selected_service_id !== ''): ?>
-        <button onclick="window.print()" class="no-print" style="margin-bottom: 1em;">🖨 印刷</button>
-
+            <div style="display: flex; justify-content: center; flex-direction: row; align-items: center;">
+                <?php if ($selected_service_id !== ''): ?>
+                    <button onclick="window.print()" class="no-print" style="margin-bottom: 1em;">🖨 印刷</button>
+            </div>
         <div id="print-area">
             <h2>選択中のサービス：
                 <?php
@@ -107,7 +108,7 @@ $selected_service_id = $_GET['service_id'] ?? '';
                     echo "<p>このサービスを利用したペットはいません。</p>";
                 } else {
                     echo "<table class='history_table'>";
-                    echo "<thead style='background-color: #CC6633; color: white;'>";
+                    echo "<thead >";
                     echo "<tr>
                         <th class='h1'>ペット名</th>
                         <th class='h2'>年齢</th>

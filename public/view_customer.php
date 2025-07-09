@@ -25,59 +25,58 @@ try {
 <head>
     <meta charset="UTF-8">
     <title>顧客様一覧</title>
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body style="margin: 0; background-color: #f5f5f5; padding: 30px;">
+<body>
 
-    <div style="display: flex; justify-content: flex-end; align-items: flex-end; margin-bottom: 20px;">
-        <a href="main.php"
-           style="display: inline-block; width: 150px; text-align: center; text-decoration: none; font-weight: bold;
-                  color: #000; padding: 10px; border: 1px solid #333; background-color: white;">
-           メインへ
-        </a>
-    </div>
+<header>
+    <h1>一覧から顧客を選ぶ</h1>
+    <nav>
+        <ul>
+            <li><a href="main.php">メインへ</a></li>
+        </ul>
+    </nav>
+</header>
 
-    <h1 style="margin-bottom: 20px;">一覧から顧客を選ぶ</h1>
-
+<main>
     <?php if (!empty($message)): ?>
         <p style="color: red; font-weight: bold;"><?= xss($message) ?></p>
     <?php endif; ?>
 
     <?php if (!empty($customers)): ?>
-        <div style="overflow-x: auto; background-color: white; border: 1px solid #ccc;">
-            <table style="border-collapse: collapse; width: 100%;">
-                <thead style="background-color: #CC6633; color: white;">
+        <table class="history_table">
+            <thead>
+                <tr>
+                    <th>顧客ID</th>
+                    <th>名前</th>
+                    <th>電話番号</th>
+                    <th>選択</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($customers as $customer): ?>
                     <tr>
-                        <th style="padding: 10px; border: 1px solid #ccc;">顧客ID</th>
-                        <th style="padding: 10px; border: 1px solid #ccc;">名前</th>
-                        <th style="padding: 10px; border: 1px solid #ccc;">電話番号</th>
-                        <th style="padding: 10px; border: 1px solid #ccc;">選択</th>
+                        <td><?= xss($customer['customer_id']) ?></td>
+                        <td><?= xss($customer['customer_name']) ?></td>
+                        <td><?= xss($customer['customer_number']) ?></td>
+                        <td>
+                            <a href="select_pet.php?customer_id=<?= $customer['customer_id'] ?>" class="mypage_btn">
+                               選択
+                            </a>
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($customers as $customer): ?>
-                        <tr style="text-align: center;">
-                            <td style="padding: 10px; border: 1px solid #ccc;"><?= xss($customer['customer_id']) ?></td>
-                            <td style="padding: 10px; border: 1px solid #ccc;"><?= xss($customer['customer_name']) ?></td>
-                            <td style="padding: 10px; border: 1px solid #ccc;"><?= xss($customer['customer_number']) ?></td>
-                            <td style="padding: 10px; border: 1px solid #ccc;">
-                                <a href="select_pet.php?customer_id=<?= $customer['customer_id'] ?>"
-                                   style="display: inline-block; padding: 8px 16px; background-color: #CC6633; color: white;
-                                          text-decoration: none; border-radius: 6px; font-weight: bold;">
-                                   選択
-                                </a>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+        
+        <div class="my_btn">
+            <button class="mypage_btn" onclick="location.href='select_customer.php'">利用登録へ</button>
         </div>
-        <a href="select_customer.php"
-            style = "display: flex; justify-content:center; align-items:center;text-align: center; padding: 30px;">
-                  利用登録へ
-        </a>
     <?php else: ?>
-        <p style="padding: 10px; background-color: #fff; border: 1px solid #ccc;">登録された顧客が見つかりません。</p>
+        <p>登録された顧客が見つかりません。</p>
     <?php endif; ?>
+
+</main>
 
 </body>
 </html>

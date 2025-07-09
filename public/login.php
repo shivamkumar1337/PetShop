@@ -1,7 +1,7 @@
-<?php
+﻿<?php
 session_start();
 require_once(__DIR__ . '/../config/config.php');
-require_once(__DIR__ . '/../includes/functions.php'); 
+require_once(__DIR__ . '/../includes/functions.php');
 
 $message = '';
 
@@ -10,28 +10,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'] ?? '';
 
     if (empty($username) || empty($password)) {
-        $message = "Username and password required.";
+        $message = "ユーザー名とパスワードを入力してください。";
     } else {
         $stmt = $pdo->prepare("SELECT * FROM users WHERE username = ?");
         $stmt->execute([$username]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($user && password_verify($password, $user['password'])) {
-            $_SESSION['user_id'] = $user['user_id']; // ← mypage.php で使う
+            $_SESSION['user_id'] = $user['user_id'];
             $_SESSION['user'] = $username;
             header("Location: main.php");
             exit;
         } else {
-            $message = "Invalid credentials.";
+            $message = "ユーザー名またはパスワードが正しくありません。";
         }
     }
 }
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
-    <title>Login - PetShop</title>
+    <meta charset="UTF-8">
+    <title>ログイン - PetShop</title>
 </head>
 <body style="display: flex; justify-content: center; align-items: center; height: 100vh;">
 
@@ -50,9 +51,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php endif; ?>
 
     <form method="POST" action="login.php" style="width: 100%;">
-        <input type="text" name="username" placeholder="Username" required
+        <input type="text" name="username" placeholder="ユーザー名" required
                style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 6px;" />
-        <input type="password" name="password" placeholder="Password" required
+        <input type="password" name="password" placeholder="パスワード" required
                style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 6px;" />
         <button type="submit"
                 style="width: 100%; padding: 10px; background: #CC6633; color: white; font-weight: bold; border: none; border-radius: 6px; cursor: pointer;">

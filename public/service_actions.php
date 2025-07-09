@@ -1,11 +1,7 @@
 <?php
-
-
 require_once(__DIR__ . '/session_check.php');
 require_once(__DIR__ . '/../config/config.php');
 require_once(__DIR__ . '/../includes/functions.php');
-require_once '../config/config.php';
-require_once '../includes/functions.php';
 
 if (!isset($_GET['id']) || !preg_match('/^\d+$/', $_GET['id'])) {
     echo "不正なIDです。";
@@ -28,141 +24,80 @@ try {
     echo "エラー: " . xss($e->getMessage());
     exit;
 }
-
 ?>
-
 <!DOCTYPE html>
 <html lang="ja">
-    <head>
-        <meta charset="UTF-8">
-        <title>サービス編集画面</title>
-        <style>
-            html, body {
-                margin: 0;
-                padding: 0;
-                height: 100%;
-                background-color: #f5f5f5;
-                font-family: Arial, sans-serif;
-            }
+<head>
+    <meta charset="UTF-8">
+    <title>サービス編集画面</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<div>
+    <header>
+        <h1>サービス編集</h1>
+        <nav>
+            <ul>
+                <li><a href="main.php">メインへ</a></li>
+            </ul>
+        </nav>
+    </header>
 
-            .container {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                height: 100%;
-                padding: 30px;
-            }
+    <main>
+        <form action="service_update.php" method="post" class="service_form">
+            <!-- IDをhiddenで送信 -->
+            <input type="hidden" name="service_id" value="<?= xss($service_id) ?>">
 
-            .form-box {
-                max-width: 600px;
-                width: 100%;
-                background-color: white;
-                border: 1px solid #ccc;
-                padding: 30px;
-                border-radius: 8px;
-            }
+            <!-- サービス名 -->
+            <div class="form_la">
+                <label>サービス名</label>
+                <input type="text" name="service_name" value="<?= xss($service['service_name']) ?>">
+            </div>
 
-            .form-group {
-                margin-bottom: 15px;
-            }
+            <!-- 種類 -->
+            <div class="form_la">
+                <label>種類</label>
+                <select name="pet_type">
+                    <?php
+                    $types = ['犬', '猫', 'その他'];
+                    foreach ($types as $type) {
+                        $selected = ($service['pet_type'] === $type) ? 'selected' : '';
+                        echo "<option value=\"" . xss($type) . "\" $selected>" . xss($type) . "</option>";
+                    }
+                    ?>
+                </select>
+            </div>
 
-            label {
-                font-weight: bold;
-                display: block;
-                margin-bottom: 5px;
-            }
+            <!-- 大きさ -->
+            <div class="form_la">
+                <label>大きさ</label>
+                <select name="pet_size">
+                    <?php
+                    $sizes = ['小型', '中型', '大型'];
+                    foreach ($sizes as $size) {
+                        $selected = ($service['pet_size'] === $size) ? 'selected' : '';
+                        echo "<option value=\"" . xss($size) . "\" $selected>" . xss($size) . "</option>";
+                    }
+                    ?>
+                </select>
+            </div>
 
-            input {
-                width: 100%;
-                padding: 10px;
-                border: 1px solid #ccc;
-                border-radius: 4px;
-            }
+            <!-- 料金 -->
+            <div class="form_la">
+                <label>料金</label>
+                <input type="number" name="service_price" step="1" min="0" max="999999" value="<?= xss($service['service_price']) ?>">
+            </div>
 
-            button {
-                width: 100%;
-                padding: 12px;
-                background-color: #CC6633;
-                color: white;
-                font-weight: bold;
-                border: none;
-                border-radius: 6px;
-                cursor: pointer;
-            }
-            .message {
-                margin-bottom: 20px;
-                font-weight: bold;
-            }
-        </style>
-    </head>
-    <body>
-        <div style="display: flex; justify-content: flex-end; align-items: flex-end; margin-bottom: 20px;">
-            <a href="main.php"
-                style="display: inline-block; width: 150px; text-align: center; text-decoration: none; font-weight: bold;
-                color: #000; padding: 10px; border: 1px solid #333; background-color: white;">
-                メインへ
-            </a>
+            <!-- 更新ボタン -->
+            <div class="submit_btn">
+                <input type="submit" value="更新" class="my_submit_btn">
+            </div>
+        </form>
+
+        <div class="link">
+            <a href="service.php">サービス一覧へ戻る</a>
         </div>
-        <div class="container">
-            <h1 style="margin-bottom: 20px;">サービス編集</h1>
-            <main>       
-                <form action="service_update.php" method="post" class="service_form">
-                <form class="service_form" action="service_update.php" method="post" class="service_form">
-                    <!-- IDをhiddenで送信 -->
-                    <input type="hidden" name="service_id" value="<?= xss($service_id) ?>">
-
-                    <!-- サービス名入力欄（テキスト） -->
-                    <div class="form_la">
-                        <label>サービス名</label>
-                        <input type="text" name="service_name" value="<?= xss($service['service_name']) ?>">
-                    </div>
-                    
-                    <!-- 種類（セレクトボックス） -->
-                    <div class="form_la">
-                        <label>種類</label>
-                        <select name="pet_type">
-                            <?php
-                            $types = ['犬', '猫', 'その他'];
-                            foreach ($types as $type) {
-                                $selected = ($service['pet_type'] === $type) ? 'selected' : '';
-                                echo "<option value=\"" . xss($type) . "\" $selected>" . xss($type) . "</option>";
-                            }
-                            ?>
-                        </select>
-                    </div>
-
-                    <!-- 大きさ（セレクトボックス） -->
-                    <div class="form_la">
-                        <label>大きさ</label>
-                        <select name="pet_size">
-                            <?php
-                            $sizes = ['小型', '中型', '大型'];
-                            foreach ($sizes as $size) {
-                                $selected = ($service['pet_size'] === $size) ? 'selected' : '';
-                                echo "<option value=\"" . xss($size) . "\" $selected>" . xss($size) . "</option>";
-                            }
-                            ?>
-                        </select>
-                    </div>
-
-                    <!-- 料金（数値入力） -->
-                    <div class="form_la">
-                        <label>料金</label>
-                        <input type="number" name="service_price" step=1 min=0 max=999999 value="<?= xss($service['service_price']) ?>">
-                    </div>
-
-                    <!-- 送信ボタン -->
-                    <div class="submit_btn">
-                        <input type="submit" value="更新">
-                    </div>
-                </form>                
-            </main>
-            <footer>
-                <nav>
-                    <li><a href="service.php">サービス一覧へ</a></li>
-                </nav>
-            </footer>
-        </body>
-    </div>
+    </main>
+</div>
+</body>
 </html>

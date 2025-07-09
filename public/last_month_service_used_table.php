@@ -55,7 +55,7 @@ $last_service_users = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <?php else: ?>
                     <tr>
                         <td colspan="4" style="text-align: center; color: gray; padding: 20px;">
-                            本日の予定はありません。
+                            ご利用から1ヵ月経過したペットはいません。
                         </td>
                     </tr>
                 <?php endif; ?>
