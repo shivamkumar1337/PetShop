@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header("Location: customer_list.php?updated=1");
         exit;
     } catch (PDOException $e) {
-        $error = "更新エラー: " . str2html($e->getMessage());
+        $error = "更新エラー: " . xss($e->getMessage());
     }
 }
 
@@ -51,7 +51,7 @@ try {
         exit;
     }
 } catch (PDOException $e) {
-    echo "読み込みエラー: " . str2html($e->getMessage());
+    echo "読み込みエラー: " . xss($e->getMessage());
     exit;
 }
 ?>
@@ -61,40 +61,59 @@ try {
 <head>
     <meta charset="UTF-8">
     <title>顧客情報の編集</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href=" assets/css/style.css">
 </head>
 <body>
-    <h1>顧客情報の編集</h1>
-    <a href="main.php">メインへ</a>
 
+<header>
+    <h1>顧客情報の編集</h1>
+    <nav>
+        <ul>
+            <li><a href="main.php">メインへ</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
     <?php if ($error): ?>
-        <p style="color:red"><?= $error ?></p>
+        <p class="error_message"><?= $error ?></p>
     <?php endif; ?>
 
-    <form method="post" action="">
-        <label>顧客名：
-            <input type="text" name="customer_name" value="<?= str2html($customer['customer_name']) ?>" required>
-        </label><br>
+    <form method="post" action="" class="mypage_form">
+        <div class="form_my">
+            <label for="customer_name">顧客名：</label>
+            <input type="text" name="customer_name" id="customer_name" value="<?= xss($customer['customer_name']) ?>" required>
+        </div>
 
-        <label>郵便番号：
-            <input type="text" name="customer_zipcode" value="<?= str2html($customer['customer_zipcode']) ?>">
-        </label><br>
+        <div class="form_my">
+            <label for="customer_zipcode">郵便番号：</label>
+            <input type="text" name="customer_zipcode" id="customer_zipcode" value="<?= xss($customer['customer_zipcode']) ?>">
+        </div>
 
-        <label>住所：
-            <input type="text" name="address" value="<?= str2html($customer['address']) ?>">
-        </label><br>
+        <div class="form_my">
+            <label for="address">住所：</label>
+            <input type="text" name="address" id="address" value="<?= xss($customer['address']) ?>">
+        </div>
 
-        <label>電話番号：
-            <input type="text" name="customer_number" value="<?= str2html($customer['customer_number']) ?>">
-        </label><br>
+        <div class="form_my">
+            <label for="customer_number">電話番号：</label>
+            <input type="text" name="customer_number" id="customer_number" value="<?= xss($customer['customer_number']) ?>">
+        </div>
 
-        <label>メールアドレス：
-            <input type="email" name="customer_mail" value="<?= str2html($customer['customer_mail']) ?>">
-        </label><br><br>
+        <div class="form_my">
+            <label for="customer_mail">メールアドレス：</label>
+            <input type="email" name="customer_mail" id="customer_mail" value="<?= xss($customer['customer_mail']) ?>">
+        </div>
 
-        <button type="submit">更新</button>
+        <div class="my_btn">
+            <button type="submit" class="my_submit_btn">更新</button>
+        </div>
     </form>
 
-    <a href="customer_list.php">顧客一覧へ</a>
+    <div class="my_btn">
+        <a href="customer_list.php" class="history_back_btn">顧客一覧へ</a>
+    </div>
+</main>
+
 </body>
 </html>

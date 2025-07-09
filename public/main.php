@@ -29,12 +29,12 @@ require_once(__DIR__ . '/session_check.php');
             <a href="sales.php" style="display: inline-block; width: 100px; text-align: center; text-decoration: none; font-weight: bold; color: #000; padding: 10px; border: 1px solid #333;">売上</a>
             <a href="history.php" style="display: inline-block; width: 100px; text-align: center; text-decoration: none; font-weight: bold; color: #000; padding: 10px; border: 1px solid #333;">履歴</a>
             <a href="list_select.php" style="display: inline-block; width: 100px; text-align: center; text-decoration: none; font-weight: bold; color: #000; padding: 10px; border: 1px solid #333;">表示</a>
-            <a href="#" style="display: inline-block; width: 100px; text-align: center; text-decoration: none; font-weight: bold; color: #000; padding: 10px; border: 1px solid #333;">マイページ</a>
+            <a href="mypage.php" style="display: inline-block; width: 100px; text-align: center; text-decoration: none; font-weight: bold; color: #000; padding: 10px; border: 1px solid #333;">マイページ</a>
         </div>
 
         <!-- Logout -->
         <div style="margin-left: 10px;">
-            <a href="logout.php">
+            <a href="logout.php" onclick="return confirm('ログアウトしますか');">
                 <img src="assets/exit.png" alt="logout" style="height: 30px; cursor: pointer;">
             </a>
         </div>

@@ -1,9 +1,9 @@
 <?php
 require_once '../config/config.php';
-require_once __DIR__ . '/../includes/functions.php'; // str2html 関数の読み込み
+require_once __DIR__ . '/../includes/functions.php'; // xss 関数の読み込み
 
 if (!isset($_POST['customer_delete_ids']) || !is_array($_POST['customer_delete_ids'])) {
-    header('Location: history.php');
+    header('Location: customer_list.php');
     exit;
 }
 
@@ -24,5 +24,5 @@ try {
     exit;
 } catch (PDOException $e) {
     $pdo->rollBack();
-    echo "削除中にエラーが発生しました: " . str2html($e->getMessage());
+    echo "削除中にエラーが発生しました: " . xss($e->getMessage());
 }

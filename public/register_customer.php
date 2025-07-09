@@ -1,5 +1,4 @@
 <?php
-
 require_once(__DIR__ . '/../config/config.php');
 require_once(__DIR__ . '/../includes/functions.php');
 require_once(__DIR__ . '/session_check.php');
@@ -31,7 +30,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -39,124 +37,63 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <title>顧客の登録</title>
-    <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            background-color: #f5f5f5;
-            font-family: Arial, sans-serif;
-        }
-
-        .container {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100%;
-            padding: 30px;
-        }
-
-        .form-box {
-            max-width: 600px;
-            width: 100%;
-            background-color: white;
-            border: 1px solid #ccc;
-            padding: 30px;
-            border-radius: 8px;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        label {
-            font-weight: bold;
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        button {
-            width: 100%;
-            padding: 12px;
-            background-color: #CC6633;
-            color: white;
-            font-weight: bold;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-        }
-
-        .top-right {
-            position: absolute;
-            top: 30px;
-            right: 35px;
-        }
-
-        .message {
-            margin-bottom: 20px;
-            font-weight: bold;
-        }
-    </style>
+    <link rel="stylesheet" href="assets/css/style.css" type="text/css">
 </head>
 <body>
+<header>
+    <h1>顧客の登録</h1>
+    <nav>
+        <ul>
+            <li><a href="main.php">メインへ</a></li>
+        </ul>
+    </nav>
+</header>
 
-<div style="display: flex; justify-content: flex-end; align-items: flex-end; margin-bottom: 20px;">
-    <a href="main.php"
-        style="display: inline-block; width: 150px; text-align: center; text-decoration: none; font-weight: bold;
-        color: #000; padding: 10px; border: 1px solid #333; background-color: white;">
-        メインへ
-    </a>
-</div>
-
-<div class="container">
-    <h1 style="margin-bottom: 20px;">新規顧客登録</h1>
-
+<main>
     <?php if ($message): ?>
-        <div class="message" style="color: <?= strpos($message, '正常') !== false ? 'green' : 'red' ?>">
+        <div style="text-align:center; margin-bottom:20px; color:<?= strpos($message, '正常') !== false ? 'green' : 'red' ?>">
             <?= xss($message) ?>
         </div>
     <?php endif; ?>
 
-    <form method="post" action="" class="form-box">
-        <div class="form-group">
+    <form method="post" action="" class="mypage_form">
+        <div class="form_my">
             <label>名前:</label>
             <input type="text" name="customer_name" required>
         </div>
 
-        <div class="form-group">
+        <div class="form_my">
             <label>電話番号:</label>
             <input type="number" name="customer_number" required>
         </div>
 
-        <div class="form-group">
+        <div class="form_my">
             <label>メールアドレス:</label>
             <input type="email" name="customer_mail" required>
         </div>
 
-        <div class="form-group">
+        <div class="form_my">
             <label>郵便番号:</label>
             <input type="number" name="customer_zipcode">
         </div>
 
-        <div class="form-group">
+        <div class="form_my">
             <label>住所:</label>
             <input type="text" name="address">
         </div>
 
-        <button type="submit">登録</button>
+        <div class="my_btn">
+            <button class="my_submit_btn" type="submit">登録</button>
+        </div>
     </form>
-</div>
-<a href="select_customer.php"
-    style = "display: flex; justify-content:center; align-items:center;text-align: center; padding: 30px;">
-    利用登録へ
-</a>
+</main>
+
+<footer>
+    <nav>
+        <ul>
+            <li><a href="select_customer.php">利用登録へ</a></li>
+        </ul>
+    </nav>
+</footer>
 </body>
 </html>
