@@ -5,7 +5,7 @@ USE pet_service_db;
 -- Table: users
 CREATE TABLE users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(50) NOT NULL UNIQUE,
+    username VARCHAR(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -44,7 +44,6 @@ CREATE TABLE services (
     pet_size VARCHAR(100) NOT NULL
 );
 
--- Table: service_history
 CREATE TABLE service_history (
     history_id INT AUTO_INCREMENT PRIMARY KEY,
     customer_id INT,
@@ -52,14 +51,21 @@ CREATE TABLE service_history (
     service_id INT,
     service_date DATETIME NOT NULL,
 
+    customer_name VARCHAR(100) NOT NULL,
+    pet_name VARCHAR(50) NOT NULL,
+    service_name VARCHAR(100) NOT NULL,
+    service_price INT(11) NOT NULL,
+    pet_type VARCHAR(50) NOT NULL,
+    pet_size VARCHAR(50) NOT NULL,    
     INDEX (customer_id),
     INDEX (pet_id),
     INDEX (service_id),
 
-    CONSTRAINT fk_history_customer FOREIGN KEY (customer_id) REFERENCES customers(customer_id) ON DELETE SET NULL,
-    CONSTRAINT fk_history_pet FOREIGN KEY (pet_id) REFERENCES pets(pet_id) ON DELETE SET NULL,
-    CONSTRAINT fk_history_service FOREIGN KEY (service_id) REFERENCES services(service_id) ON DELETE SET NULL
-);
+    CONSTRAINT fk_history_customer FOREIGN KEY (customer_id) REFERENCES customers(customer_id),
+    CONSTRAINT fk_history_pet FOREIGN KEY (pet_id) REFERENCES pets(pet_id),
+    CONSTRAINT fk_history_service FOREIGN KEY (service_id) REFERENCES services(service_id)
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;
+
 
 -- Table: appointments
 CREATE TABLE appointments (

@@ -2,6 +2,8 @@
 //  
 require_once(__DIR__ . '/session_check.php');
 require_once '../config/config.php';
+require_once(__DIR__ . '/history_update.php');
+
 
 // 月の初期値（現在の月）
 $month = date('n');
@@ -55,17 +57,15 @@ if (isset($_GET['month'])) {
             try {
                 $stmt = $pdo->prepare("
                     SELECT 
-                        s.service_name, 
-                        SUM(s.service_price) AS total_sales, 
-                        p.pet_type, 
-                        p.pet_size
-                    FROM service_history sh
-                    JOIN customers c ON sh.customer_id = c.customer_id
-                    JOIN pets p ON sh.pet_id = p.pet_id
-                    JOIN services s ON sh.service_id = s.service_id
-                    WHERE MONTH(sh.service_date) = :month
-                    GROUP BY p.pet_type, p.pet_size, s.service_name
-                    ORDER BY s.service_name ASC
+                        service_name, 
+                        service_price AS total_sales, 
+                        pet_type, 
+                        pet_size
+                    FROM service_history
+                    
+                    WHERE MONTH(service_date) = :month
+                    GROUP BY pet_type, pet_size, service_name
+                    ORDER BY service_name ASC
                 ");
 
                 $stmt->bindValue(':month', $month, PDO::PARAM_INT);

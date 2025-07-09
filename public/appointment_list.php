@@ -2,6 +2,7 @@
 require_once(__DIR__ . '/../config/config.php');
 require_once(__DIR__ . '/session_check.php');
 require_once(__DIR__ . '/../includes/functions.php');
+require_once(__DIR__ . '/history_update.php');
 
 $message = '';
 

@@ -16,8 +16,8 @@ FROM service_history sh
 JOIN pets p ON sh.pet_id = p.pet_id
 JOIN customers c ON sh.customer_id = c.customer_id
 JOIN services s ON sh.service_id = s.service_id
-WHERE sh.service_date < DATE_SUB(CURDATE(), INTERVAL 1 MONTH)
-ORDER BY sh.service_date ASC
+WHERE sh.service_date BETWEEN DATE_SUB(CURDATE(), INTERVAL 300 DAY) AND DATE_SUB(CURDATE(), INTERVAL 30 DAY)
+ORDER BY sh.service_date ASC;
 ");
 $stmt->execute();
 $last_service_users = $stmt->fetchAll(PDO::FETCH_ASSOC);

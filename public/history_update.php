@@ -10,9 +10,25 @@ try {
     $pdo->beginTransaction();
 
     $insert_sql = "
-        INSERT INTO service_history (customer_id, service_id, pet_id, service_date)
-        SELECT a.customer_id, a.service_id, a.pet_id, a.appointment_date
+        INSERT INTO service_history (
+            customer_id, service_id, pet_id, service_date,
+            customer_name, pet_name, service_name, service_price, pet_type, pet_size
+        )
+        SELECT 
+            a.customer_id,
+            a.service_id,
+            a.pet_id,
+            a.appointment_date,
+            c.customer_name,
+            p.pet_name,
+            s.service_name,
+            s.service_price,
+            p.pet_type,
+            p.pet_size
         FROM appointments a
+        JOIN customers c ON a.customer_id = c.customer_id
+        JOIN pets p ON a.pet_id = p.pet_id
+        JOIN services s ON a.service_id = s.service_id
         WHERE a.appointment_date <= NOW()
         AND NOT EXISTS (
             SELECT 1
