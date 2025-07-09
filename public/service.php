@@ -1,19 +1,19 @@
 <?php
-require_once '../includes/functions.php';
-require_once '../config/config.php';
+require_once(__DIR__ . '/../includes/functions.php');
+require_once(__DIR__ . '/../config/config.php');
 ?>
 
 <!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>UHD商事ペットショップ -- サービス</title>
+    <title>サービス一覧</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
 <header>
-    <h1>サービス</h1>
+    <h1>サービス一覧</h1>
     <nav>
         <ul>
             <li><a href="main.php">メインへ</a></li>
@@ -29,20 +29,32 @@ require_once '../config/config.php';
         $stmt->execute();
         $services_table = $stmt->fetchAll();
 
-        if (empty($services_table)) {
-            echo "<p>現在登録されているサービスはありません。</p>";
-        } else {
-            if (!empty($_GET['added']) && $_GET['added'] == '1') {
-                echo '<p class="message">サービスが登録されました！</p>';
-            }
-            if (!empty($_GET['deleted'])) {
-                echo '<p class="message">削除が完了しました。</p>';
-            }
+        // メッセージ表示
+        if (!empty($_GET['added']) && $_GET['added'] == '1') {
+            echo '<p class="message" style="color:green;">サービスが登録されました！</p>';
+        }
+        if (!empty($_GET['updated']) && $_GET['updated'] == '1') {
+            echo '<p class="message" style="color:green;">編集が完了しました！</p>';
+        }
+        if (!empty($_GET['deleted'])) {
+            echo '<p class="message" style="color:green;">削除が完了しました。</p>';
+        }
     ?>
+
+    <!-- 登録ボタン（常に表示） -->
+    <div style="margin-bottom: 10px;">
+        <button class="service_add_btn" type="button" onclick="location.href='service_add.php'">サービス登録</button>
+    </div>
+
+    <?php if (empty($services_table)): ?>
+
+        <p>現在登録されているサービスはありません。</p>
+
+    <?php else: ?>
+
 
     <form method="post" action="service_delete.php" onsubmit="return confirm('選択したサービスを削除してもよろしいですか？');">
     <div style="display: flex; justify-content: space-between;">
-        <button class="service_add_btn" type="button" onclick="location.href='service_add.php'">サービス登録</button>    
         <button class="history_delete_btn" type="submit">削除</button>
     </div>
         
@@ -76,12 +88,14 @@ require_once '../config/config.php';
         </table>
     </form>
 
+    <?php endif; ?>
+
     <?php
-        }
     } catch (PDOException $e) {
         echo "<p style='color: red;'>エラー: " . htmlspecialchars($e->getMessage()) . "</p>";
     }
     ?>
+
 
 </main>
 
