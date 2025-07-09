@@ -71,7 +71,7 @@ unset($_SESSION['errors'], $_SESSION['old']);
 
             <div class="form_la">
                 <label for="service_price">料金</label>
-                <input type="number" name="service_price" id="service_price" required min="0" value="<?= xss($old['service_price'] ?? '') ?>">
+                <input type="number" name="service_price" id="service_price" required min="0"max="9999999999" value="<?= xss($old['service_price'] ?? '') ?>">
             </div>
 
             <div class="my_btn">
