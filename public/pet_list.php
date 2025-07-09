@@ -11,7 +11,7 @@ $keyword = trim($_GET['keyword'] ?? '');
 <head>
     <meta charset='utf-8'>
     <title>ペット一覧</title>
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href=" assets/css/style.css">
 </head>
 
 <body>

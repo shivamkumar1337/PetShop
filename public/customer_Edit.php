@@ -61,7 +61,7 @@ try {
 <head>
     <meta charset="UTF-8">
     <title>顧客情報の編集</title>
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href=" assets/css/style.css">
 </head>
 <body>
 

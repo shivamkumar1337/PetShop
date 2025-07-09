@@ -18,7 +18,7 @@ $selected_service_id = $_GET['service_id'] ?? '';
 <head>
     <meta charset="utf-8">
     <title>サービス別ペット一覧画面</title>
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href=" assets/css/style.css">
     <style>
         @media print {
             body * {
