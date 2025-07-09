@@ -3,6 +3,19 @@
 require_once(__DIR__ . '/session_check.php');
 require_once '../config/config.php';
 
+// 年の初期値（現在の年）
+$yaer = date('Y');
+
+// フォームからの入力を検証
+if (isset($_GET['yaer'])) {
+    $input_yaer = filter_input(INPUT_GET, 'yaer', FILTER_VALIDATE_INT, [
+        'options' => ['min_range' => 1900, 'max_range' => 2200]
+    ]);
+    if ($input_yaer !== false) {
+        $yaer = $input_yaer;
+    }
+}
+
 // 月の初期値（現在の月）
 $month = date('n');
 
@@ -37,6 +50,14 @@ if (isset($_GET['month'])) {
         <main>
             <div style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
             <form method="get" action="" class="sales_form">
+                <label for="yaer">年を選択：</label>
+                <select name="yaer" id="yaer">
+                    <?php for ($i = 1900; $i <= 2200; $i++): ?>
+                        <option value="<?= $i ?>" <?= $i == $yaer ? 'selected' : '' ?>>
+                            <?= $i ?>年
+                        </option>
+                    <?php endfor; ?>
+                </select>
                 <label for="month">月を選択：</label>
                 <select name="month" id="month">
                     <?php for ($i = 1; $i <= 12; $i++): ?>
