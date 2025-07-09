@@ -4,6 +4,7 @@ require_once '../config/config.php';
 require_once(__DIR__ . '/session_check.php');
 require_once(__DIR__ . '/history_update.php');
 
+
 $search = $_GET['search'] ?? '';
 
 $sql = "SELECT service_history.history_id, service_history.service_date,
@@ -22,11 +23,13 @@ if (!empty($search)) {
               OR services.service_name LIKE :search";
     $params[':search'] = "%$search%";
 }
+
 $sql .= " ORDER BY service_history.service_date DESC";
 
 $stmt = $pdo->prepare($sql);
 $stmt->execute($params);
 $history_table = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 <!DOCTYPE html>

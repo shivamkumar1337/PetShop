@@ -1,18 +1,17 @@
 <?php
-//  
 require_once(__DIR__ . '/session_check.php');
 require_once '../config/config.php';
 
 // 年の初期値（現在の年）
-$yaer = date('Y');
+$year = date('Y');
 
 // フォームからの入力を検証
-if (isset($_GET['yaer'])) {
-    $input_yaer = filter_input(INPUT_GET, 'yaer', FILTER_VALIDATE_INT, [
+if (isset($_GET['year'])) {
+    $input_year = filter_input(INPUT_GET, 'year', FILTER_VALIDATE_INT, [
         'options' => ['min_range' => 1900, 'max_range' => 2200]
     ]);
-    if ($input_yaer !== false) {
-        $yaer = $input_yaer;
+    if ($input_year !== false) {
+        $year = $input_year;
     }
 }
 
@@ -50,10 +49,10 @@ if (isset($_GET['month'])) {
         <main>
             <div style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
             <form method="get" action="" class="sales_form">
-                <label for="yaer">年を選択：</label>
-                <select name="yaer" id="yaer">
+                <label for="year">年を選択：</label>
+                <select name="year" id="year">
                     <?php for ($i = 1900; $i <= 2200; $i++): ?>
-                        <option value="<?= $i ?>" <?= $i == $yaer ? 'selected' : '' ?>>
+                        <option value="<?= $i ?>" <?= $i == $year ? 'selected' : '' ?>>
                             <?= $i ?>年
                         </option>
                     <?php endfor; ?>
@@ -84,11 +83,12 @@ if (isset($_GET['month'])) {
                     JOIN customers c ON sh.customer_id = c.customer_id
                     JOIN pets p ON sh.pet_id = p.pet_id
                     JOIN services s ON sh.service_id = s.service_id
-                    WHERE MONTH(sh.service_date) = :month
+                    WHERE YEAR(sh.service_date) = :year AND MONTH(sh.service_date) = :month
                     GROUP BY p.pet_type, p.pet_size, s.service_name
                     ORDER BY s.service_name ASC
                 ");
 
+                $stmt->bindValue(':year', $year, PDO::PARAM_INT);
                 $stmt->bindValue(':month', $month, PDO::PARAM_INT);
                 $stmt->execute();
                 $history_table = $stmt->fetchAll();
@@ -102,7 +102,7 @@ if (isset($_GET['month'])) {
                         $total += $price;
                     }
 
-                    echo "<p class='sales_summary'>【" . htmlspecialchars($month) . "月分】売上合計: " . number_format($total) . "円</p>";
+                    echo "<p class='sales_summary'>【" . htmlspecialchars($year) . "年" . htmlspecialchars($month) . "月分】売上合計: " . number_format($total) . "円</p>";
             ?>
             </div>
 
