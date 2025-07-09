@@ -10,20 +10,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'] ?? '';
 
     if (empty($username) || empty($password)) {
-        $message = "Username and password required.";
-    } else {
+        $message = "ユーザー名とパスワードが必要です。";
+    } elseif {
         $stmt = $pdo->prepare("SELECT * FROM users WHERE username = ?");
         $stmt->execute([$username]);
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        if ($user && password_verify($password, $user['password'])) {
-            $_SESSION['user_id'] = $user['user_id']; // ← mypage.php で使う
+        foreach ($users as $user && password_verify($password, $user['password'])) {
+            $_SESSION['user_id'] = $user['user_id']; 
             $_SESSION['user'] = $username;
             header("Location: main.php");
             exit;
-        } else {
-            $message = "Invalid credentials.";
-        }
+        } 
+    } else {
+            $message = "資格情報が無効です。";
     }
 }
 ?>
