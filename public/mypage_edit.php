@@ -27,7 +27,7 @@ $display_username = $form_data['username'] ?? $user['username'];
 <html lang="ja">
     <head>
         <meta charset="UTF-8">
-        <link rel="stylesheet" href="../css/sheet_style.css" type="text/css">
+        <link rel="stylesheet" href="assets/css/style.css" type="text/css">
         <title>マイページ -ログイン情報編集-</title>
     </head>
     <body>

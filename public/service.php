@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . '/../includes/functions.php';
-require_once __DIR__ . '/../config/config.php';
+require_once '../includes/functions.php';
+require_once '../config/config.php';
 ?>
 
 <!DOCTYPE html>
@@ -16,27 +16,9 @@ require_once __DIR__ . '/../config/config.php';
             padding: 30px;
         }
 
-                <?php
-                // ユーザーテーブルからデータを取得
-                try {
-                    // プリペアドステートメントの作成
-                    $stmt = $pdo->prepare("SELECT service_id, service_name, pet_type, pet_size, service_price FROM services");
-                    
-                    // パラメータのバインド
-                    //$stmt->bindParam(':status', $status, PDO::PARAM_STR);
-                    
-                    // クエリの実行
-                    $stmt->execute();
-                    
-                    // 結果の取得
-                    $services_table = $stmt->fetchAll();
-                    
-                    // 結果がない場合の処理
-                    if (empty($services_table)) {
-                        echo "<p>現在登録されているサービスはありません。</p>";
-                    } else {
-                        // HTMLテーブルとして表示
-                ?>
+        h1 {
+            margin-bottom: 20px;
+        }
 
         .top-right {
             display: flex;

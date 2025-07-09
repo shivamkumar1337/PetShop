@@ -1,9 +1,16 @@
+<?php
+require_once '../config/config.php';
+require_once __DIR__ . '/../includes/functions.php';
+
+$keyword = trim($_GET['keyword'] ?? '');
+?>
+
 <!DOCTYPE html>
 <html lang='ja'>
 <head>
     <meta charset='utf-8'>
     <title>顧客一覧画面</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
 <div>
@@ -16,80 +23,82 @@
         </nav>
     </header>
 
-<main>
-    <form method="get" action="customer_list.php">
-        <input type="text" name="keyword" placeholder="顧客名を入力" value="<?= htmlspecialchars($_GET['keyword'] ?? '') ?>">
-        <input type="submit" value="🔍 検索">
-    </form>
-</main>
+    <main>
+        <form method="get" action="customer_list.php" class="form_wrap">
+            <input type="text" name="keyword" placeholder="顧客名を入力" value="<?= xss($keyword) ?>"
+                style="padding: 8px; width: 250px; border: 1px solid #ccc; border-radius: 4px;">
+            <input type="submit" value="🔍 検索"
+                style="padding: 8px 12px; background-color: #CC6633; color: white; border: none; border-radius: 4px; cursor: pointer;">
+        </form>
+    </main>
 
-<main>
-    <form method="post" action="customer_delete.php">
-        <button type="submit" onclick="return confirm('選択した顧客を削除してよろしいですか？');">削除</button>
+    <main>
+        <form method="post" action="customer_delete.php">
+            <div class="delete_btn_wrap">
+                <button type="submit" class="service_delete_btn" onclick="return confirm('選択した顧客を削除してよろしいですか？');">削除</button>
+            </div>
 
-        <?php
-        require_once '../config/config.php';
+            <?php
+            try {
+                $sql = "SELECT customers.customer_id, customers.customer_name, customers.customer_zipcode,
+                            customers.customer_mail, customers.customer_number, customers.address,
+                            pets.pet_name
+                        FROM customers
+                        LEFT JOIN pets ON pets.customer_id = customers.customer_id";
 
-        try {
-            $sql = "SELECT customers.customer_id, customers.customer_name, customers.customer_zipcode,
-                        customers.customer_mail, customers.customer_number, customers.address,
-                        pets.pet_name
-                    FROM customers
-                    LEFT JOIN pets ON pets.customer_id = customers.customer_id";
+                $params = [];
 
-            $params = [];
-            $keyword = trim($_GET['keyword'] ?? '');
+                if ($keyword !== '') {
+                    $sql .= " WHERE customers.customer_name LIKE :kw";
+                    $params[':kw'] = '%' . $keyword . '%';
+                }
 
-            if ($keyword !== '') {
-                $sql .= " WHERE customers.customer_name LIKE :kw";
-                $params[':kw'] = '%' . $keyword . '%';
-            }
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute($params);
+                $customers_table = $stmt->fetchAll();
 
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute($params);
-            $customers_table = $stmt->fetchAll();
-
-            if (empty($customers_table)) {
-                echo "<p>該当する顧客情報はありません。</p>";
-            } else {
-        ?>
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>顧客名</th>
-                    <th>ペット名</th>
-                    <th>住所</th>
-                    <th>電話番号</th>
-                    <th>メールアドレス</th>
-                    <th>編集</th>
-                    <th>削除</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($customers_table as $customer): ?>
+                if (empty($customers_table)) {
+                    echo "<p style='text-align: center;'>該当する顧客情報はありません。</p>";
+                } else {
+            ?>
+            <table class="history_table">
+                <thead class="table_header">
                     <tr>
-                        <td><?= htmlspecialchars($customer['customer_name']) ?></td>
-                        <td><?= htmlspecialchars($customer['pet_name'] ?? '―') ?></td>
-                        <td><?= htmlspecialchars($customer['customer_zipcode']) ?><?= htmlspecialchars($customer['address']) ?></td>
-                        <td><?= htmlspecialchars($customer['customer_number']) ?></td>
-                        <td><?= htmlspecialchars($customer['customer_mail']) ?></td>
-                        <td><a href="customer_edit.php?id=<?= $customer['customer_id'] ?>">🖋</a></td>
-                        <td><input type="checkbox" name="customer_delete_ids[]" value="<?= $customer['customer_id'] ?>"></td>
+                        <th>顧客名</th>
+                        <th>ペット名</th>
+                        <th>住所</th>
+                        <th>電話番号</th>
+                        <th>メールアドレス</th>
+                        <th>編集</th>
+                        <th>削除</th>
                     </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-        <?php
+                </thead>
+                <tbody>
+                    <?php foreach ($customers_table as $customer): ?>
+                        <tr>
+                            <td><?= xss($customer['customer_name']) ?></td>
+                            <td><?= xss($customer['pet_name'] ?? '―') ?></td>
+                            <td><?= xss($customer['customer_zipcode']) ?> <?= xss($customer['address']) ?></td>
+                            <td><?= xss($customer['customer_number']) ?></td>
+                            <td><?= xss($customer['customer_mail']) ?></td>
+                            <td><a href="customer_edit.php?id=<?= xss($customer['customer_id']) ?>">🖋</a></td>
+                            <td><input type="checkbox" name="customer_delete_ids[]" value="<?= xss($customer['customer_id']) ?>"></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+            <?php
+                }
+            } catch (PDOException $e) {
+                echo "<p class='error_message'>エラー: " . xss($e->getMessage()) . "</p>";
             }
-        } catch (PDOException $e) {
-            echo "エラー: " . htmlspecialchars($e->getMessage());
-        }
-        ?>
-    </form>
+            ?>
+        </form>
 
-    <div class="link">
-        <a href="list_select.php">一覧表示選択画面へ</a>
-    </div>
-</main>
+        <div class="link">
+            <a href="list_select.php">一覧表示選択画面へ</a>
+        </div>
+    </main>
+</div>
 </body>
 </html>

@@ -18,7 +18,7 @@ $user_id = $_SESSION['user_id']; // セッションからユーザーID取得
 <head>
     <meta charset="UTF-8">
     <title>UHD商事ペットショップ -マイページ-</title>
-    <link rel="stylesheet" href="../css/sheet_style.css" type="text/css">
+    <link rel="stylesheet" href="assets/css/style.css" type="text/css">
 </head>
 <body>
     <div>

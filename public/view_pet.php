@@ -31,47 +31,19 @@ try {
 <head>
     <meta charset="UTF-8">
     <title>ペット一覧</title>
-    <style>
-        body {padding: 30px; text-align: center; }
-        table { width: 90%; margin: auto; border-collapse: collapse; margin-top: 20px; }
-        th, td { padding: 10px; border: 1px solid #ccc; }
-        th { background-color: #CC6633; }
-        a.select-btn {
-            display: inline-block;
-            padding: 6px 12px;
-            background-color: #CC6633;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 5px;
-        }
-        a.select-btn:hover {
-            background-color: #CC6633;
-        }
-        .message { color: red; font-weight: bold; margin-top: 20px; }
-        .btn {
-            display: inline-block;
-                padding: 12px 25px;
-                margin: 15px;
-                background-color: #CC6633;
-                color: white;
-                border: none;
-                border-radius: 6px;
-                text-decoration: none;
-                font-size: 16px;
-        }
-    </style>
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
-<div style="display: flex; justify-content: flex-end; align-items: flex-end; margin-bottom: 20px;">
-    <a href="main.php"
-        style="display: inline-block; width: 150px; text-align: center; text-decoration: none; font-weight: bold;
-        color: #000; padding: 10px; border: 1px solid #333; background-color: white;">
-        メインへ
-    </a>
-</div>
+<header>
+    <h1>一覧からペットを選ぶ</h1>
+    <nav>
+        <ul>
+            <li><a href="main.php">メインへ</a></li>
+        </ul>
+    </nav>
+</header>
 
-<h1>一覧からペットを選ぶ</h1>
 <p>顧客ID: <?= htmlspecialchars($customer_id) ?></p>
 
 <?php if (!empty($pets)): ?>
