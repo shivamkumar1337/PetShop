@@ -54,7 +54,9 @@ $history_table = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </form>
 
     <form method="post" action="history_delete.php" onsubmit="return confirm('選択した履歴を削除してよろしいですか？');">
-        <button type="submit" class="history_delete_btn">削除</button>
+    <div style="display: flex; justify-content: flex-end;">
+        <button type="submit"ss class="history_delete_btn">削除</button>
+    </div>        
         <table class="history_table">
             <thead>
                 <tr>

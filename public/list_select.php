@@ -4,36 +4,10 @@
     <meta charset="utf-8">
     <title>一覧表示選択画面</title>
     <link rel="stylesheet" href="assets/css/style.css">
-    <style>
-        .button-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            margin: 50px auto;
-        }
-        .button-grid form {
-            margin: 0;
-        }
-        .button-grid button {
-            width: 200px;
-            height: 60px;
-            font-size: 1.2rem;
-            background-color: #CC6633;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        .button-grid button:hover {
-            background-color: #a44d25;
-        }
-    </style>
 </head>
 <body>
     <header>
-        <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div class="header_flex">
             <h1>一覧表示　選択画面</h1>
             <nav>
                 <ul>
@@ -44,7 +18,7 @@
     </header>
 
     <main>
-        <div class="button-grid">
+        <div class="button_grid">
             <form action="pet_list.php" method="get">
                 <button type="submit">ペット一覧</button>
             </form>

@@ -35,6 +35,7 @@ if (isset($_GET['month'])) {
         </header>
 
         <main>
+            <div style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
             <form method="get" action="" class="sales_form">
                 <label for="month">月を選択：</label>
                 <select name="month" id="month">
@@ -44,7 +45,7 @@ if (isset($_GET['month'])) {
                         </option>
                     <?php endfor; ?>
                 </select>
-                <button type="submit">表示</button>
+                <button type="submit" style="padding: 10px;">表示</button>
             </form>
 
             <button onclick="location.href='sales_pet.php'" class="sales_nav_btn">ペット種別</button>
@@ -82,6 +83,7 @@ if (isset($_GET['month'])) {
 
                     echo "<p class='sales_summary'>【" . htmlspecialchars($month) . "月分】売上合計: " . number_format($total) . "円</p>";
             ?>
+            </div>
 
             <table class="history_table">
                 <thead class="table_header">
