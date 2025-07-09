@@ -3,7 +3,6 @@
     <meta charset="utf-8">
 <head>
     <title>一覧表示選択画面</title>
-    <link rel="stylesheet" href="list_select.css">
 </head>
 <body>
     <h1>一覧表示　選択画面</h1>

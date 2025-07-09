@@ -25,7 +25,6 @@ CREATE TABLE pets (
     pet_id INT AUTO_INCREMENT PRIMARY KEY,
     customer_id INT NOT NULL,
     pet_name VARCHAR(50) NOT NULL,
-    pet_age INT NOT NULL,
     pet_weight INT NOT NULL,
     pet_type VARCHAR(50) NOT NULL,
     pet_size VARCHAR(50) NOT NULL,
