@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt = $pdo->prepare("SELECT service_id FROM services WHERE service_id = ?");
             $stmt->execute([$service_id]);
             if ($stmt->rowCount() === 0) {
-                throw new Exception("そのようなサービスはありません" . $e->getMessage());
+                throw new Exception("そのようなサービスはありません");
             }
 
             $stmt = $pdo->prepare("INSERT INTO appointments (customer_id, pet_id, service_id, appointment_date) VALUES (?, ?, ?, ?)");
@@ -42,9 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 try {
-    $stmt = $pdo->query("SELECT * FROM services ORDER BY service_id");
-    $services=$stmt->fetchAll(PDO::FETCH_ASSOC);
-
+    $stmt = $pdo->query("SELECT * FROM services ORDER BY service_name");
+    $services = $stmt->fetchAll(PDO::FETCH_ASSOC);
     if (empty($services)) {
         $message = "登録されたサービスはありません";
     }
@@ -53,71 +52,76 @@ try {
 }
 
 ?>
-
 <!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
     <title>サービス選択画面</title>
+    <link rel="stylesheet" href="assets/css/style.css" type="text/css">
 </head>
-<body style="margin: 0; font-family: Arial, sans-serif; background-color: #f5f5f5; padding: 30px;">
+<body>
+    <div>
+        <header>
+            <h1>サービス選択</h1>
+            <nav>
+                <ul>
+                    <li><a href="main.php">メインへ</a></li>
+                </ul>
+            </nav>
+        </header>
 
-    <div style="display: flex; justify-content: flex-end; align-items: flex-end; margin-bottom: 20px;">
-        <a href="main.php"
-           style="display: inline-block; width: 150px; text-align: center; text-decoration: none; font-weight: bold;
-                  color: #000; padding: 10px; border: 1px solid #333; background-color: white;">
-           メインへ
-        </a>
+        <main class="form_wrap">
+            <h2>一覧からサービスを選ぶ</h2>
+
+            <?php if ($message): ?>
+                <p style="color: <?= strpos($message, '完了') !== false ? 'green' : 'red' ?>; font-weight: bold;">
+                    <?= xss($message) ?>
+                </p>
+            <?php endif; ?>
+
+            <form method="POST">
+                <div class="service_table">
+                    <table class="history_table">
+                        <thead class="">
+                            <tr>
+                                <th>サービスID</th>
+                                <th>サービス名</th>
+                                <th>価格</th>
+                                <th>ペット種類</th>
+                                <th>大きさ</th>
+                                <th>選択</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($services as $service): ?>
+                                <tr>
+                                    <td><?= xss($service['service_id']) ?></td>
+                                    <td><?= xss($service['service_name']) ?></td>
+                                    <td>¥<?= number_format($service['service_price']) ?></td>
+                                    <td><?= xss($service['pet_type']) ?></td>
+                                    <td><?= xss($service['pet_size']) ?></td>
+                                    <td><input type="radio" name="service_id" value="<?= xss($service['service_id']) ?>" required></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="form_wrap" style="margin-top: 30px;">
+                    <label style="font-weight: bold;">予約日時を選ぶ:</label><br>
+                    <input type="datetime-local" name="appointment_date"
+                           style="margin-top: 8px; padding: 10px; border: 1px solid #ccc; border-radius: 4px; width: 250px;" required>
+                </div>
+
+                <div class="submit_btn">
+                    <input type="submit" value="登録" class="my_submit_btn">
+                </div>
+            </form>
+
+            <div class="link">
+                <a href="select_customer.php">利用登録へ</a>
+            </div>
+        </main>
     </div>
-
-    <h1 style="margin-bottom: 20px;">一覧からサービスを選ぶ</h1>
-
-    <?php if ($message): ?>
-        <p style="color: red; font-weight: bold;"><?= xss($message) ?></p>
-    <?php endif; ?>
-
-    <form method="POST">
-        <div style="overflow-x: auto; background-color: white; border: 1px solid #ccc; margin-bottom: 20px;">
-            <table style="border-collapse: collapse; width: 100%;">
-                <thead style="background-color: #CC6633; color: white;">
-                    <tr>
-                        <th style="padding: 10px; border: 1px solid #ccc;">サービスID</th>
-                        <th style="padding: 10px; border: 1px solid #ccc;">サービス名</th>
-                        <th style="padding: 10px; border: 1px solid #ccc;">価格</th>
-                        <th style="padding: 10px; border: 1px solid #ccc;">ペット種類</th>
-                        <th style="padding: 10px; border: 1px solid #ccc;">大きさ</th>
-                        <th style="padding: 10px; border: 1px solid #ccc;">選択</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($services as $service): ?>
-                        <tr>
-                            <td style="padding: 10px; border: 1px solid #ccc;"><?= xss($service['service_id']) ?></td>
-                            <td style="padding: 10px; border: 1px solid #ccc;"><?= xss($service['service_name']) ?></td>
-                            <td style="padding: 10px; border: 1px solid #ccc;">¥<?= number_format($service['service_price']) ?></td>
-                            <td style="padding: 10px; border: 1px solid #ccc;"><?= xss($service['pet_type']) ?></td>
-                            <td style="padding: 10px; border: 1px solid #ccc;"><?= xss($service['pet_size']) ?></td>
-                            <td style="padding: 10px; border: 1px solid #ccc; text-align: center;">
-                                <input type="radio" name="service_id" value="<?= xss($service['service_id']) ?>" required>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        </div>
-
-        <div style="margin-bottom: 20px;">
-            <label style="font-weight: bold;">予約日時を選ぶ:</label><br>
-            <input type="datetime-local" name="appointment_date"
-                   style="margin-top: 8px; padding: 10px; border: 1px solid #ccc; border-radius: 4px; width: 250px;" required>
-        </div>
-
-        <button type="submit"
-                style="padding: 10px 20px; background-color: #CC6633; color: white; font-weight: bold;
-                       border: none; border-radius: 6px; cursor: pointer;">
-            登録
-        </button>
-    </form>
-
 </body>
 </html>

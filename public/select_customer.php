@@ -1,8 +1,6 @@
 <?php
-
 require_once(__DIR__ . '/../config/config.php');
 require_once(__DIR__ . '/session_check.php');
-
 ?>
 
 <!DOCTYPE html>
@@ -10,57 +8,36 @@ require_once(__DIR__ . '/session_check.php');
 <head>
     <meta charset="UTF-8">
     <title>顧客選択 - ペットショップ</title>
-    <style>
-        body {
-            padding-top: 50px;
-            text-align: center;
-        }
-
-        .container {
-            max-width: 500px;
-            margin: auto;
-        }
-
-        h2 {
-            margin-bottom: 30px;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 12px 25px;
-            margin: 15px;
-            background-color: #CC6633;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            text-decoration: none;
-            font-size: 16px;
-        }
-
-        .btn:hover {
-            background-color: #CC6633;
-        }
-        .top-right {
-            position: absolute;
-            top: 30px;
-            right: 35px;
-        }
-
-    </style>
+    <link rel="stylesheet" href="assets/css/style.css" type="text/css">
 </head>
 <body>
+    <div>
+        <header>
+            <h1>顧客選択</h1>
+            <nav>
+                <ul>
+                    <li><a href="main.php">メインへ</a></li>
+                </ul>
+            </nav>
+        </header>
 
-<div class="top-right">
-    <a href="main.php" class="btn">メインへ</a>
-</div>
+        <main>
+            <div class="form_wrap">
+                <h2>利用登録：顧客を選択してください</h2>
 
-<div class="container">
-    <h2>利用登録：顧客を選択してください</h2>
+                <div class="my_btn">
+                    <a href="view_customer.php">
+                        <button class="mypage_btn">顧客を選択する</button>
+                    </a>
+                </div>
 
-    <a href="view_customer.php" class="btn">顧客を選択する</a>
-
-    <a href="register_customer.php" class="btn">新規顧客登録</a>
-</div>
-
+                <div class="my_btn">
+                    <a href="register_customer.php">
+                        <button class="mypage_btn">新規顧客登録</button>
+                    </a>
+                </div>
+            </div>
+        </main>
+    </div>
 </body>
 </html>

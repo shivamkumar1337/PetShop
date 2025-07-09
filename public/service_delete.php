@@ -1,7 +1,6 @@
 <?php
-require_once '../includes/db.php';
-require_once '../config/config.php';
-require_once(__DIR__ . '/session_check.php');
+require_once __DIR__ . '/../includes/functions.php';
+require_once __DIR__ . '/../config/config.php';
 
 if (!isset($_POST['service_delete_ids']) || !is_array($_POST['service_delete_ids'])) {
     header('Location: service.php');

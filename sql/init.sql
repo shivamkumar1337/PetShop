@@ -25,7 +25,6 @@ CREATE TABLE pets (
     pet_id INT AUTO_INCREMENT PRIMARY KEY,
     customer_id INT NOT NULL,
     pet_name VARCHAR(50) NOT NULL,
-    pet_age INT NOT NULL,
     pet_weight INT NOT NULL,
     pet_type VARCHAR(50) NOT NULL,
     pet_size VARCHAR(50) NOT NULL,
@@ -40,7 +39,7 @@ CREATE INDEX idx_pet_customer ON pets(customer_id);
 CREATE TABLE services (
     service_id INT AUTO_INCREMENT PRIMARY KEY,
     service_name VARCHAR(100) NOT NULL,
-    service_price DECIMAL(10,2) NOT NULL,
+    service_price INT(11) NOT NULL,
     pet_type VARCHAR(100) NOT NULL,
     pet_size VARCHAR(100) NOT NULL
 );

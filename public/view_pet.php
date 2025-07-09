@@ -31,78 +31,60 @@ try {
 <head>
     <meta charset="UTF-8">
     <title>ペット一覧</title>
-    <style>
-        body {padding: 30px; text-align: center; }
-        table { width: 90%; margin: auto; border-collapse: collapse; margin-top: 20px; }
-        th, td { padding: 10px; border: 1px solid #ccc; }
-        th { background-color: #CC6633; }
-        a.select-btn {
-            display: inline-block;
-            padding: 6px 12px;
-            background-color: #CC6633;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 5px;
-        }
-        a.select-btn:hover {
-            background-color: #CC6633;
-        }
-        .message { color: red; font-weight: bold; margin-top: 20px; }
-        .btn {
-            display: inline-block;
-                padding: 12px 25px;
-                margin: 15px;
-                background-color: #CC6633;
-                color: white;
-                border: none;
-                border-radius: 6px;
-                text-decoration: none;
-                font-size: 16px;
-        }
-        .top-right {
-            position: absolute;
-            top: 30px;
-            right: 35px;
-        }
-    </style>
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
-<div class="top-right">
-    <a href="main.php" class="btn">メイン画面へ戻る</a>
-</div>
+<header>
+    <h1>一覧からペットを選ぶ</h1>
+    <nav>
+        <ul>
+            <li><a href="main.php">メインへ</a></li>
+        </ul>
+    </nav>
+</header>
 
-<h1>一覧からペットを選ぶ</h1>
-<p>顧客ID: <?= htmlspecialchars($customer_id) ?></p>
+<main>
+    <p>顧客ID: <?= htmlspecialchars($customer_id) ?></p>
 
-<?php if (!empty($pets)): ?>
-    <table>
-        <tr>
-            <th>ペットID</th>
-            <th>顧客名</th>
-            <th>ペット名</th>
-            <th>種類</th>
-            <th>サイズ</th>
-            <th>生年月日</th>
-            <th>選択</th>
-        </tr>
-        <?php foreach ($pets as $pet): ?>
-            <tr>
-                <td><?= xss($pet['pet_id']) ?></td>
-                <td><?= xss($pet['customer_name']) ?></td>
-                <td><?= xss($pet['pet_name']) ?></td>
-                <td><?= xss($pet['pet_type']) ?></td>
-                <td><?= xss($pet['pet_size']) ?></td>
-                <td><?= xss($pet['pet_DOB']) ?></td>
-                <td>
-                    <a class="select-btn" href="select_service.php?customer_id=<?= $pet['customer_id'] ?>&pet_id=<?= $pet['pet_id'] ?>">選択</a>
-                </td>
-            </tr>
-        <?php endforeach; ?>
-    </table>
-<?php else: ?>
-    <p class="message">登録されたペットが見つかりません。</p>
-<?php endif; ?>
+    <?php if (!empty($pets)): ?>
+        <table class="history_table">
+            <thead>
+                <tr>
+                    <th>ペットID</th>
+                    <th>顧客名</th>
+                    <th>ペット名</th>
+                    <th>種類</th>
+                    <th>サイズ</th>
+                    <th>生年月日</th>
+                    <th>選択</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($pets as $pet): ?>
+                    <tr>
+                        <td><?= xss($pet['pet_id']) ?></td>
+                        <td><?= xss($pet['customer_name']) ?></td>
+                        <td><?= xss($pet['pet_name']) ?></td>
+                        <td><?= xss($pet['pet_type']) ?></td>
+                        <td><?= xss($pet['pet_size']) ?></td>
+                        <td><?= xss($pet['pet_DOB']) ?></td>
+                        <td>
+                            <a class="mypage_btn" href="select_service.php?customer_id=<?= $pet['customer_id'] ?>&pet_id=<?= $pet['pet_id'] ?>">選択</a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+        
+        <div class="my_btn">
+            <button class="mypage_btn" onclick="location.href='select_customer.php'">利用登録へ</button>
+        </div>
+    <?php else: ?>
+        <p>登録されたペットが見つかりません。</p>
+    <?php endif; ?>
+
+</main>
 
 </body>
 </html>
