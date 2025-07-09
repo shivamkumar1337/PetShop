@@ -1,5 +1,5 @@
 <?php
-require_once '../includes/db.php';
+//  
 require_once(__DIR__ . '/session_check.php');
 require_once '../config/config.php';
 
@@ -21,6 +21,7 @@ if (isset($_GET['month'])) {
 <head>
     <meta charset='utf-8'>
     <title>売上集計画面</title>
+    <link rel="stylesheet" href="assets/css/style.css" type="text/css">
 </head>
 <body>
     <div>
@@ -34,7 +35,8 @@ if (isset($_GET['month'])) {
         </header>
 
         <main>
-            <form method="get" action="">
+            <div style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
+            <form method="get" action="" class="sales_form">
                 <label for="month">月を選択：</label>
                 <select name="month" id="month">
                     <?php for ($i = 1; $i <= 12; $i++): ?>
@@ -43,11 +45,11 @@ if (isset($_GET['month'])) {
                         </option>
                     <?php endfor; ?>
                 </select>
-                <button type="submit">表示</button>
+                <button type="submit" style="padding: 10px;">表示</button>
             </form>
 
-            <button onclick="location.href='sales_pet.php'">ペット種別</button>
-            <button onclick="location.href='sales_service.php'">サービス別</button>
+            <button onclick="location.href='sales_pet.php'" class="sales_nav_btn">ペット種別</button>
+            <button onclick="location.href='sales_service.php'" class="sales_nav_btn">サービス別</button>
 
             <?php
             try {
@@ -79,11 +81,12 @@ if (isset($_GET['month'])) {
                         $total += $price;
                     }
 
-                    echo "<p>【" . htmlspecialchars($month) . "月分】売上合計: " . number_format($total) . "円</p>";
+                    echo "<p class='sales_summary'>【" . htmlspecialchars($month) . "月分】売上合計: " . number_format($total) . "円</p>";
             ?>
+            </div>
 
-            <table border="1">
-                <thead>
+            <table class="history_table">
+                <thead class="table_header">
                     <tr>
                         <th>ペット種類</th>
                         <th>大きさ</th>

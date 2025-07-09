@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <title>ペットの登録</title>
-    <link rel="stylesheet" href="assets/css/style.css" type="text/css">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 <header>
@@ -61,18 +61,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     <?php endif; ?>
 
-    <form action="" method="post" class="mypage_form">
-        <div class="form_my">
+    <form action="" method="post" class="service_form">
+        <div class="form_la">
             <label>名前:</label>
             <input type="text" name="pet_name" required>
         </div>
 
-        <div class="form_my">
+        <div class="form_la">
             <label>体重:</label>
             <input type="number" name="pet_weight" min="0" step="0.1" max="200" required>
         </div>
 
-        <div class="form_my">
+        <div class="form_la">
             <label>種類:</label>
             <select name="pet_type" required>
                 <option value="">　</option>
@@ -82,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </select>
         </div>
 
-        <div class="form_my">
+        <div class="form_la">
             <label>サイズ:</label>
             <select name="pet_size" required>
                 <option value="">　</option>
@@ -92,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </select>
         </div>
 
-        <div class="form_my">
+        <div class="form_la">
             <label>生年月日:</label>
             <input type="date" name="pet_DOB">
         </div>

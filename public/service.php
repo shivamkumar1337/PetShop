@@ -8,92 +8,20 @@ require_once '../config/config.php';
 <head>
     <meta charset="UTF-8">
     <title>UHD商事ペットショップ -- サービス</title>
-    <style>
-        body {
-            margin: 0;
-            background-color: #f5f5f5;
-            font-family: Arial, sans-serif;
-            padding: 30px;
-        }
-
-        h1 {
-            margin-bottom: 20px;
-        }
-
-        .top-right {
-            display: flex;
-            justify-content: flex-end;
-            margin-bottom: 20px;
-        }
-
-        .top-right a {
-            display: inline-block;
-            text-decoration: none;
-            font-weight: bold;
-            color: #000;
-            padding: 10px;
-            border: 1px solid #333;
-            background-color: white;
-            width: 150px;
-            text-align: center;
-        }
-
-        .message {
-            color: green;
-            margin-bottom: 20px;
-        }
-
-        .form_wrap {
-            margin-top: 20px;
-        }
-
-        .service_table {
-            border-collapse: collapse;
-            width: 100%;
-            background-color: white;
-            border: 1px solid #ccc;
-        }
-
-        .service_table th,
-        .service_table td {
-            padding: 10px;
-            border: 1px solid #ccc;
-            text-align: center;
-        }
-
-        .service_table th {
-            background-color: #CC6633;
-            color: white;
-        }
-
-        .service_add_btn,
-        .service_delete_btn {
-            background-color: #CC6633;
-            color: white;
-            font-weight: bold;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            margin-bottom: 10px;
-        }
-
-        .delete_btn_wrap {
-            display: flex;
-            justify-content: flex-end;
-            margin-bottom: 10px;
-        }
-    </style>
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
-    <div class="top-right">
-        <a href="main.php">メインへ</a>
-    </div>
-
+<header>
     <h1>サービス</h1>
+    <nav>
+        <ul>
+            <li><a href="main.php">メインへ</a></li>
+        </ul>
+    </nav>
+</header>
 
-    <button class="service_add_btn" onclick="location.href='service_add.php'">サービス登録</button>
+<main>
 
     <?php
     try {
@@ -112,42 +40,41 @@ require_once '../config/config.php';
             }
     ?>
 
-    <div class="form_wrap">
-        <form class="s_form" method="post" action="service_delete.php" onsubmit="return confirm('選択したサービスを削除してもよろしいですか？');">
-            <div class="delete_btn_wrap">
-                <button class="service_delete_btn" type="submit">削除</button>
-            </div>
-
-            <table class="service_table">
-                <thead>
-                    <tr>
-                        <th>サービス名</th>
-                        <th>種類</th>
-                        <th>大きさ</th>
-                        <th>料金</th>
-                        <th>編集</th>
-                        <th>削除</th>
-                    </tr>
-                </thead>
-                <tbody>
-                <?php foreach ($services_table as $service): ?>
-                    <tr>
-                        <td><?= xss($service['service_name']); ?></td>
-                        <td><?= xss($service['pet_type']); ?></td>
-                        <td><?= xss($service['pet_size']); ?></td>
-                        <td><?= xss($service['service_price']); ?></td>
-                        <td>
-                            <a href="service_actions.php?id=<?= urlencode($service['service_id']); ?>">✐</a>
-                        </td>
-                        <td>
-                            <input type="checkbox" name="service_delete_ids[]" value="<?= $service['service_id']; ?>">
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-                </tbody>
-            </table>
-        </form>
+    <form method="post" action="service_delete.php" onsubmit="return confirm('選択したサービスを削除してもよろしいですか？');">
+    <div style="display: flex; justify-content: space-between;">
+        <button class="service_add_btn" type="button" onclick="location.href='service_add.php'">サービス登録</button>    
+        <button class="history_delete_btn" type="submit">削除</button>
     </div>
+        
+        <table class="history_table">
+            <thead>
+                <tr>
+                    <th>サービス名</th>
+                    <th>種類</th>
+                    <th>大きさ</th>
+                    <th>料金</th>
+                    <th>編集</th>
+                    <th>削除</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($services_table as $service): ?>
+                <tr>
+                    <td><?= xss($service['service_name']); ?></td>
+                    <td><?= xss($service['pet_type']); ?></td>
+                    <td><?= xss($service['pet_size']); ?></td>
+                    <td>¥<?= number_format($service['service_price']); ?></td>
+                    <td>
+                        <a href="service_actions.php?id=<?= urlencode($service['service_id']); ?>">✐</a>
+                    </td>
+                    <td>
+                        <input type="checkbox" name="service_delete_ids[]" value="<?= $service['service_id']; ?>">
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </form>
 
     <?php
         }
@@ -155,6 +82,8 @@ require_once '../config/config.php';
         echo "<p style='color: red;'>エラー: " . htmlspecialchars($e->getMessage()) . "</p>";
     }
     ?>
+
+</main>
 
 </body>
 </html>
