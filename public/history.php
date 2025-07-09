@@ -53,7 +53,7 @@ $history_table = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <main>
         <form method="get" action="history.php">
-            <input type="text" name="search" placeholder="検索" value="<?= htmlspecialchars($search, ENT_QUOTES, 'UTF-8') ?>" maxlength="50" required>
+            <input type="text" name="search" placeholder="顧客名・ペット名・ペット種類・サービス種類" value="<?= htmlspecialchars($search, ENT_QUOTES, 'UTF-8') ?>" maxlength="50" required>
             <input type="submit" value="🔍">
         </form>
 
