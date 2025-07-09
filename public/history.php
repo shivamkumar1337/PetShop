@@ -33,7 +33,7 @@ $history_table = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <html lang="ja">
 <head>
     <meta charset='utf-8'>
-    <title>履歴画面</title>
+    <title>履歴一覧</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>

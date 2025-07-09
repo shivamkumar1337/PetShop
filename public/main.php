@@ -8,7 +8,7 @@ require_once(__DIR__ . '/session_check.php');
 <html>
 
 <head>
-    <title>Main Screen - PetShop</title>
+    <title>UHD商事ペットショップ</title>
 </head>
 
 <body style="margin: 0;">

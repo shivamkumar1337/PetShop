@@ -7,7 +7,7 @@ require_once '../config/config.php';
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>UHD商事ペットショップ -- サービス</title>
+    <title>サービス</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>

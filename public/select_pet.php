@@ -13,7 +13,7 @@ if (!$customer_id) {
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>ペット選択 - ペットショップ</title>
+    <title>ペット選択</title>
     <link rel="stylesheet" href="assets/css/style.css" type="text/css">
 </head>
 <body>
@@ -42,10 +42,9 @@ if (!$customer_id) {
                         <button class="mypage_btn">新規ペット登録</button>
                     </a>
                 </div>
-
-                <div class="link">
+            </div>
+            <div class="link">
                     <a href="select_customer.php">利用登録へ</a>
-                </div>
             </div>
         </main>
     </div>

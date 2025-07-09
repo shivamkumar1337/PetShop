@@ -11,7 +11,6 @@ try {
     $customers = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     if (empty($customers)) {
-        header("Refresh: 3; url=select_customer.php");
         $message = "登録済みの顧客なし";
     }
 } catch (PDOException $e) {
@@ -24,7 +23,7 @@ try {
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>顧客様一覧</title>
+    <title>一覧から顧客を選ぶ</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
@@ -47,7 +46,6 @@ try {
         <table class="history_table">
             <thead>
                 <tr>
-                    <th>顧客ID</th>
                     <th>名前</th>
                     <th>電話番号</th>
                     <th>選択</th>
@@ -56,7 +54,6 @@ try {
             <tbody>
                 <?php foreach ($customers as $customer): ?>
                     <tr>
-                        <td><?= xss($customer['customer_id']) ?></td>
                         <td><?= xss($customer['customer_name']) ?></td>
                         <td><?= xss($customer['customer_number']) ?></td>
                         <td>
@@ -69,12 +66,12 @@ try {
             </tbody>
         </table>
         
-        <div class="my_btn">
-            <button class="mypage_btn" onclick="location.href='select_customer.php'">利用登録へ</button>
-        </div>
     <?php else: ?>
         <p>登録された顧客が見つかりません。</p>
     <?php endif; ?>
+    <div class="link">
+        <a href="select_customer.php">利用登録へ</a>
+    </div>
 
 </main>
 

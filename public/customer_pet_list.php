@@ -10,7 +10,7 @@ $keyword = trim($_GET['keyword'] ?? '');
 
 <head>
     <meta charset='utf-8'>
-    <title>飼い主別ペット一覧画面</title>
+    <title>飼い主別ペット一覧</title>
     <link rel="stylesheet" href=" assets/css/style.css">
     <style>
         @media print {
