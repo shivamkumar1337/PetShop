@@ -48,7 +48,7 @@ try {
             <?php if (!empty($appointments)): ?>
                 <form method="post" action="appointment_delete.php">
                     <div class="delete_btn_wrap">
-                        <button type="button" class="service_delete_btn" onclick="confirmdelete()">削除</button>
+                        <button type="button" class="service_delete_btn" onclick=confirmdelete()>削除</button>
                     </div>
 
                     <table class="history_table">
@@ -78,14 +78,13 @@ try {
                         </tbody>
                     </table>
                 </form>
-
-                <div class="link" style="text-align: center; margin-top: 20px;">
-                    <a href="list_select.php">一覧表示選択画面へ</a>
-                </div>
             <?php else: ?>
                 <p>登録された予約が見つかりません。</p>
             <?php endif; ?>
         </main>
+    </div>
+    <div class="link" style="text-align: center; margin-top: 20px;">
+        <a href="list_select.php">一覧表示選択画面へ</a>
     </div>
     <script>
         function confirmdelete() {
