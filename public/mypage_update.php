@@ -18,7 +18,7 @@ $confirm_password = $_POST['confirm_password'] ?? '';
 $errors = [];
 
 if ($username === '') {
-    $errors[] = 'ユーザー名を入力してください。';
+    $errors[] = 'ユーザー名を入力してください。空白は認めません。';
 }
 if ($current_password === '' || $new_password === '' || $confirm_password === '') {
     $errors[] = 'すべてのパスワード欄を入力してください。';
