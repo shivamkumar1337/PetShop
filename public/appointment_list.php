@@ -1,4 +1,4 @@
-<?php 
+<?php
 require_once(__DIR__ . '/../config/config.php');
 require_once(__DIR__ . '/session_check.php');
 require_once(__DIR__ . '/../includes/functions.php');
@@ -24,11 +24,13 @@ try {
 
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <title>予約一覧</title>
     <link rel="stylesheet" href="assets/css/style.css" type="text/css">
 </head>
+
 <body>
     <div>
         <header>
@@ -47,12 +49,12 @@ try {
 
             <?php if (!empty($appointments)): ?>
                 <form method="post" action="appointment_delete.php">
-                    <div class="delete_btn_wrap">
-                        <button type="button" class="service_delete_btn" onclick=confirmdelete()>削除</button>
+                    <div style="display: flex; justify-content: flex-end;">
+                        <button type="button" class="history_delete_btn" onclick=confirmdelete()>削除</button>
                     </div>
 
                     <table class="history_table">
-                        <thead class="table_header">
+                        <thead>
                             <tr>
                                 <th>予約日時</th>
                                 <th>顧客名</th>
@@ -101,4 +103,5 @@ try {
         }
     </script>
 </body>
+
 </html>
