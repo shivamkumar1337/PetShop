@@ -4,7 +4,7 @@ require_once __DIR__ . '/../includes/functions.php';
 
 
 if (!isset($_POST['pet_delete_ids']) || !is_array($_POST['pet_delete_ids'])) {
-    header('Location: history.php');
+    header('Location: pet_list.php');
     exit;
 }
 
