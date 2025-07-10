@@ -1,8 +1,6 @@
--- Create the database
 CREATE DATABASE IF NOT EXISTS pet_service_db;
 USE pet_service_db;
 
--- Table: users
 CREATE TABLE users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL UNIQUE,
@@ -10,7 +8,6 @@ CREATE TABLE users (
     creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Table: customers
 CREATE TABLE customers (
     customer_id INT AUTO_INCREMENT PRIMARY KEY,
     customer_name VARCHAR(100) NOT NULL,
@@ -20,7 +17,6 @@ CREATE TABLE customers (
     address VARCHAR(255) NOT NULL
 );
 
--- Table: pets
 CREATE TABLE pets (
     pet_id INT AUTO_INCREMENT PRIMARY KEY,
     customer_id INT NOT NULL,
@@ -32,10 +28,8 @@ CREATE TABLE pets (
     FOREIGN KEY (customer_id) REFERENCES customers(customer_id) ON DELETE CASCADE
 );
 
--- Explicit index on customer_id in pets table
 CREATE INDEX idx_pet_customer ON pets(customer_id);
 
--- Table: services
 CREATE TABLE services (
     service_id INT AUTO_INCREMENT PRIMARY KEY,
     service_name VARCHAR(100) NOT NULL,
@@ -63,7 +57,6 @@ CREATE TABLE service_history (
 );
 
 
--- Table: appointments
 CREATE TABLE appointments (
     appointment_id INT AUTO_INCREMENT PRIMARY KEY,
     customer_id INT NOT NULL,
