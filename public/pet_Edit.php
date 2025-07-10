@@ -58,7 +58,7 @@ try {
         exit;
     }
 } catch (PDOException $e) {
-    echo "<p style='color: red; text-align: center;'>エラー: " . xss($e->getMessage()) . "</p>";
+    echo "<p style='color: red; text-align: center;'>エラー!</p>";
     exit;
 }
 ?>

@@ -108,7 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['keyword'])) {
                 <?php
                     }
                 } catch (PDOException $e) {
-                    echo "<p class='error_message'>エラー: " . xss($e->getMessage()) . "</p>";
+                    echo "<p class='error_message'>エラー! </p>";
                 }
                 ?>
             </form>

@@ -33,10 +33,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (str_contains($e->getMessage(), "integrity constraint error")) {
                 $message = "予約を登録できませんでした。service_id が無効です";
             } else {
-                $message = "登録中にエラーが発生しました" . $e->getMessage();
+                $message = "登録中にエラーが発生しました";
             }
         } catch (Exception $e) {
-            $message = $e->getMessage();
+            $message = "データーベスエラー!";
         }
     }
 }
@@ -58,9 +58,9 @@ try {
         $message = "一致するサービスは登録されていません";
     }
 } catch (PDOException $e) {
-    $message = "サービス一覧を取得できませんでした: " . $e->getMessage();
+    $message = "サービス一覧を取得できませんでした!";
 } catch (Exception $e) {
-    $message = $e->getMessage();
+    $message = "データーベスエラー!";
 }
 
 ?>

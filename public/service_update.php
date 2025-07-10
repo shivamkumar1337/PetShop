@@ -82,7 +82,7 @@ try {
     header("Location: service.php?updated=1");
     exit;
 } catch (PDOException $e) {
-    echo "データベースエラー: " . xss($e->getMessage());
+    echo "データベースエラー!";
     exit;
 }
 ?>

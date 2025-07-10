@@ -62,7 +62,7 @@ try {
     exit;
 
 } catch (PDOException $e) {
-    $_SESSION['errors'] = ['データベースエラー：' . $e->getMessage()];
+    $_SESSION['errors'] = ['データベースエラー!'];
     $_SESSION['old']    = $_POST;
     header('Location: service_add.php');
     exit;

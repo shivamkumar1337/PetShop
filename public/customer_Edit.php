@@ -71,7 +71,7 @@ try {
     }
 
 } catch (PDOException $e) {
-    $error_message = "エラー: " . xss($e->getMessage());
+    $error_message = "エラー! 更新できませんでした。";
 }
 ?>
 

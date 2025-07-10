@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['appointment_ids'])) {
             $stmt = $pdo->prepare($sql);
             $stmt->execute($ids);
         } catch (PDOException $e) {
-            echo $e->getMessage();
+            echo "エラー! 削除できませんでした。";
         }
     }
 }

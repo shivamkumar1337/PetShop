@@ -29,5 +29,5 @@ try {
     exit;
 } catch (PDOException $e) {
     $pdo->rollBack();
-    echo "削除中にエラーが発生しました: " . htmlspecialchars($e->getMessage());
+    echo "削除中にエラーが発生しました!";
 }

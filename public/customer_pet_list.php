@@ -152,7 +152,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['keyword'])) {
                             endforeach;
                         }
                     } catch (PDOException $e) {
-                        echo "<p class='error_message'>エラー: " . xss($e->getMessage()) . "</p>";
+                        echo "<p class='error_message'>エラー! </p>";
                     }
                     ?>
                 <?php elseif (!$error_message && $keyword === ''): ?>
