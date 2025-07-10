@@ -33,13 +33,13 @@ if (isset($_GET['month'])) {
 <html lang='ja'>
 <head>
     <meta charset='utf-8'>
-    <title>ペット種別</title>
+    <title>ペット種別売上</title>
     <link rel="stylesheet" href="assets/css/style.css" type="text/css">
 </head>
 <body>
 <div>
     <header>
-        <h1>ペット種別</h1>
+        <h1>ペット種別売上</h1>
         <nav>
             <ul>
                 <li><a href="main.php">メインへ</a></li>
@@ -78,7 +78,7 @@ if (isset($_GET['month'])) {
                 SELECT   
                     pet_type, 
                     pet_size,
- 		    service_price AS total_sales 
+ 		    sum(service_price) AS total_sales 
                 FROM service_history 
                 WHERE YEAR(service_date) = :year AND MONTH(service_date) = :month
                 GROUP BY pet_type, pet_size, service_name

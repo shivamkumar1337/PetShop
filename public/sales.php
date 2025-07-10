@@ -77,7 +77,7 @@ if (isset($_GET['month'])) {
                 $stmt = $pdo->prepare("
                     SELECT 
                         service_name, 
-                        service_price AS total_sales, 
+                        sum(service_price) AS total_sales, 
                         pet_type, 
                         pet_size
                     FROM service_history

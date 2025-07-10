@@ -35,13 +35,13 @@ if (isset($_GET['month'])) {
 <html lang="ja">
 <head>
     <meta charset="utf-8">
-    <title>売上集計</title>
+    <title>サービス別売上</title>
     <link rel="stylesheet" href="assets/css/style.css" type="text/css">
 </head>
 <body>
 <div>
     <header>
-        <h1>売上集計</h1>
+        <h1>サービス別売上</h1>
         <nav>
             <ul>
                 <li><a href="main.php">メインへ</a></li>
@@ -80,7 +80,7 @@ if (isset($_GET['month'])) {
             $stmt = $pdo->prepare("
                 SELECT 
                         service_name, 
-                        service_price AS total_sales, 
+                        sum(service_price) AS total_sales, 
                         pet_type, 
                         pet_size
                     FROM service_history
