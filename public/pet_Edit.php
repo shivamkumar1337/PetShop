@@ -8,7 +8,6 @@ if (!isset($_GET['id']) || !ctype_digit($_GET['id'])) {
 }
 
 $pet_id = (int)$_GET['id'];
-$message = '';
 $error_message = '';
 
 try {
@@ -45,7 +44,7 @@ try {
                 ':id' => $pet_id,
             ]);
 
-            $message = "更新が完了しました。";
+            $error_message = "更新が完了しました。";
         }
     }
 
@@ -57,7 +56,6 @@ try {
         echo "該当のペットが見つかりません。";
         exit;
     }
-
 } catch (PDOException $e) {
     echo "<p style='color: red; text-align: center;'>エラー: " . xss($e->getMessage()) . "</p>";
     exit;
@@ -66,92 +64,92 @@ try {
 
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <title>ペット編集</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
+
 <body>
     <header>
-            <h1>ペット編集</h1>
-            <nav>
-                <ul>
-                    <li><a href="main.php">メインへ</a></li>
-                </ul>
-            </nav>
+        <h1>ペット編集</h1>
+        <nav>
+            <ul>
+                <li><a href="main.php">メインへ</a></li>
+            </ul>
+        </nav>
     </header>
 
     <main>
-            <?php if ($error_message): ?>
-                <p style="color: red; font-weight: bold; text-align: center;"><?= xss($error_message) ?></p>
-            <?php elseif ($message): ?>
-                <p style="color: green; font-weight: bold; text-align: center;"><?= xss($message) ?></p>
-            <?php endif; ?>
-
-            <form method="post" class="service_form">
-                <div class="form_la">
-                    <label for="pet_name">ペット名:</label>
-                    <input
-                        type="text"
-                        name="pet_name"
-                        id="pet_name"
-                        value="<?= xss($_POST['pet_name'] ?? $pet['pet_name']) ?>"
-                        maxlength="100"
-                        pattern=".*\S.*"
-                        title="空白だけの入力はできません"
-                        required
-                    >
-                </div>
-
-                <div class="form_la">
-                    <label for="pet_type">種類:</label>
-                    <select name="pet_type" id="pet_type" required>
-                        <option value="犬" <?= ($pet['pet_type'] === '犬' || ($_POST['pet_type'] ?? '') === '犬') ? 'selected' : '' ?>>犬</option>
-                        <option value="猫" <?= ($pet['pet_type'] === '猫' || ($_POST['pet_type'] ?? '') === '猫') ? 'selected' : '' ?>>猫</option>
-                        <option value="その他" <?= ($pet['pet_type'] === 'その他' || ($_POST['pet_type'] ?? '') === 'その他') ? 'selected' : '' ?>>その他</option>
-                    </select>
-                </div>
-
-                <div class="form_la">
-                    <label for="pet_weight">体重:</label>
-                    <input
-                        type="number"
-                        step="1"
-                        name="pet_weight"
-                        id="pet_weight"
-                        value="<?= xss($_POST['pet_weight'] ?? $pet['pet_weight']) ?>"
-                        required
-                    >
-                </div>
-
-                <div class="form_la">
-                    <label for="pet_size">サイズ:</label>
-                    <select name="pet_size" id="pet_size" required>
-                        <option value="大型" <?= ($pet['pet_size'] === '大型' || ($_POST['pet_size'] ?? '') === '大型') ? 'selected' : '' ?>>大型</option>
-                        <option value="中型" <?= ($pet['pet_size'] === '中型' || ($_POST['pet_size'] ?? '') === '中型') ? 'selected' : '' ?>>中型</option>
-                        <option value="小型" <?= ($pet['pet_size'] === '小型' || ($_POST['pet_size'] ?? '') === '小型') ? 'selected' : '' ?>>小型</option>
-                    </select>
-                </div>
-
-                <div class="form_la">
-                    <label for="pet_dob">生年月日:</label>
-                    <input
-                        type="date"
-                        name="pet_dob"
-                        id="pet_dob"
-                        value="<?= xss($_POST['pet_dob'] ?? $pet['pet_DOB']) ?>"
-                        required
-                    >
-                </div>
-
-                <div class="submit_btn">
-                    <input type="submit" class="my_submit_btn" value="更新">
-                </div>
-            </form>
-
-            <div class="link">
-                <a href="pet_list.php">ペット一覧へ</a>
+        <?php if ($error_message): ?>
+            <div style="text-align:center; margin-bottom:20px; color:<?= strpos($error_message, '正常') !== false ? 'green' : 'red' ?>">
+                <?= xss($error_message) ?>
             </div>
+        <?php endif; ?>
+
+        <form method="post" class="service_form">
+            <div class="form_la">
+                <label for="pet_name">ペット名:</label>
+                <input
+                    type="text"
+                    name="pet_name"
+                    id="pet_name"
+                    value="<?= xss($_POST['pet_name'] ?? $pet['pet_name']) ?>"
+                    maxlength="100"
+                    pattern=".*\S.*"
+                    title="空白だけの入力はできません"
+                    required>
+            </div>
+
+            <div class="form_la">
+                <label for="pet_type">種類:</label>
+                <select name="pet_type" id="pet_type" required>
+                    <option value="犬" <?= ($pet['pet_type'] === '犬' || ($_POST['pet_type'] ?? '') === '犬') ? 'selected' : '' ?>>犬</option>
+                    <option value="猫" <?= ($pet['pet_type'] === '猫' || ($_POST['pet_type'] ?? '') === '猫') ? 'selected' : '' ?>>猫</option>
+                    <option value="その他" <?= ($pet['pet_type'] === 'その他' || ($_POST['pet_type'] ?? '') === 'その他') ? 'selected' : '' ?>>その他</option>
+                </select>
+            </div>
+
+            <div class="form_la">
+                <label for="pet_weight">体重(kg):</label>
+                <input
+                    type="number"
+                    step="1"
+                    name="pet_weight"
+                    id="pet_weight"
+                    value="<?= xss($_POST['pet_weight'] ?? $pet['pet_weight']) ?>"
+                    required>
+            </div>
+
+            <div class="form_la">
+                <label for="pet_size">サイズ:</label>
+                <select name="pet_size" id="pet_size" required>
+                    <option value="大型" <?= ($pet['pet_size'] === '大型' || ($_POST['pet_size'] ?? '') === '大型') ? 'selected' : '' ?>>大型</option>
+                    <option value="中型" <?= ($pet['pet_size'] === '中型' || ($_POST['pet_size'] ?? '') === '中型') ? 'selected' : '' ?>>中型</option>
+                    <option value="小型" <?= ($pet['pet_size'] === '小型' || ($_POST['pet_size'] ?? '') === '小型') ? 'selected' : '' ?>>小型</option>
+                </select>
+            </div>
+
+            <div class="form_la">
+                <label for="pet_dob">生年月日:</label>
+                <input
+                    type="date"
+                    name="pet_dob"
+                    id="pet_dob"
+                    value="<?= xss($_POST['pet_dob'] ?? $pet['pet_DOB']) ?>"
+                    required>
+            </div>
+
+            <div class="submit_btn">
+                <input type="submit" class="my_submit_btn" value="更新">
+            </div>
+        </form>
+
+        <div class="link">
+            <a href="pet_list.php">ペット一覧へ</a>
+        </div>
     </main>
 </body>
+
 </html>
