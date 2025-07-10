@@ -46,9 +46,9 @@ $history_table = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </header>
 
     <main>
-        <form method="get" action="history.php">
-            <input type="text" name="search" placeholder="顧客名・ペット名・ペット種類・サービス種類" value="<?= htmlspecialchars($search, ENT_QUOTES, 'UTF-8') ?>" maxlength="50" required>
-            <input type="submit" value="🔍">
+        <form method="get" action="history.php" class="history_search_wrap">
+            <input type="text" name="search" placeholder="顧客名・ペット名・ペット種類・サービス種類" value="<?= htmlspecialchars($search, ENT_QUOTES, 'UTF-8') ?>" class="history_search_input">
+            <input type="submit" value="🔍" class="history_search_btn">
         </form>
 
     <form method="post" action="history_delete.php" onsubmit="return confirm('選択した履歴を削除してよろしいですか？');">

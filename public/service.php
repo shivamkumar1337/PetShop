@@ -40,11 +40,7 @@ require_once(__DIR__ . '/../config/config.php');
             echo '<p class="message" style="color:green;">削除が完了しました。</p>';
         }
     ?>
-
-    <!-- 登録ボタン（常に表示） -->
-    <div style="margin-bottom: 10px;">
         <button class="service_add_btn" type="button" onclick="location.href='service_add.php'">サービス登録</button>
-    </div>
 
     <?php if (empty($services_table)): ?>
 
@@ -54,7 +50,7 @@ require_once(__DIR__ . '/../config/config.php');
 
 
     <form method="post" action="service_delete.php" onsubmit="return confirm('選択したサービスを削除してもよろしいですか？');">
-    <div style="display: flex; justify-content: space-between;">
+    <div style="display: flex; justify-content: flex-end; align-items: center; margin-top: -50px;">
         <button class="history_delete_btn" type="submit">削除</button>
     </div>
         

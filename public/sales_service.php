@@ -72,23 +72,20 @@ if (isset($_GET['month'])) {
 
             <button onclick="location.href='sales_pet.php'" class="sales_nav_btn">ペット種別</button>
             <button onclick="location.href='sales_service.php'" class="sales_nav_btn">サービス別</button>
-        </div>
+        
 
         <?php
         try {
             $stmt = $pdo->prepare("
                 SELECT 
-                    s.service_name, 
-                    SUM(s.service_price) AS total_sales, 
-                    p.pet_type, 
-                    p.pet_size
-                FROM service_history sh
-                JOIN customers c ON sh.customer_id = c.customer_id
-                JOIN pets p ON sh.pet_id = p.pet_id
-                JOIN services s ON sh.service_id = s.service_id
-                WHERE YEAR(sh.service_date) = :year AND MONTH(sh.service_date) = :month
-                GROUP BY p.pet_type, p.pet_size, s.service_name
-                ORDER BY s.service_name ASC
+                        service_name, 
+                        service_price AS total_sales, 
+                        pet_type, 
+                        pet_size
+                    FROM service_history
+                    WHERE YEAR(service_date) = :year AND MONTH(service_date) = :month
+                    GROUP BY pet_type, pet_size, service_name
+                    ORDER BY service_name ASC
             ");
             $stmt->bindValue(':year', $year, PDO::PARAM_INT);
             $stmt->bindValue(':month', $month, PDO::PARAM_INT);
@@ -105,6 +102,7 @@ if (isset($_GET['month'])) {
 
                 echo "<p class='sales_summary'>【" . htmlspecialchars($year) . "年" . htmlspecialchars($month) . "月分】売上合計: " . number_format($total) . "円</p>";
         ?>
+        </div>
         <table class="history_table">
             <thead class="table_header">
                 <tr>
@@ -128,7 +126,7 @@ if (isset($_GET['month'])) {
         }
         ?>
 
-        <nav class="sales_back_nav">
+        <nav class="link">
             <ul>
                 <li><a href="sales.php">売上集計画面へ</a></li>
             </ul>
