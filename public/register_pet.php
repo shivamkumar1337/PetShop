@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <div class="form_la">
             <label>体重（㎏）:</label>
-            <input type="number" name="pet_weight" min="0" step="0.1" max="200" required value="<?= xss($wt ?? '') ?>">
+            <input type="number" name="pet_weight" min="0" step="1" max="200" required value="<?= xss($wt ?? '') ?>">
         </div>
 
         <div class="form_la">
