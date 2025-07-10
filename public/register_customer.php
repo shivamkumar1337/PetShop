@@ -18,6 +18,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $message = "電話番号は10桁か11桁の数字で入力してください。";
     } elseif (empty($name) || empty($number) || empty($email)) {
         $message = "名前、電話番号、メールアドレスは必須です";
+    } elseif (!empty($email) && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $message = '正しいメールアドレス形式で入力してください。';
     } else {
         try {
             $stmt = $pdo->prepare("INSERT INTO customers (customer_name, customer_number, customer_mail, customer_zipcode, address) VALUES (?, ?, ?, ?, ?)");
