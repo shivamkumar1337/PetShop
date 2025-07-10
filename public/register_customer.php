@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!preg_match('/^\d{7}$/', $zip)) {
         $message = "郵便番号は７桁の数字で入力してください。";
     } elseif (!preg_match('/^\d{10,11}$/', $number)) {
-        $message = "電話番号は10や11桁の数字で入力してください。";
+        $message = "電話番号は10桁か11桁の数字で入力してください。";
     } elseif (empty($name) || empty($number) || empty($email)) {
         $message = "名前、電話番号、メールアドレスは必須です";
     } else {

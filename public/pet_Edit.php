@@ -83,7 +83,7 @@ try {
 
                 <div class="form_la">
                     <label for="pet_weight">体重:</label>
-                    <input type="number" step="0.1" name="pet_weight" id="pet_weight" value="<?= xss($pet['pet_weight']) ?>" required>
+                    <input type="number" step="1" name="pet_weight" id="pet_weight" value="<?= xss($pet['pet_weight']) ?>" required>
                 </div>
 
                 <div class="form_la">

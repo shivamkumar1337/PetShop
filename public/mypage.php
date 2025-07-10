@@ -1,14 +1,9 @@
 <?php
-session_start(); // セッション開始（ログイン情報を使うため）
 
+require_once(__DIR__ . '/session_check.php');
 require_once __DIR__ . '/../includes/functions.php';
 require_once __DIR__ . '/../config/config.php';
 
-// ログインしていなければリダイレクトまたはエラーメッセージ
-if (!isset($_SESSION['user_id'])) {
-    echo "<p>ログインしてください。</p>";
-    exit;
-}
 
 $user_id = $_SESSION['user_id']; // セッションからユーザーID取得
 ?>
@@ -37,8 +32,13 @@ $user_id = $_SESSION['user_id']; // セッションからユーザーID取得
                 $stmt = $pdo->prepare("SELECT creation_date, username FROM users WHERE user_id = :id");
                 $stmt->bindParam(':id', $user_id, PDO::PARAM_INT);
                 $stmt->execute();
-
                 $mypage_table = $stmt->fetchAll();
+
+                if (!empty($_GET['updated']) && $_GET['updated'] == '1') {
+                    echo '<p class="message" style="color:green;">編集が完了しました！</p>';
+                }
+
+                
 
                 if (empty($mypage_table)) {
                     echo "<p>ユーザー情報が見つかりません。</p>";
