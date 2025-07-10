@@ -1,8 +1,7 @@
 <?php
-session_start(); // セッション開始（ログイン情報を使うため）
-
 require_once __DIR__ . '/../includes/functions.php';
 require_once __DIR__ . '/../config/config.php';
+require_once(__DIR__ . '/session_check.php');
 
 // ログインしていなければリダイレクトまたはエラーメッセージ
 if (!isset($_SESSION['user_id'])) {

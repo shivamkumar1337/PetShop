@@ -1,6 +1,7 @@
 <?php
 require_once '../config/config.php';
 require_once __DIR__ . '/../includes/functions.php'; 
+require_once(__DIR__ . '/session_check.php');
 
 
 if (!isset($_POST['pet_delete_ids']) || !is_array($_POST['pet_delete_ids'])) {
