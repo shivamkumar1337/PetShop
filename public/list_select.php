@@ -2,13 +2,13 @@
 <html lang="ja">
 <head>
     <meta charset="utf-8">
-    <title>一覧表示選択画面</title>
+    <title>一覧表示選択</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
     <header>
         <div class="header_flex">
-            <h1>一覧表示　選択画面</h1>
+            <h1>一覧表示　選択</h1>
             <nav>
                 <ul>
                     <li><a href="main.php">メインへ</a></li>
