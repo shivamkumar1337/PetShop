@@ -60,8 +60,7 @@ CREATE TABLE service_history (
     INDEX (customer_id),
     INDEX (pet_id),
     INDEX (service_id)
-
-)
+);
 
 
 -- Table: appointments
