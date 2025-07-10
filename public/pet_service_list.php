@@ -5,7 +5,7 @@ require_once(__DIR__ . '/session_check.php');
 
 $services = [];
 try {
-    $stmt = $pdo->query("SELECT service_id, service_name FROM services ORDER BY service_name");
+    $stmt = $pdo->query("SELECT service_id, service_name, pet_type, pet_size FROM services ORDER BY service_name");
     $services = $stmt->fetchAll();
 } catch (PDOException $e) {
     echo "<p>サービス一覧取得エラー: " . xss($e->getMessage()) . "</p>";
@@ -62,8 +62,7 @@ $selected_service_id = $_GET['service_id'] ?? '';
                     <option value="">-- 選択してください --</option>
                     <?php foreach ($services as $service): ?>
                         <option value="<?= xss($service['service_id']) ?>" <?= $service['service_id'] == $selected_service_id ? 'selected' : '' ?>>
-                            <?= xss($service['service_name']) ?>
-                        </option>
+                            <?= xss($service['service_name']) ?>（<?= xss($service['pet_type']) ?>・<?= xss($service['pet_size']) ?>）
                     <?php endforeach; ?>
                 </select>
                 <button type="submit" class="history_search_btn">表示</button>
