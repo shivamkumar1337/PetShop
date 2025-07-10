@@ -1,6 +1,7 @@
 <?php
 require_once '../config/config.php';
 require_once __DIR__ . '/../includes/functions.php';
+require_once(__DIR__ . '/session_check.php');
 
 $services = [];
 try {

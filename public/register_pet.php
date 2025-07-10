@@ -42,12 +42,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>ペットの登録</title>
+    <title>ペット登録</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 <header>
-    <h1>ペットの登録</h1>
+    <h1>ペット登録</h1>
     <nav>
         <ul>
             <li><a href="main.php">メインへ</a></li>

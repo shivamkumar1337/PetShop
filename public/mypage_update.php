@@ -1,8 +1,7 @@
 <?php
-session_start();
-
 require_once __DIR__ . '/../includes/functions.php';
 require_once __DIR__ . '/../config/config.php';
+require_once(__DIR__ . '/session_check.php');
 
 if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');

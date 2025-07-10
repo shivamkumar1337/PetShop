@@ -38,12 +38,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>顧客の登録</title>
+    <title>顧客登録</title>
     <link rel="stylesheet" href="assets/css/style.css" type="text/css">
 </head>
 <body>
 <header>
-    <h1>顧客の登録</h1>
+    <h1>顧客登録</h1>
     <nav>
         <ul>
             <li><a href="main.php">メインへ</a></li>

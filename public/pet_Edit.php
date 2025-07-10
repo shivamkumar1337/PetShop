@@ -1,6 +1,7 @@
 <?php
 require_once '../config/config.php';
 require_once __DIR__ . '/../includes/functions.php';
+require_once(__DIR__ . '/session_check.php');
 
 if (!isset($_GET['id']) || !ctype_digit($_GET['id'])) {
     echo "無効なIDです。";
