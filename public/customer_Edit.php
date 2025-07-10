@@ -8,7 +8,6 @@ if (!isset($_GET['id']) || !ctype_digit($_GET['id'])) {
 }
 
 $customer_id = (int)$_GET['id'];
-$message = '';
 $error_message = '';
 
 try {
@@ -52,7 +51,7 @@ try {
                 ':id' => $customer_id
             ]);
 
-            $message = "更新が完了しました。";
+            $error_message = "更新が完了しました。";
         }
 
         // 再取得
@@ -93,11 +92,10 @@ try {
 </header>
 
 <main>
-    <!-- <div class="form_wrap"> -->
-        <?php if ($error_message): ?>
-            <p class="message-error"><?= xss($error_message) ?></p>
-        <?php elseif ($message): ?>
-            <p class="message-success"><?= xss($message) ?></p>
+    <?php if ($error_message): ?>
+            <div style="text-align:center; margin-bottom:20px; color:<?= strpos($error_message, '正常') !== false ? 'green' : 'red' ?>">
+                <?= xss($error_message) ?>
+            </div>
         <?php endif; ?>
 
         <form method="post" class="mypage_form">
