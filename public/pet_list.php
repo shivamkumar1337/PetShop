@@ -52,12 +52,12 @@ $keyword = trim($_GET['keyword'] ?? '');
                         $sql .= " WHERE (pets.pet_name LIKE :kw OR customers.customer_name LIKE :kw OR MONTH(pets.pet_DOB) = :month)";
                         $params[':kw'] = '%' . $keyword . '%';
 
-                        if (preg_match('/^\d{1,2}$/', $keyword)) {
-                            $params[':month'] = (int)$keyword;
-                        } else {
-                            $params[':month'] = -1;
-                        }
-                    }
+                if (preg_match('/^\d{1,2}$/', $keyword)) {
+                    $params[':month'] = (int)$keyword;
+                } else {
+                    $params[':month'] = -1;
+                }
+            }
 
                     $stmt = $pdo->prepare($sql);
                     $stmt->execute($params);
