@@ -1,6 +1,7 @@
 <?php
 require_once(__DIR__ . '/session_check.php');
 require_once '../config/config.php';
+require_once(__DIR__ . '/history_update.php');
 
 // 年の初期値（現在の年）
 $year = date('Y');
@@ -76,7 +77,7 @@ if (isset($_GET['month'])) {
                 $stmt = $pdo->prepare("
                     SELECT 
                         service_name, 
-                        service_price AS total_sales, 
+                        sum(service_price) AS total_sales, 
                         pet_type, 
                         pet_size
                     FROM service_history
