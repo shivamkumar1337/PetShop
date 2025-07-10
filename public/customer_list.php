@@ -3,6 +3,16 @@ require_once '../config/config.php';
 require_once __DIR__ . '/../includes/functions.php';
 
 $keyword = trim($_GET['keyword'] ?? '');
+$error_message = '';
+
+
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['keyword'])) {
+    if (strlen($keyword) > 100) {
+        $error_message = 'エラー：100文字以内で入力してください。';
+    } elseif (preg_match('/^\d+$/', $keyword) && strlen($keyword) > 11) {
+        $error_message = 'エラー：数字は11桁以内で入力してください。';
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -29,10 +39,17 @@ $keyword = trim($_GET['keyword'] ?? '');
             <form method="get" action="customer_list.php" class="history_search_wrap">
                 <input type="text" name="keyword" placeholder="顧客名を入力" value="<?= xss($keyword) ?>"
                     class="history_search_input">
-                <input type="submit" value="🔍"
-                    class="history_search_btn">
+                <input type="submit" value="🔍" class="history_search_btn">
             </form>
 
+            
+            <?php if ($error_message): ?>
+                <p style="color: red; font-weight: bold; text-align: center; margin-top: 10px;">
+                    <?= xss($error_message) ?>
+                </p>
+            <?php endif; ?>
+
+            <?php if (!$error_message): ?>
             <form method="post" action="customer_delete.php">
                 <div style="display: flex; justify-content: flex-end;">
                     <button type="submit" class="history_delete_btn" onclick="return confirm('選択した顧客を削除してよろしいですか？');">削除</button>
@@ -94,6 +111,7 @@ $keyword = trim($_GET['keyword'] ?? '');
                 }
                 ?>
             </form>
+            <?php endif; ?>
 
             <div class="link">
                 <a href="list_select.php">一覧表示選択画面へ</a>
