@@ -74,9 +74,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <label>種類:</label>
             <select name="pet_type" required>
                 <option value="">　</option>
-                <option value="dog">犬</option>
-                <option value="cat">猫</option>
-                <option value="others">その他</option>
+                <option value="犬">犬</option>
+                <option value="猫">猫</option>
+                <option value="その他">その他</option>
             </select>
         </div>
 
@@ -84,9 +84,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <label>サイズ:</label>
             <select name="pet_size" required>
                 <option value="">　</option>
-                <option value="small">小型</option>
-                <option value="medium">中型</option>
-                <option value="large">大型</option>
+                <option value="小型">小型</option>
+                <option value="中型">中型</option>
+                <option value="大型">大型</option>
             </select>
         </div>
 

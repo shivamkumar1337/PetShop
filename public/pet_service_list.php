@@ -42,14 +42,12 @@ $selected_service_id = $_GET['service_id'] ?? '';
 <body>
 <div>
     <header>
-        <div style="display:flex; justify-content:space-between; align-items:center;">
             <h1>サービス別ペット一覧</h1>
             <nav>
                 <ul>
                     <li><a href="main.php" class="no-print">メインへ</a></li>
                 </ul>
             </nav>
-        </div>
     </header>
 
 <main>
