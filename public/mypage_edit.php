@@ -71,7 +71,7 @@ $display_username = $form_data['username'] ?? $user['username'];
         </form>
     </main>
     <footer>
-        <nav>
+        <nav class="link">
             <li><a href="mypage.php">マイページへ</a></li>
         </nav>
     </footer>
