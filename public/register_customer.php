@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $message = '顧客が正常に追加されました';
             header("Location: register_pet.php?customer_id=" . $customer_id);
         } catch (PDOException $e) {
-            $message = 'エラーが発生しました' . $e->getMessage();
+            $message = 'エラーが発生しました';
         }
     }
 }

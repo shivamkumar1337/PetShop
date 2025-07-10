@@ -66,7 +66,7 @@ $user_id = $_SESSION['user_id']; // セッションからユーザーID取得
                     <?php
                         }
                     } catch (PDOException $e) {
-                        echo "<p>エラー: " . xss($e->getMessage()) . "</p>";
+                        echo "<p>エラー!</p>";
                     }
                     ?>
                     <div class="my_btn">

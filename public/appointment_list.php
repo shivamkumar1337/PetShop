@@ -19,7 +19,7 @@ try {
         $message = "予約はなし";
     }
 } catch (PDOException $e) {
-    $message = "予約一覧を取得できませんでした: " . $e->getMessage();
+    $message = "予約一覧を取得できませんでした!";
 }
 ?>
 

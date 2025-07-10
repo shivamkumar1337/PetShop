@@ -28,5 +28,5 @@ try {
 } catch (PDOException $e) {
     $pdo->rollBack();
     
-    echo "削除中にエラーが発生しました: " . xss($e->getMessage());
+    echo "削除中にエラーが発生しました!";
 }

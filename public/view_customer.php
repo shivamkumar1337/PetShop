@@ -14,7 +14,7 @@ try {
         $message = "登録済みの顧客なし";
     }
 } catch (PDOException $e) {
-    $message = "顧客リストを取得できませんでした" . $e->getMessage();
+    $message = "顧客リストを取得できませんでした";
 }
 
 ?>

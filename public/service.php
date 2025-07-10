@@ -90,7 +90,7 @@ require_once(__DIR__ . '/session_check.php');
 
     <?php
     } catch (PDOException $e) {
-        echo "<p style='color: red;'>エラー: " . htmlspecialchars($e->getMessage()) . "</p>";
+        echo "<p style='color: red;'>エラー!</p>";
     }
     ?>
 

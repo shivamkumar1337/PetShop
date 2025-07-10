@@ -66,5 +66,5 @@ try {
     $message = "サービス履歴へ {$inserted} 件追加、{$deleted} 件の予約を削除しました。";
 } catch (PDOException $e) {
     $pdo->rollBack();
-    $message = "処理中にエラーが発生しました: " . $e->getMessage();
+    $message = "処理中にエラーが発生しました!";
 }

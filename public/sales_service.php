@@ -122,7 +122,7 @@ if (isset($_GET['month'])) {
         <?php
             }
         } catch (PDOException $e) {
-            echo "<p>エラー: " . htmlspecialchars($e->getMessage()) . "</p>";
+            echo "<p>エラー!</p>";
         }
         ?>
 

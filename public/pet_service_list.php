@@ -8,7 +8,7 @@ try {
     $stmt = $pdo->query("SELECT service_id, service_name, pet_type, pet_size FROM services ORDER BY service_name");
     $services = $stmt->fetchAll();
 } catch (PDOException $e) {
-    echo "<p>サービス一覧取得エラー: " . xss($e->getMessage()) . "</p>";
+    echo "<p>サービス一覧取得エラー!</p>";
 }
 
 $selected_service_id = $_GET['service_id'] ?? '';
@@ -142,7 +142,7 @@ $selected_service_id = $_GET['service_id'] ?? '';
                         echo "</tbody></table>";
                     }
                 } catch (PDOException $e) {
-                    echo "<p>データ取得エラー: " . xss($e->getMessage()) . "</p>";
+                    echo "<p>データ取得エラー!</p>";
                 }
                 ?>
             </div>

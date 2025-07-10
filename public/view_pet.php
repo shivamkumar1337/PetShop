@@ -21,7 +21,7 @@ try {
     $stmt->execute([$customer_id]);
     $pets = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
-    echo "エラー: " . $e->getMessage();
+    echo "エラー!";
     exit;
 }
 ?>

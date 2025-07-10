@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header("Location: view_pet.php?customer_id=" . $customer_id);
             exit;
         } catch (PDOException $e) {
-            $message = 'エラーが発生しました' . $e->getMessage();
+            $message = 'エラーが発生しました';
         }
     }
 }

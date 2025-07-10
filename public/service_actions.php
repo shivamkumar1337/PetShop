@@ -21,7 +21,7 @@ try {
         exit;
     }
 } catch (PDOException $e) {
-    echo "エラー: " . xss($e->getMessage());
+    echo "エラー!";
     exit;
 }
 ?>
