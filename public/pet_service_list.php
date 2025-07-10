@@ -150,7 +150,7 @@ $selected_service_id = $_GET['service_id'] ?? '';
     </main>
 
     <div class="link no-print" style="margin-top: 1em;">
-        <a href="list_select.php">一覧表示選択画面へ</a>
+        <a href="list_select.php">一覧表示選択へ</a>
     </div>
 </div>
 </body>

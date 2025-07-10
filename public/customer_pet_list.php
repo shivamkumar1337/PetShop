@@ -162,7 +162,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['keyword'])) {
         </main>
 
         <div class="link no-print">
-            <a href="list_select.php">一覧表示選択画面へ</a>
+            <a href="list_select.php">一覧表示選択へ</a>
         </div>
     </div>
 </body>

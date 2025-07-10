@@ -87,7 +87,7 @@ try {
         </main>
     </div>
     <div class="link" style="text-align: center; margin-top: 20px;">
-        <a href="list_select.php">一覧表示選択画面へ</a>
+        <a href="list_select.php">一覧表示選択へ</a>
     </div>
     <script>
         function confirmdelete() {

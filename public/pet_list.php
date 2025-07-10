@@ -133,7 +133,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['keyword'])) {
             <?php endif; ?>
 
             <div class="link">
-                <a href="list_select.php">一覧表示選択画面へ</a>
+                <a href="list_select.php">一覧表示選択へ</a>
             </div>
         </main>
     </div>

@@ -129,7 +129,7 @@ if (isset($_GET['month'])) {
 </main>
 <nav class="link">
     <ul>
-        <li><a href="sales.php">売上集計画面へ</a></li>
+        <li><a href="sales.php">売上集計へ</a></li>
     </ul>
 </nav>
 </div>
