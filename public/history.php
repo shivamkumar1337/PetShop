@@ -4,6 +4,7 @@ require_once '../config/config.php';
 require_once(__DIR__ . '/session_check.php');
 require_once(__DIR__ . '/history_update.php');
 
+
 $search = $_GET['search'] ?? '';
 
 $sql = "SELECT history_id, service_date,
@@ -22,6 +23,7 @@ $sql .= " ORDER BY service_date DESC";
 $stmt = $pdo->prepare($sql);
 $stmt->execute($params);
 $history_table = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 
@@ -43,11 +45,11 @@ $history_table = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </nav>
 </header>
 
-<main>
-    <form method="get" action="history.php" class="history_search_wrap">
-        <input type="text" name="search" placeholder="検索" value="<?= htmlspecialchars($search) ?>" class="history_search_input">
-        <input type="submit" value="🔍" class="history_search_btn">
-    </form>
+    <main>
+        <form method="get" action="history.php">
+            <input type="text" name="search" placeholder="顧客名・ペット名・ペット種類・サービス種類" value="<?= htmlspecialchars($search, ENT_QUOTES, 'UTF-8') ?>" maxlength="50" required>
+            <input type="submit" value="🔍">
+        </form>
 
     <form method="post" action="history_delete.php" onsubmit="return confirm('選択した履歴を削除してよろしいですか？');">
     <div style="display: flex; justify-content: flex-end;">
