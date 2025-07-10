@@ -80,7 +80,7 @@ unset($_SESSION['errors'], $_SESSION['old']);
         </form>
 
         <div class="link" style="margin-top: 30px;">
-            <a href="service.php">サービス一覧へ戻る</a>
+            <a href="service.php">サービス一覧へ</a>
         </div>
     </main>
 </div>

@@ -103,7 +103,7 @@ try {
         </form>
 
         <div class="link">
-            <a href="service.php">サービス一覧へ戻る</a>
+            <a href="service.php">サービス一覧へ</a>
         </div>
     </main>
 </div>
