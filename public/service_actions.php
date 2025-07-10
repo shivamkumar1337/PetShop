@@ -29,7 +29,7 @@ try {
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>サービス編集画面</title>
+    <title>サービス編集</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
@@ -44,6 +44,14 @@ try {
     </header>
 
     <main>
+        <!-- ▼ここにエラー表示を追加 -->
+        <?php if (!empty($_SESSION['form_error'])): ?>
+            <div class="error_msg" style="color:red; margin-bottom: 20px;">
+                <?= $_SESSION['form_error'] ?>
+            </div>
+        <?php unset($_SESSION['form_error']); ?>
+        <?php endif; ?>
+        
         <form action="service_update.php" method="post" class="service_form">
             <!-- IDをhiddenで送信 -->
             <input type="hidden" name="service_id" value="<?= xss($service_id) ?>">
@@ -85,7 +93,7 @@ try {
             <!-- 料金 -->
             <div class="form_la">
                 <label>料金</label>
-                <input type="number" name="service_price" step="1" min="0" max="999999" value="<?= xss($service['service_price']) ?>">
+                <input type="number" name="service_price" step="1" min="0" max="9999999999" value="<?= xss($service['service_price']) ?>">
             </div>
 
             <!-- 更新ボタン -->

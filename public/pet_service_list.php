@@ -18,7 +18,7 @@ $selected_service_id = $_GET['service_id'] ?? '';
 <head>
     <meta charset="utf-8">
     <title>サービス別ペット一覧</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href=" assets/css/style.css">
     <style>
         @media print {
             .no-print {
@@ -44,15 +44,13 @@ $selected_service_id = $_GET['service_id'] ?? '';
 </head>
 <body>
 <div>
-    <header class="no-print">
-        <div style="display:flex; justify-content:space-between; align-items:center;">
+    <header>
             <h1>サービス別ペット一覧</h1>
             <nav>
                 <ul>
                     <li><a href="main.php">メインへ</a></li>
                 </ul>
             </nav>
-        </div>
     </header>
 
     <main>

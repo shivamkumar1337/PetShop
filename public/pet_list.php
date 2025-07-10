@@ -27,14 +27,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['keyword'])) {
 <body>
     <div>
         <header>
-            <div style="display: flex; justify-content: space-between; align-items: center;">
                 <h1>ペット一覧</h1>
                 <nav>
                     <ul>
                         <li><a href="main.php">メインへ</a></li>
                     </ul>
                 </nav>
-            </div>
         </header>
 
         <main>

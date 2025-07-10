@@ -1,39 +1,37 @@
 <?php
- 
+
 require_once '../config/config.php';
 require_once(__DIR__ . '/session_check.php');
 require_once(__DIR__ . '/history_update.php');
 
+
 $search = $_GET['search'] ?? '';
 
-$sql = "SELECT service_history.history_id, service_history.service_date,
-         customers.customer_name, pets.pet_name, services.service_name,
-         pets.pet_type, pets.pet_size
-        FROM service_history
-        JOIN customers ON service_history.customer_id = customers.customer_id
-        JOIN pets ON service_history.pet_id = pets.pet_id
-        JOIN services ON service_history.service_id = services.service_id";
+$sql = "SELECT history_id, service_date,
+        customer_name, pet_name, pet_type, pet_size, service_name FROM service_history";
 
 $params = [];
 if (!empty($search)) {
-    $sql .= " WHERE customers.customer_name LIKE :search 
-              OR pets.pet_name LIKE :search 
-              OR pets.pet_type LIKE :search 
-              OR services.service_name LIKE :search";
+    $sql .= " WHERE customer_name LIKE :search 
+              OR pet_name LIKE :search 
+              OR pet_type LIKE :search 
+              OR service_name LIKE :search";
     $params[':search'] = "%$search%";
 }
-$sql .= " ORDER BY service_history.service_date DESC";
+$sql .= " ORDER BY service_date DESC";
 
 $stmt = $pdo->prepare($sql);
 $stmt->execute($params);
 $history_table = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
+
 
 <!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset='utf-8'>
-    <title>履歴画面</title>
+    <title>履歴一覧</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
@@ -47,11 +45,11 @@ $history_table = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </nav>
 </header>
 
-<main>
-    <form method="get" action="history.php" class="history_search_wrap">
-        <input type="text" name="search" placeholder="検索" value="<?= htmlspecialchars($search) ?>" class="history_search_input">
-        <input type="submit" value="🔍" class="history_search_btn">
-    </form>
+    <main>
+        <form method="get" action="history.php" class="history_search_wrap">
+            <input type="text" name="search" placeholder="顧客名・ペット名・ペット種類・サービス種類" value="<?= htmlspecialchars($search, ENT_QUOTES, 'UTF-8') ?>" class="history_search_input">
+            <input type="submit" value="🔍" class="history_search_btn">
+        </form>
 
     <form method="post" action="history_delete.php" onsubmit="return confirm('選択した履歴を削除してよろしいですか？');">
     <div style="display: flex; justify-content: flex-end;">

@@ -3,29 +3,46 @@
 session_start();
 
 // 必要ファイルの読み込み
-require_once __DIR__ . '/../includes/functions.php';
-require_once __DIR__ . '/../config/config.php';
+require_once(__DIR__ . '/../includes/functions.php');
+require_once(__DIR__ . '/../config/config.php');
 
 // フォームから送られたデータを取得（null合体演算子 ?? で未定義防止）
-$service_name  = trim($_POST['service_name'] ?? '');
-$pet_type      = trim($_POST['pet_type'] ?? '');
-$pet_size      = trim($_POST['pet_size'] ?? '');
+$service_name  = $_POST['service_name'] ?? '';
+$pet_type      = $_POST['pet_type'] ?? '';
+$pet_size      = $_POST['pet_size'] ?? '';
 $service_price = $_POST['service_price'] ?? '';
+
+// 全角・半角スペースを除去して「空かどうか」を判定するための関数
+function is_blank($value) {
+    // 全角スペース・半角スペース・改行・タブなどを除去
+    $no_space = preg_replace('/\s|　/u', '', $value);
+    return $no_space === '';
+}
 
 // エラー格納用配列
 $errors = [];
 
 // ▼ バリデーション（入力チェック）
-if ($service_name === '') {
-    $errors[] = 'サービス名は必須です。';
+if (is_blank($service_name)) {
+    $errors[] = 'サービス名は空白のみでは登録できません。';
 }
+
 if (!in_array($pet_type, ['犬', '猫', 'その他'])) {
     $errors[] = '種類の値が不正です。';
+} elseif (is_blank($pet_type)) {
+    $errors[] = '種類は必須です。';
 }
+
 if (!in_array($pet_size, ['小型', '中型', '大型'])) {
     $errors[] = '大きさの値が不正です。';
+} elseif (is_blank($pet_size)) {
+    $errors[] = '大きさは必須です。';
 }
-if (!is_numeric($service_price) || $service_price < 0) {
+
+// 数値チェック
+if (is_blank($service_price)) {
+    $errors[] = '料金は必須です。';
+} elseif (!ctype_digit($service_price) || (int)$service_price < 0) {
     $errors[] = '料金は0以上の数字で入力してください。';
 }
 
@@ -47,10 +64,10 @@ try {
 
     // プレースホルダに値をバインドして実行
     $stmt->execute([
-        ':service_name'  => $service_name,
-        ':pet_type'      => $pet_type,
-        ':pet_size'      => $pet_size,
-        ':service_price' => $service_price
+        ':service_name'  => trim($service_name),
+        ':pet_type'      => trim($pet_type),
+        ':pet_size'      => trim($pet_size),
+        ':service_price' => (int)$service_price
     ]);
 
     // 成功したら一覧ページへリダイレクト（完了メッセージ付き）

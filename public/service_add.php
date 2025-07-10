@@ -1,7 +1,7 @@
 <?php
 require_once(__DIR__ . '/session_check.php');
-require_once '../config/config.php';
-require_once '../includes/functions.php';
+require_once(__DIR__ . '/../includes/functions.php');
+require_once(__DIR__ . '/../config/config.php');
 
 $errors = $_SESSION['errors'] ?? [];
 $old    = $_SESSION['old'] ?? [];
@@ -71,7 +71,7 @@ unset($_SESSION['errors'], $_SESSION['old']);
 
             <div class="form_la">
                 <label for="service_price">料金</label>
-                <input type="number" name="service_price" id="service_price" required min="0"max="9999999999" value="<?= xss($old['service_price'] ?? '') ?>">
+                <input type="number" name="service_price" id="service_price" required min="0" max="9999999999" value="<?= xss($old['service_price'] ?? '') ?>">
             </div>
 
             <div class="my_btn">

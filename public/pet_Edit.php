@@ -73,14 +73,12 @@ try {
 </head>
 <body>
     <header>
-        <div style="display: flex; justify-content: space-between; align-items: center;">
             <h1>ペット編集</h1>
             <nav>
                 <ul>
                     <li><a href="main.php">メインへ</a></li>
                 </ul>
             </nav>
-        </div>
     </header>
 
     <main>

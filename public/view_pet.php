@@ -30,7 +30,7 @@ try {
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>ペット一覧</title>
+    <title>一覧からペットを選ぶ</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
@@ -45,13 +45,10 @@ try {
 </header>
 
 <main>
-    <p>顧客ID: <?= htmlspecialchars($customer_id) ?></p>
-
     <?php if (!empty($pets)): ?>
         <table class="history_table">
             <thead>
                 <tr>
-                    <th>ペットID</th>
                     <th>顧客名</th>
                     <th>ペット名</th>
                     <th>種類</th>
@@ -63,7 +60,6 @@ try {
             <tbody>
                 <?php foreach ($pets as $pet): ?>
                     <tr>
-                        <td><?= xss($pet['pet_id']) ?></td>
                         <td><?= xss($pet['customer_name']) ?></td>
                         <td><?= xss($pet['pet_name']) ?></td>
                         <td><?= xss($pet['pet_type']) ?></td>
@@ -76,13 +72,13 @@ try {
                 <?php endforeach; ?>
             </tbody>
         </table>
-        
-        <div class="my_btn">
-            <button class="mypage_btn" onclick="location.href='select_customer.php'">利用登録へ</button>
-        </div>
+
     <?php else: ?>
         <p>登録されたペットが見つかりません。</p>
     <?php endif; ?>
+    <div class="link">
+        <a href="select_customer.php">利用登録へ</a>
+    </div>
 
 </main>
 

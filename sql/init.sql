@@ -1,16 +1,13 @@
--- Create the database
 CREATE DATABASE IF NOT EXISTS pet_service_db;
 USE pet_service_db;
 
--- Table: users
 CREATE TABLE users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(50) NOT NULL UNIQUE,
+    username VARCHAR(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Table: customers
 CREATE TABLE customers (
     customer_id INT AUTO_INCREMENT PRIMARY KEY,
     customer_name VARCHAR(100) NOT NULL,
@@ -20,7 +17,6 @@ CREATE TABLE customers (
     address VARCHAR(255) NOT NULL
 );
 
--- Table: pets
 CREATE TABLE pets (
     pet_id INT AUTO_INCREMENT PRIMARY KEY,
     customer_id INT NOT NULL,
@@ -32,10 +28,8 @@ CREATE TABLE pets (
     FOREIGN KEY (customer_id) REFERENCES customers(customer_id) ON DELETE CASCADE
 );
 
--- Explicit index on customer_id in pets table
 CREATE INDEX idx_pet_customer ON pets(customer_id);
 
--- Table: services
 CREATE TABLE services (
     service_id INT AUTO_INCREMENT PRIMARY KEY,
     service_name VARCHAR(100) NOT NULL,
@@ -44,7 +38,6 @@ CREATE TABLE services (
     pet_size VARCHAR(100) NOT NULL
 );
 
--- Table: service_history
 CREATE TABLE service_history (
     history_id INT AUTO_INCREMENT PRIMARY KEY,
     customer_id INT,
@@ -52,16 +45,18 @@ CREATE TABLE service_history (
     service_id INT,
     service_date DATETIME NOT NULL,
 
+    customer_name VARCHAR(100) NOT NULL,
+    pet_name VARCHAR(50) NOT NULL,
+    service_name VARCHAR(100) NOT NULL,
+    service_price INT(11) NOT NULL,
+    pet_type VARCHAR(50) NOT NULL,
+    pet_size VARCHAR(50) NOT NULL,    
     INDEX (customer_id),
     INDEX (pet_id),
-    INDEX (service_id),
-
-    CONSTRAINT fk_history_customer FOREIGN KEY (customer_id) REFERENCES customers(customer_id) ON DELETE SET NULL,
-    CONSTRAINT fk_history_pet FOREIGN KEY (pet_id) REFERENCES pets(pet_id) ON DELETE SET NULL,
-    CONSTRAINT fk_history_service FOREIGN KEY (service_id) REFERENCES services(service_id) ON DELETE SET NULL
+    INDEX (service_id)
 );
 
--- Table: appointments
+
 CREATE TABLE appointments (
     appointment_id INT AUTO_INCREMENT PRIMARY KEY,
     customer_id INT NOT NULL,

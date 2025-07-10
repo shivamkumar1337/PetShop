@@ -7,14 +7,12 @@
 </head>
 <body>
     <header>
-        <div class="header_flex">
-            <h1>一覧表示　選択</h1>
+            <h1>一覧表示選択</h1>
             <nav>
                 <ul>
                     <li><a href="main.php">メインへ</a></li>
                 </ul>
             </nav>
-        </div>
     </header>
 
     <main>

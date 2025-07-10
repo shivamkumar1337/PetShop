@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['keyword'])) {
                     } else {
                 ?>
                         <table class="history_table">
-                            <thead class="table_header">
+                            <thead >
                                 <tr>
                                     <th>顧客名</th>
                                     <th>ペット名</th>

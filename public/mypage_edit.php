@@ -28,11 +28,11 @@ $display_username = $form_data['username'] ?? $user['username'];
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="assets/css/style.css" type="text/css">
-        <title>マイページ -ログイン情報編集-</title>
+        <title>ログイン情報編集</title>
     </head>
     <body>
     <header>
-        <h1>マイページ -ログイン情報編集-</h1>
+        <h1>ログイン情報編集</h1>
         <nav>
             <ul>
                 <li><a href="main.php">メインへ</a></li>
@@ -43,7 +43,7 @@ $display_username = $form_data['username'] ?? $user['username'];
         <div>
             <ul>
             <?php foreach ($errors as $error): ?>
-                <li><?= xss($error) ?></li>
+                <li style="color:red;"><?= xss($error) ?></li>
             <?php endforeach; ?>
             </ul>
         </div>

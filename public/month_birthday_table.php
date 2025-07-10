@@ -52,7 +52,7 @@ $birthdays = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <?php else: ?>
                     <tr>
                         <td colspan="4" style="text-align: center; color: gray; padding: 20px;">
-                            今月はペットの誕生日はありません。
+                            今月は誕生日のペットはありません。
                         </td>
                     </tr>
                 <?php endif; ?>
