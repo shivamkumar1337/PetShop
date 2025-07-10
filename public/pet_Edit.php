@@ -45,7 +45,7 @@ try {
                 ':id' => $pet_id,
             ]);
 
-            $message = "✅ 更新が完了しました。";
+            $message = "更新が完了しました。";
         }
     }
 
@@ -82,14 +82,13 @@ try {
     </header>
 
     <main>
-        <div class="form_wrap">
             <?php if ($error_message): ?>
                 <p style="color: red; font-weight: bold; text-align: center;"><?= xss($error_message) ?></p>
             <?php elseif ($message): ?>
                 <p style="color: green; font-weight: bold; text-align: center;"><?= xss($message) ?></p>
             <?php endif; ?>
 
-            <form method="post">
+            <form method="post" class="service_form">
                 <div class="form_la">
                     <label for="pet_name">ペット名:</label>
                     <input
@@ -153,7 +152,6 @@ try {
             <div class="link">
                 <a href="pet_list.php">ペット一覧へ</a>
             </div>
-        </div>
     </main>
 </body>
 </html>

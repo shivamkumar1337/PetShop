@@ -16,7 +16,7 @@ FROM service_history sh
 JOIN pets p ON sh.pet_id = p.pet_id
 JOIN customers c ON sh.customer_id = c.customer_id
 JOIN services s ON sh.service_id = s.service_id
-WHERE sh.service_date BETWEEN DATE_SUB(CURDATE(), INTERVAL 300 DAY) AND DATE_SUB(CURDATE(), INTERVAL 30 DAY)
+WHERE sh.service_date BETWEEN DATE_SUB(CURDATE(), INTERVAL 365 DAY) AND DATE_SUB(CURDATE(), INTERVAL 30 DAY)
 ORDER BY sh.service_date ASC;
 ");
 $stmt->execute();

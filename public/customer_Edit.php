@@ -52,7 +52,7 @@ try {
                 ':id' => $customer_id
             ]);
 
-            $message = "✅ 更新が完了しました。";
+            $message = "更新が完了しました。";
         }
 
         // 再取得
@@ -81,43 +81,27 @@ try {
     <meta charset="UTF-8">
     <title>顧客編集</title>
     <link rel="stylesheet" href="assets/css/style.css">
-    <style>
-        .message-error {
-            color: red;
-            font-weight: bold;
-            text-align: center;
-            margin: 1em 0;
-        }
-        .message-success {
-            color: green;
-            font-weight: bold;
-            text-align: center;
-            margin: 1em 0;
-        }
-    </style>
 </head>
 <body>
 <header>
-    <div style="display: flex; justify-content: space-between; align-items: center;">
         <h1>顧客編集</h1>
         <nav>
             <ul>
                 <li><a href="main.php">メインへ</a></li>
             </ul>
         </nav>
-    </div>
 </header>
 
 <main>
-    <div class="form_wrap">
+    <!-- <div class="form_wrap"> -->
         <?php if ($error_message): ?>
             <p class="message-error"><?= xss($error_message) ?></p>
         <?php elseif ($message): ?>
             <p class="message-success"><?= xss($message) ?></p>
         <?php endif; ?>
 
-        <form method="post">
-            <div class="form_la">
+        <form method="post" class="mypage_form">
+            <div class="form_my">
                 <label for="customer_name">顧客名:</label>
                 <input
                     type="text"
@@ -131,7 +115,7 @@ try {
                 >
             </div>
 
-            <div class="form_la">
+            <div class="form_my">
                 <label for="customer_zipcode">郵便番号:</label>
                 <input
                     type="text"
@@ -144,7 +128,7 @@ try {
                 >
             </div>
 
-            <div class="form_la">
+            <div class="form_my">
                 <label for="address">住所:</label>
                 <input
                     type="text"
@@ -155,7 +139,7 @@ try {
                 >
             </div>
 
-            <div class="form_la">
+            <div class="form_my">
                 <label for="customer_number">電話番号:</label>
                 <input
                     type="text"
@@ -168,7 +152,7 @@ try {
                 >
             </div>
 
-            <div class="form_la">
+            <div class="form_my">
                 <label for="customer_mail">メールアドレス:</label>
                 <input
                     type="email"
@@ -187,7 +171,7 @@ try {
         <div class="link">
             <a href="customer_list.php">顧客一覧へ</a>
         </div>
-    </div>
+    <!-- </div> -->
 </main>
 </body>
 </html>
