@@ -1,6 +1,7 @@
 <?php
 require_once(__DIR__ . '/session_check.php');
 require_once '../config/config.php';
+require_once(__DIR__ . '/history_update.php');
 
 // 年と月の初期値（現在）
 $current_year = date('Y');
@@ -125,12 +126,12 @@ if (isset($_GET['month'])) {
         }
         ?>
 
-        <nav class="link">
-            <ul>
-                <li><a href="sales.php">売上集計画面へ</a></li>
-            </ul>
-        </nav>
-    </main>
+</main>
+<nav class="link">
+    <ul>
+        <li><a href="sales.php">売上集計画面へ</a></li>
+    </ul>
+</nav>
 </div>
 </body>
 </html>

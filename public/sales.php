@@ -1,6 +1,7 @@
 <?php
 require_once(__DIR__ . '/session_check.php');
 require_once '../config/config.php';
+require_once(__DIR__ . '/history_update.php');
 
 // 年の初期値（現在の年）
 $year = date('Y');
