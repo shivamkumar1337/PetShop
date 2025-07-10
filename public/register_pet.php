@@ -5,6 +5,7 @@ require_once(__DIR__ . '/session_check.php');
 
 $message = '';
 $customer_id = $_GET['customer_id'] ?? null;
+$today = date('Y-m-d');
 
 if (!$customer_id) {
     header("Location: select_customer.php");
@@ -20,6 +21,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (empty($name) || empty($type) || empty($size)) {
         $message = "名前、 種類、サイズは必須です";
+    } elseif (!empty($dob) && $dob >= $today) {
+        $message = "生年月日は今日以前の日付を選択してください。";
     } else {
         try {
             $stmt = $pdo->prepare("INSERT INTO pets (customer_id, pet_name, pet_weight, pet_type, pet_size, pet_DOB) VALUES (?, ?, ?, ?, ?, ?)");
@@ -74,9 +77,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <label>種類:</label>
             <select name="pet_type" required>
                 <option value="">　</option>
-                <option value="dog">犬</option>
-                <option value="cat">猫</option>
-                <option value="others">その他</option>
+                <option value="犬">犬</option>
+                <option value="猫">猫</option>
+                <option value="その他">その他</option>
             </select>
         </div>
 
@@ -84,15 +87,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <label>サイズ:</label>
             <select name="pet_size" required>
                 <option value="">　</option>
-                <option value="small">小型</option>
-                <option value="medium">中型</option>
-                <option value="large">大型</option>
+                <option value="小型">小型</option>
+                <option value="中型">中型</option>
+                <option value="大型">大型</option>
             </select>
         </div>
 
         <div class="form_la">
             <label>生年月日:</label>
-            <input type="date" name="pet_DOB" value="<?= xss($dob ?? '') ?>">
+            <input type="date" name="pet_DOB" max="<?= $today ?>" value="<?= xss($dob ?? '') ?>">
         </div>
 
         <div class="my_btn">
