@@ -84,7 +84,7 @@ if (isset($_GET['month'])) {
                         pet_size
                     FROM service_history
                     WHERE YEAR(service_date) = :year AND MONTH(service_date) = :month
-                    GROUP BY pet_type, pet_size, service_name
+                    GROUP BY service_name
                     ORDER BY service_name ASC
             ");
             $stmt->bindValue(':year', $year, PDO::PARAM_INT);
